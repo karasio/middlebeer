@@ -10,10 +10,10 @@ const userSchema = mongoose.Schema({
   },
   name: String,
   passwordHash: String,
-  blogs: [
+  bars: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Blog'
+      ref: 'Bar'
     }
   ]
 });
