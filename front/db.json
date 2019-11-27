@@ -1,0 +1,34 @@
+{
+  "bars": [
+    {
+      "name": "Iltakoulu",
+      "address": "Vaasankatu 5",
+      "city": "Helsinki",
+      "prices": {
+        "beer": 5.0,
+        "cider": 6.5,
+        "longDrink": 6.5
+      }
+    },
+    {
+      "name": "Helsing",
+      "address": "Kaarlenkatu 3",
+      "city": "Helsinki",
+      "prices": {
+        "beer": 3.8,
+        "cider": 5,
+        "longDrink": 5
+      }
+    },
+    {
+      "name": "Siltanen",
+      "address": "Hämeentie 13",
+      "city": "Helsinki",
+      "prices": {
+        "beer": 7.4,
+        "cider": 8.5,
+        "longDrink": 8.3
+      }
+    }
+  ]
+}
