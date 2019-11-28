@@ -6,31 +6,66 @@ import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 
-const LoginForm = (props) => {
+const LogoutButton = ({user, username, password, setUser}) => {
+  console.log(user);
+  const handleLogout = (event) => {
+    event.preventDefault();
+    window.localStorage.clear();
+    setUser(null);
+    username.reset();
+    password.reset();
+  }
+
+  return (
+  <button onClick={handleLogout}>
+      Logout
+  </button>
+)
+};
+// const handleLogout = () => (
+//     <button
+//         onClick={(event) => {
+//           event.preventDefault();
+//           window.localStorage.clear();
+//           setUser(null);
+//           username.reset();
+//           password.reset();
+//         }}>Logout</button>
+// );
+
+const Menu = ({user, username, password, setUser}) => {
   return (
       <div>
+        {user !== null ? () => {
+          console.log('ehtolause', user);
+          return <LogoutButton user={user} username={username}
+                               password={password} setUser={setUser}/>;
+        } : <div>TÖÖTTIS</div>}
         <Navbar bg='dark' expand='lg' sticky='top'/>
         <Navbar.Brand href='#home'>MiddleBEER</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle aria-controls="basic-navbar-nav"/>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="#home">Home</Nav.Link>
             <Nav.Link href="#link">Link</Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">Another
+                action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+              <NavDropdown.Divider/>
+              <NavDropdown.Item href="#action/3.4">Separated
+                link</NavDropdown.Item>
             </NavDropdown>
           </Nav>
           <Form inline>
-            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+            <FormControl type="text" placeholder="Search" className="mr-sm-2"/>
             <Button variant="outline-success">Search</Button>
           </Form>
         </Navbar.Collapse>
-        </div>
+
+      </div>
   );
 };
 
-export default LoginForm;
+export default Menu;
