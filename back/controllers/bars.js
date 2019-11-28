@@ -1,5 +1,5 @@
 const barsRouter = require('express').Router();
-const Blog = require('../models/blog');
+const Bar = require('../models/bar');
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
@@ -41,10 +41,12 @@ barsRouter.post('/', async (request, response, next) => {
     });
 
     const savedBar = await bar.save();
-    user.bars = user.cars.concat(savedBar._id);
+    user.bars = user.bars.concat(savedBar._id);
     await user.save();
     response.json(savedBar.toJSON());
   } catch (exception) {
     next(exception);
   }
 });
+
+module.exports = barsRouter;
