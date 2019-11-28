@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import loginService from './services/login';
 import { useField } from './hooks';
 import LoginForm from './components/LoginForm';
+import Menu from './components/Menu'
 
 const App = () => {
   const username = useField('text');
   const password = useField('password');
+  const name = useField('text');
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -57,7 +59,8 @@ const App = () => {
 
   const loginForm = () => (
       <div>
-        <h1>log in to application</h1>
+        {registerView()}
+        <h3>log in to application</h3>
         <form onSubmit={handleLogin}>
           <div>
             username
@@ -72,10 +75,51 @@ const App = () => {
       </div>
   );
 
-  const loggedInView = () => (
+  const registerView = () => (
       <div>
+        <h3>sign up for application</h3>
+        <button onClick={registerButtonClicked}>Sign up</button>
+      </div>
+  );
+
+  const registerButtonClicked = (event) => {
+    event.preventDefault();
+
+    return (
+        <div>
+          <h3>welcome new user!</h3>
+          <form onSubmit={handleRegister}>
+            <div>
+              name
+              <input {...name.object} />
+            </div>
+            <div>
+              username
+              <input {...username.object} />
+            </div>
+            <div>
+              password
+              <input {...password.object} />
+            </div>
+            <button type='submit'>sign up</button>
+          </form>
+        </div>
+    )
+  };
+
+
+  const handleRegister =  async (event) => {
+    console.log('jottain rekisteröintihommii pitäs');
+  };
+
+  const loggedInView = () => (
+
+      <div>
+        <Menu />
         upea keskikaljasivu
-        {user.name} is logged in { user !== null && logoutButton() }
+        <div>
+          { user.name } is logged in { user !== null && logoutButton() }
+        </div>
       </div>
   );
 
@@ -87,7 +131,8 @@ const App = () => {
 
   return (
       <>
-        <button onClick={() => console.log('user on ', user)}>KUKA KÄYTTÄÄ</button>
+
+        {/*<button onClick={() => console.log('user on ', user)}>KUKA KÄYTTÄÄ</button>*/}
         {/*<button onClick={() => console.log('blogsissa', blogs)}>LOGGAA BLOGI</button>*/}
         {user === null ? loginForm() : loggedInView()}
       </>
