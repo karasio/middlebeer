@@ -23,12 +23,12 @@ const SignUpForm = ({setPage}) => {
     setNewUser(user);
 
     try {
-      await userService.create(user);
+      let newUser = await userService.create(user);
       newName.reset();
       newUsername.reset();
       newPassword.reset();
       window.localStorage.setItem(
-          'loggedInUser', JSON.stringify(user)
+          'loggedInUser', JSON.stringify(newUser)
       );
       setPage('front');
     } catch (exception) {

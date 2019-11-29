@@ -12,15 +12,20 @@ const LoginForm = ({
       user === null
           ? <div>
 
-            <form onSubmit={handleLogin}>
+            <form  onSubmit={handleLogin}>
               <input
+                  className='menuBarItem'
                   {...username.object}
                   placeholder={'username'}
               />
-              <input {...password.object}
-                     placeholder={'password'}
+              <input
+                  {...password.object}
+                  placeholder={'password'}
+                  className='menuBarItem'
               />
-              <button type='submit'>login</button>
+              <button
+                  className='menuBarItem'
+                  type='submit'>login</button>
             </form>
           </div>
           : ''

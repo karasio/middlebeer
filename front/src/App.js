@@ -19,7 +19,6 @@ const App = () => {
   }, [user]);
 
   useEffect(() => {
-
     const loggedUserJSON = window.localStorage.getItem('loggedInUser');
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
@@ -52,17 +51,6 @@ const App = () => {
       // }, 5000);
     }
   };
-
-
-  //
-
-  const registerView = () => (
-      <div>
-        <h3>sign up for application</h3>
-      </div>
-  );
-
-
 
   const whichPageToShow = () => {
     switch (page) {
@@ -100,25 +88,8 @@ const App = () => {
   };
 
 
-
-  // const loggedInView = () => (
-  //
-  //     <div>
-  //       <Menu />
-  //       upea keskikaljasivu
-  //       <div>
-  //         { user.name } is logged in { user !== null && logoutButton() }
-  //       </div>
-  //     </div>
-  // );
-
   return (
       <>
-        {/*<button onClick={() => console.log('user on ', user)}>KUKA KÄYTTÄÄ</button>*/}
-        {/*<button onClick={() => {*/}
-        {/*  setUser(null)*/}
-        {/*  window.localStorage.clear();*/}
-        {/*}}>nollaa käyttäjä</button>*/}
         <div className='DEBUG'>
           <button onClick={() => {
             setUser(null)

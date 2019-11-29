@@ -16,7 +16,7 @@ const LogoutButton = ({user, username, password, setUser, setPage}) => {
 
   return (
       user !== null
-          ? <button onClick={handleLogout}>Logout</button>
+          ? <button className='menuBarItem' onClick={handleLogout}>Logout</button>
           : ''
   )
 };
@@ -29,7 +29,7 @@ const RegisterButton = ({ setPage, user }) => {
 
   return (
       user === null
-          ? <button onClick={registerButtonClicked}>Sign up</button>
+          ? <button className='menuBarItem' onClick={registerButtonClicked}>Sign up</button>
           : ''
   )
 };
@@ -42,7 +42,7 @@ const MyPageButton = ({ user, setPage }) => {
 
   return (
       user !== null
-      ? <button onClick={myPageButtonClicked}>my page</button>
+      ? <button className='menuBarItem' onClick={myPageButtonClicked}>my page</button>
           : ''
   )
 };
@@ -50,11 +50,11 @@ const MyPageButton = ({ user, setPage }) => {
 const Menu = ({user, username, password, setUser, handleLogin, setPage}) => {
   return (
       <div className='menubar'>
-        <button onClick={() => setPage('front')}>frontpage</button>
+        <button onClick={() => setPage('front')} className='menuBarItem'>frontpage</button>
         <LoginForm handleLogin={handleLogin} username={username} password={password} user={user} />
-        <RegisterButton setPage={setPage} user={user}/>
-        <MyPageButton user={user} setPage={setPage} />
-        <LogoutButton user={user} username={username} password={password} setUser={setUser} setPage={setPage}/>
+        <RegisterButton className='menuBarItem' setPage={setPage} user={user}/>
+        <MyPageButton className='menuBarItem' user={user} setPage={setPage} />
+        <LogoutButton className='menuBarItem' user={user} username={username} password={password} setUser={setUser} setPage={setPage}/>
       </div>
   );
 };
