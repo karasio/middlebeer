@@ -4,11 +4,23 @@ const User = require('../models/user');
 
 usersRouter.get('/', async (request, response) => {
   const users = await User
-    .find({}).populate('blogs', { title: 1, author: 1 });
+    .find({}).populate('bars', { name: 1, addres: 1 });
 
   console.log(users);
   response.json(users.map(u => u.toJSON()));
 });
+
+//TODO: kommentin muokkaus niin, että hakee käyttäjän tykkäämät baarit
+/*usersRouter.get('/:id', async (request, response) => {
+  console.log('Mennään');
+  const userId = request.params.id
+  console.log(userId);
+  const user = await User.findById(userId);
+  console.log(user);
+  const bars = await User
+  .find({_id: userId}).populate('bars', {name: 1, address: 1,});
+  response.json(bars.map(bar => bar.toJSON()));
+});*/
 
 usersRouter.post('/', async (request, response, next) => {
   try {
