@@ -5,6 +5,7 @@ import { useField } from './hooks';
 import Menu from './components/Menu'
 import FrontPage from './components/FrontPage'
 import SignUpForm from './components/SignUpForm';
+import MyPage from './components/MyPage';
 
 const App = () => {
   const username = useField('text');
@@ -81,6 +82,14 @@ const App = () => {
             />
             </>
         );
+      case 'mypage':
+        return (
+            <>
+              <MyPage
+                  user={user}
+                  setPage={setPage} />
+            </>
+        )
       default:
         return (
             <div>

@@ -34,12 +34,11 @@ const SignUpForm = ({setPage}) => {
     } catch (exception) {
       console.log(exception);
     }
-
   };
 
     return (
         <div>
-          <h3>welcome new !</h3>
+          <h3>welcome new user!</h3>
           <form onSubmit={handleRegister}>
             <div>
               name

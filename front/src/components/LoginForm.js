@@ -13,12 +13,12 @@ const LoginForm = ({
           ? <div>
 
             <form onSubmit={handleLogin}>
-              Login username
               <input
                   {...username.object}
+                  placeholder={'username'}
               />
-              password
               <input {...password.object}
+                     placeholder={'password'}
               />
               <button type='submit'>login</button>
             </form>
