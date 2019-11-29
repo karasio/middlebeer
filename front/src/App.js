@@ -10,7 +10,6 @@ import MyPage from './components/MyPage';
 const App = () => {
   const username = useField('text');
   const password = useField('password');
-  const name = useField('text');
   const [user, setUser] = useState(null);
   const [page, setPage] = useState('front');
 
