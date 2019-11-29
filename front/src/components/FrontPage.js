@@ -1,9 +1,10 @@
 import React from 'react';
 
 const FrontPage = ({ user }) => {
+  console.log('tämäkin tulee frontpagesta');
   return (
       <div>
-        user
+        tämä tulee frontpagesta
       </div>
   )
 };

@@ -9,19 +9,15 @@ const LoginForm = ({
   console.log(password);
   return (
       <div>
-        <h2>Login</h2>
+
         <form onSubmit={handleLogin}>
-          <div>
-            username
+            Login username
             <input
                 {...username.object}
             />
-          </div>
-          <div>
             password
             <input {...password.object}
             />
-          </div>
           <button type='submit'>login</button>
         </form>
       </div>

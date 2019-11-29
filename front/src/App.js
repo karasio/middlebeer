@@ -56,23 +56,7 @@ const App = () => {
   //
 
 
-  const loginForm = () => (
-      <div>
-        {registerView()}
-        <h3>log in to application</h3>
-        <form onSubmit={handleLogin}>
-          <div>
-            username
-            <input {...username.object}/>
-          </div>
-          <div>
-            password
-            <input {...password.object}/>
-          </div>
-          <button type='submit'>login</button>
-        </form>
-      </div>
-  );
+
 
   const registerView = () => (
       <div>
@@ -86,7 +70,7 @@ const App = () => {
 
     return (
         <div>
-          <h3>welcome new user!</h3>
+          <h3>welcome new !</h3>
           <form onSubmit={handleRegister}>
             <div>
               name
@@ -142,20 +126,27 @@ const App = () => {
 
   return (
       <>
-        <button onClick={() => console.log('user on ', user)}>KUKA KÄYTTÄÄ</button>
-        <button onClick={() => {
-          setUser(null)
-          window.localStorage.clear();
-        }}>nollaa käyttäjä</button>
+        {/*<button onClick={() => console.log('user on ', user)}>KUKA KÄYTTÄÄ</button>*/}
+        {/*<button onClick={() => {*/}
+        {/*  setUser(null)*/}
+        {/*  window.localStorage.clear();*/}
+        {/*}}>nollaa käyttäjä</button>*/}
+        <div className='DEBUG'>
+          <button onClick={() => {
+            setUser(null)
+            window.localStorage.clear();
+          }}>nollaa käyttäjä</button>
+          <button onClick={() => console.log('user on ', user)}>KUKA KÄYTTÄÄ</button>
+        </div>
 
         <Menu user={user}
               username={username}
               password={password}
-              setUser={setUser} />
+              setUser={setUser}
+              handleLogin={handleLogin}/>
         <div>
         {whichPageToShow()}
         </div>
-        {loginForm()}
       </>
   );
 };
