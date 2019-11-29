@@ -20,11 +20,25 @@ const LogoutButton = ({user, username, password, setUser}) => {
   )
 };
 
-const Menu = ({user, username, password, setUser, handleLogin}) => {
+const RegisterButton = ({ setPage, user }) => {
+  const registerButtonClicked = (event) => {
+    event.preventDefault();
+    setPage('signup')
+  };
+
+  return (
+      user === null
+          ? <button onClick={registerButtonClicked}>Sign up</button>
+          : ''
+  )
+}
+
+const Menu = ({user, username, password, setUser, handleLogin, setPage}) => {
   return (
       <div className='menubar'>
-          <LoginForm handleLogin={handleLogin} username={username} password={password} />
-          <LogoutButton user={user} username={username} password={password} setUser={setUser}/>
+        <LoginForm handleLogin={handleLogin} username={username} password={password} user={user} />
+        <RegisterButton setPage={setPage} user={user}/>
+        <LogoutButton user={user} username={username} password={password} setUser={setUser}/>
       </div>
   );
 };

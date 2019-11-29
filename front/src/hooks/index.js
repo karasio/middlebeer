@@ -4,6 +4,7 @@ export const useField = (type) => {
   const [value, setValue] = useState('');
 
   const onChange = (e) => {
+    console.log(e.target.value);
     setValue(e.target.value);
   };
 

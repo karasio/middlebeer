@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = '/api/bars';
+const baseUrl = '/api/users';
 
 let token = null;
 

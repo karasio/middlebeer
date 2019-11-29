@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import loginService from './services/login';
 import barService from './services/bars';
 import { useField } from './hooks';
-import LoginForm from './components/LoginForm';
 import Menu from './components/Menu'
 import FrontPage from './components/FrontPage'
+import SignUpForm from './components/SignUpForm';
 
 const App = () => {
   const username = useField('text');
@@ -25,7 +25,7 @@ const App = () => {
       setUser(user);
       barService.setToken(user.token);
     }
-  },[]);
+  },[page]);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -55,40 +55,13 @@ const App = () => {
 
   //
 
-
-
-
   const registerView = () => (
       <div>
         <h3>sign up for application</h3>
-        <button onClick={registerButtonClicked}>Sign up</button>
       </div>
   );
 
-  const registerButtonClicked = (event) => {
-    event.preventDefault();
 
-    return (
-        <div>
-          <h3>welcome new !</h3>
-          <form onSubmit={handleRegister}>
-            <div>
-              name
-              <input {...name.object} />
-            </div>
-            <div>
-              username
-              <input {...username.object} />
-            </div>
-            <div>
-              password
-              <input {...password.object} />
-            </div>
-            <button type='submit'>sign up</button>
-          </form>
-        </div>
-    )
-  };
 
   const whichPageToShow = () => {
     switch (page) {
@@ -100,6 +73,14 @@ const App = () => {
             />
             </div>
         );
+      case 'signup':
+        return (
+            <>
+            <SignUpForm
+              setPage={setPage}
+            />
+            </>
+        );
       default:
         return (
             <div>
@@ -109,9 +90,7 @@ const App = () => {
     }
   };
 
-  const handleRegister =  async (event) => {
-    console.log('jottain rekisteröintihommii pitäs');
-  };
+
 
   // const loggedInView = () => (
   //
@@ -143,7 +122,8 @@ const App = () => {
               username={username}
               password={password}
               setUser={setUser}
-              handleLogin={handleLogin}/>
+              handleLogin={handleLogin}
+              setPage={setPage} />
         <div>
         {whichPageToShow()}
         </div>
