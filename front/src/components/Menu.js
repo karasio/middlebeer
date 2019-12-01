@@ -3,7 +3,7 @@ import './menu.css';
 import LoginForm from './LoginForm';
 
 const LogoutButton = ({user, username, password, setUser, setPage}) => {
-  console.log(user);
+  //console.log(user);
   const handleLogout = (event) => {
     event.preventDefault();
     window.localStorage.clear();
@@ -12,7 +12,6 @@ const LogoutButton = ({user, username, password, setUser, setPage}) => {
     password.reset();
     setPage('front');
   };
-
 
   return (
       user !== null

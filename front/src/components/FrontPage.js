@@ -1,52 +1,45 @@
 import React, {useEffect, useState} from 'react';
-import barService from '../services/bars';
 import Bar from '../components/Bar'
-
-const LikeButton = ({user}) => {
-  const likeButtonClicked = (e) => {
-    // 5ddf9cb4e700454635403c47
-    console.log('kiitti tykkäyksestä');
-  };
-
-  return (
-      <button onClick={likeButtonClicked}>LIKE</button>
-  );
-};
-
+import barService from '../services/bars';
+import { useField } from '../hooks';
+import '../components/FrontPage.css'
 
 const FrontPage = ({user}) => {
   const [bars, setBars] = useState([]);
+  const filterValue = useField('type: text');
 
   useEffect( () => {
     barService
-      .getAll()
-      .then(initialBars => setBars(initialBars));
+    .getAll()
+    .then(initialBars => setBars(initialBars));
   }, []);
 
   useEffect(() => {
-    console.log(bars);
+    console.log('FrontPage useEffect',bars);
   }, [bars]);
 
-  const allBars = () => {
-    console.log('allbarsin',bars, 'typeof', typeof bars);
+  const allBars = () =>
+    // TODO ei mene tänne enää sitten kun bars arrayssa on pituutta?
     bars.map(bar => {
       return (
           <Bar
-              name={bar.name}
-              city={bar.city}
+              key={bar.id}
+              bar={bar}
           />
       )
-    })
-  };
-
-  console.log('tämäkin tulee frontpagesta');
+    });
 
   return (
       <div>
-        tämä tulee frontpagesta
+        <form>
+          {/* tämä menee hooks > index.js:lle lomakkeen käsittelyyn, pitäisi
+          passata filtteriarvoksi allBarsille?*/}
+          <input
+              {...filterValue.object}
+              placeholder={'filter results'}
+          />
+        </form>
         {allBars()}
-        {/*<p>{bars[0].name}</p>*/}
-        <LikeButton user={user}/>
       </div>
   );
 };

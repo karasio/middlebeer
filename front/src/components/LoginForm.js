@@ -6,8 +6,8 @@ const LoginForm = ({
                      password,
                      user,
                    }) => {
-  console.log(username);
-  console.log(password);
+  // console.log(username);
+  // console.log(password);
   return (
       user === null
           ? <div>

@@ -8,27 +8,31 @@ const Bar = ({ bar }) => {
   const barStyle = {
     paddingTop: 10,
     paddingLeft: 2,
-    border: 'dotted',
     radius: 2,
     borderWidth: 1,
     marginBottom: 5
   };
 
   const likeBar = (id) => {
-    console.log('bar liked');
-  }
+    console.log(`bar ${id} liked`);
+  };
 
   return (
       <div style={barStyle}>
         <div style={hideWhenVisible} className='barListItem'>
-          <p onClick={() => setDetailsVisible(true)}>
+          <h3 onClick={() => setDetailsVisible(true)}>
             {bar.name} {bar.city}
-          </p>
+          </h3>
         </div>
         <div style={showWhenVisible} className='extraInfo'>
           <div onClick={() => setDetailsVisible(false)}>
-            <p>{bar.name}</p>
+            <h4>{bar.name}</h4>
             <p>{bar.address}, {bar.city}</p>
+            <ul>
+              {bar.prices.beer !== undefined ? <li> Beer {bar.prices.beer}€</li> : ''}
+              {bar.prices.cider !== undefined ? <li> Cider {bar.prices.cider}€ </li>: ''}
+              {bar.prices.longdrink !== undefined ? <li>Long Drink {bar.prices.longdrink}€</li> : ''}
+            </ul>
             <p>{bar.likes} likes
               <button onClick={() => likeBar(bar.id)}>like</button></p>
             {/*{ blogUser.name !== undefined ? <p>added by {blogUser.name}</p> : <p>no idea who added this</p> }*/}
