@@ -13,12 +13,6 @@ const Bar = ({ bar, bars, setBars, user, setNotification }) => {
   const [cider, setCider] = useState(bar.prices.cider === undefined ? 0.00 : bar.prices.cider);
   const [longdrink, setLongdrink] = useState(bar.prices.longdrink === undefined ? 0.00 :  bar.prices.longdrink);
 
-  const barStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    marginBottom: 5
-  };
-
   const likeBar = (id) => {
     console.log(`bar ${id} liked`);
     const newBar = {
@@ -130,15 +124,15 @@ const Bar = ({ bar, bars, setBars, user, setNotification }) => {
   };
 
   return (
-      <div style={barStyle}>
+      <div>
         <div style={hideWhenVisible} className='barListItem'>
-          <h3 onClick={() => setDetailsVisible(true)}>
+          <h4 onClick={() => setDetailsVisible(true)}>
             {bar.name} {bar.city}
-          </h3>
+          </h4>
         </div>
         <div style={showWhenVisible} className='extraInfo'>
           <div>
-            <h4 onClick={() => setDetailsVisible(false)}>{bar.name}</h4>
+            <h3 onClick={() => setDetailsVisible(false)}>{bar.name}</h3>
             <p>{bar.address}, {bar.city}</p>
             <p>{bar.likes} likes
               {user !== null ?
