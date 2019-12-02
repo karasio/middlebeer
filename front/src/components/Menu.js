@@ -16,7 +16,7 @@ const LogoutButton = ({user, username, password, setUser, setPage}) => {
 
   return (
       user !== null
-          ? <button className='menuBarItem' onClick={handleLogout}>logout</button>
+          ? <button id='menuLogoutButton' onClick={handleLogout}>logout</button>
           : ''
   )
 };
@@ -29,7 +29,7 @@ const RegisterButton = ({ setPage, user }) => {
 
   return (
       user === null
-          ? <button className='menuBarItem' onClick={registerButtonClicked}>Sign up</button>
+          ? <button className='menuBarItem' id='menuRegisterButton' onClick={registerButtonClicked}>Sign up</button>
           : ''
   )
 };
@@ -42,7 +42,7 @@ const MyPageButton = ({ user, setPage }) => {
 
   return (
       user !== null
-      ? <button className='menuBarItem' onClick={myPageButtonClicked}>my page</button>
+      ? <button  id='menuMyPageButton' onClick={myPageButtonClicked}>my page</button>
           : ''
   )
 };
@@ -50,12 +50,12 @@ const MyPageButton = ({ user, setPage }) => {
 const Menu = ({user, username, password, setUser, handleLogin, setPage}) => {
   return (
       <div className='menubar'>
-        <img src={logo} alt={'logo'} className='menuBarItem'/>
-        <button onClick={() => setPage('front')} className='menuBarItem'>frontpage</button>
+        <img src={logo} alt={'logo'} className='menuBarItem' id='menuLogo'/>
+        <button onClick={() => setPage('front')} className='menuBarItem' id='menuFrontpageButton'>frontpage</button>
         <LoginForm handleLogin={handleLogin} username={username} password={password} user={user} />
-        <RegisterButton className='menuBarItem' setPage={setPage} user={user}/>
+        <RegisterButton setPage={setPage} user={user}/>
         <MyPageButton className='menuBarItem' user={user} setPage={setPage} />
-        <LogoutButton className='menuBarItem' user={user} username={username} password={password} setUser={setUser} setPage={setPage}/>
+        <LogoutButton  className='menuBarItem' user={user} username={username} password={password} setUser={setUser} setPage={setPage}/>
       </div>
   );
 };

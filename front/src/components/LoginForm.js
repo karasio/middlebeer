@@ -10,24 +10,20 @@ const LoginForm = ({
   // console.log(password);
   return (
       user === null
-          ? <div>
-
-            <form  onSubmit={handleLogin}>
+          ?
+            <form className='menuBarItem' id='menuLoginForm' onSubmit={handleLogin}>
               <input
-                  className='menuBarItem'
                   {...username.object}
                   placeholder={'username'}
               />
               <input
                   {...password.object}
                   placeholder={'password'}
-                  className='menuBarItem'
+
               />
               <button
-                  className='menuBarItem'
                   type='submit'>login</button>
             </form>
-          </div>
           : ''
   );
 };

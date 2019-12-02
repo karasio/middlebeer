@@ -1,24 +1,51 @@
 .DEBUG {
     background: orangered;
     border: orangered;
-    padding: 10px;
 }
 
 .menubar {
-    padding: 10px;
     background: orange;
     border-radius: 5px;
+    width: 100%;
+    height: 50px;
 }
 
 .menuBarItem {
-    margin-left: 5px;
-    top: 50%;
-    bottom: 50%;
+    height: 100%;
+    margin: 0 5px 0 5px
 }
 
-button {
+.menubar button{
+    height: 100%;
     font-size: 20px;
     border-radius: 10px;
     border-color: darksalmon;
     background: none;
+}
+
+#menuLogo {
+    float: left;
+}
+
+#menuFrontpageButton {
+    color: chartreuse;
+    float: left;
+}
+
+#menuLoginForm {
+    color: blue;
+    float: right;
+}
+
+#menuRegisterButton {
+    color: blueviolet;
+    float: right;
+}
+
+#menuMyPageButton {
+    color: brown;
+}
+
+#menuLogoutButton {
+    color: darkgoldenrod;
 }
