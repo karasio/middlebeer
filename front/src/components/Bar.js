@@ -9,9 +9,9 @@ const Bar = ({ bar, setBars, user }) => {
   const [editVisible, setEditVisible] = useState(false);
   const showDefault = {display: editVisible ? 'none' : ''};
   const showEdit = { display: editVisible ? '' : 'none'};
-  const [beer, setBeer] = useState(bar.prices.beer !== undefined ? bar.prices.beer : 0.00);
-  const [cider, setCider] = useState(bar.prices.cider !== undefined ? bar.prices.cider : 0.00);
-  const [longdrink, setLongdrink] = useState(bar.prices.longdrink !== undefined ? bar.prices.longdrink : 0.00);
+  const [beer, setBeer] = useState(bar.prices.beer === undefined ? 0.00 : bar.prices.beer);
+  const [cider, setCider] = useState(bar.prices.cider === undefined ? 0.00 : bar.prices.cider);
+  const [longdrink, setLongdrink] = useState(bar.prices.longdrink === undefined ? 0.00 :  bar.prices.longdrink);
 
   const barStyle = {
     paddingTop: 10,
@@ -36,8 +36,27 @@ const Bar = ({ bar, setBars, user }) => {
         .then(returnedBars => setBars(returnedBars));
   };
 
-
   const savePrices = (id) => {
+    console.log('beer', typeof(beer), 'cider', typeof(cider), 'longk', typeof(longdrink));
+
+    // TODO saisko if-elseif-elsestä jotenkin funktion?
+    //  tempCider toimii nyt (testattu, ettei 0 / tyhjä string / kissa mee kantaan
+
+    let tempCider;
+    if(!isNaN(Number.parseFloat(cider)) && Number.parseFloat(cider) !== 0) {
+      console.log('kaikki pitäs olla ok?');
+      tempCider = Number.parseFloat(cider);
+    } else if ((cider === null || isNaN(cider) || cider === '' || cider === 0) && !bar.prices.cider) {
+      console.log('ei kelpo numero, ei vanhaa dataa');
+      console.log('siideri on nan tai null:', cider);
+      console.log('kannasta', bar.prices.cider);
+      setCider(undefined);
+    } else if (bar.prices.cider) {
+      console.log('vanhassa datassa hinta, mutta uus huttua');
+      tempCider = bar.prices.cider;
+    }
+
+
     const edited = {
       name: bar.name,
       address: bar.address,
@@ -46,13 +65,14 @@ const Bar = ({ bar, setBars, user }) => {
       user: user,
       id: bar.id,
       prices: {
-        beer: beer === 0.00 || '' ? bar.prices.beer : parseFloat(beer),
-        cider: cider === 0.00 || '' ? bar.prices.cider : parseFloat(cider),
-        longdrink: longdrink === 0.00 || '' ? bar.prices.longdrink : parseFloat(longdrink)
+        beer: (beer === 0.00 || beer === '') ? bar.prices.beer : Number.parseFloat(beer),
+        cider: tempCider,
+        longdrink: (longdrink === 0.00 || beer === '') ? bar.prices.longdrink : Number.parseFloat(longdrink)
       }
     };
-    console.log(bar.id, edited);
+    console.log(bar.id, edited.prices);
 
+    //debugger;
     barService
         .update(id, edited)
         .then(returnedBars => setBars(returnedBars));
@@ -65,10 +85,12 @@ const Bar = ({ bar, setBars, user }) => {
   };
 
   const handleCiderChange = (e) => {
+    console.log('typeof e.target.value', typeof(e.target.value));
     setCider(e.target.value);
   };
 
   const handleLongdrinkChange = (e) => {
+    console.log('typeof e.target.value', typeof(e.target.value));
     setLongdrink(e.target.value);
   };
 
@@ -88,9 +110,9 @@ const Bar = ({ bar, setBars, user }) => {
               <button onClick={() => setEditVisible(true)}>edit</button>
             </p>
             <ul style={showDefault}>
-              {bar.prices.beer !== undefined ? <li> Beer {bar.prices.beer.toFixed(2)}€</li> : ''}
-              {bar.prices.cider !== undefined ? <li> Cider {bar.prices.cider.toFixed(2)}€ </li>: ''}
-              {bar.prices.longdrink !== undefined ? <li>Long Drink {bar.prices.longdrink.toFixed(2)}€</li> : ''}
+              {(bar.prices.beer === undefined || bar.prices.beer === null) ? '' : <li> Beer {bar.prices.beer.toFixed(2)}€</li>}
+              {(bar.prices.cider === undefined || bar.prices.cider === null) ? '' : <li> Cider {bar.prices.cider.toFixed(2)}€ </li>}
+              {(bar.prices.longdrink === undefined || bar.prices.longdrink === null) ? '' : <li>Long Drink {bar.prices.longdrink.toFixed(2)}€</li> }
             </ul>
             <ul style={showEdit}>
               <form onSubmit={() => savePrices(bar.id)}>
@@ -113,6 +135,7 @@ const Bar = ({ bar, setBars, user }) => {
                   />
                 </li>
                 <button type='submit'>save</button>
+                <button onClick={() => setEditVisible(false)}>cancel</button>
               </form>
             </ul>
 

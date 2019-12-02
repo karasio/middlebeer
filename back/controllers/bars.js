@@ -97,4 +97,33 @@ barsRouter.post('/', async (request, response, next) => {
   }
 });
 
+barsRouter.delete('/:id', async (request, response, next) => {
+  const bar = await Bar.findById(request.params.id);
+
+  try {
+    const decodedToken = jwt.verify(request.token, process.env.SECRET);
+    if(!request.token || !decodedToken.id) {
+      return response.status(401).json({ error: 'token missing or invalid' });
+    }
+    // console.log('decoded token', decodedToken);
+
+    const user = await User.findById(decodedToken.id);
+    // console.log('user', user);
+
+    if(bar.user.toString() === user.id.toString()) {
+      try {
+        await Bar.findByIdAndRemove(request.params.id);
+        response.status(204).end();
+      } catch (exception) {
+        next(exception);
+      }
+    } else {
+      return response.status(403).json({ error: 'only bar adder can delete' });
+    }
+  } catch (exception) {
+    next(exception);
+  }
+
+});
+
 module.exports = barsRouter;
