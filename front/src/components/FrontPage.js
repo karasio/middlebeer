@@ -1,18 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import Bar from '../components/Bar'
-import barService from '../services/bars';
 import {useField} from '../hooks';
 import '../components/FrontPage.css'
 
-const FrontPage = ({user}) => {
-    const [bars, setBars] = useState([]);
+const FrontPage = ({bars}) => {
+
     const filterValue = useField('type: text');
 
-    useEffect(() => {
-        barService
-            .getAll()
-            .then(initialBars => setBars(initialBars));
-    }, []);
 
     useEffect(() => {
         console.log('FrontPage useEffect', bars);
