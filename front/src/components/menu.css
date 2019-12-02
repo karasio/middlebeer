@@ -7,8 +7,18 @@
 .menubar {
     padding: 10px;
     background: orange;
+    border-radius: 5px;
 }
 
 .menuBarItem {
     margin-left: 5px;
+    top: 50%;
+    bottom: 50%;
+}
+
+button {
+    font-size: 20px;
+    border-radius: 10px;
+    border-color: darksalmon;
+    background: none;
 }

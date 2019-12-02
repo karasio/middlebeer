@@ -89,13 +89,13 @@ const App = () => {
 
   return (
       <>
-        <div className='DEBUG'>
-          <button onClick={() => {
-            setUser(null)
-            window.localStorage.clear();
-          }}>nollaa käyttäjä</button>
-          <button onClick={() => console.log('user on ', user)}>KUKA KÄYTTÄÄ</button>
-        </div>
+        {/*<div className='DEBUG'>*/}
+        {/*  <button onClick={() => {*/}
+        {/*    setUser(null);*/}
+        {/*    window.localStorage.clear();*/}
+        {/*  }}>nollaa käyttäjä</button>*/}
+        {/*  <button onClick={() => console.log('user on ', user)}>KUKA KÄYTTÄÄ</button>*/}
+        {/*</div>*/}
 
         <Menu user={user}
               username={username}
@@ -112,5 +112,3 @@ const App = () => {
 
 export default App;
 
-//{/*<button onClick={() => console.log('blogsissa', blogs)}>LOGGAA BLOGI</button>*/}
-// {user === null ? loginForm() : loggedInView()}

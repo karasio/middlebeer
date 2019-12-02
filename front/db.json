@@ -7,7 +7,7 @@
       "prices": {
         "beer": 5.0,
         "cider": 6.5,
-        "longDrink": 6.5
+        "longdrink": 6.5
       }
     },
     {
@@ -17,7 +17,7 @@
       "prices": {
         "beer": 3.8,
         "cider": 5,
-        "longDrink": 5
+        "longdrink": 5
       }
     },
     {
@@ -27,7 +27,7 @@
       "prices": {
         "beer": 7.4,
         "cider": 8.5,
-        "longDrink": 8.3
+        "longdrink": 8.3
       }
     }
   ]

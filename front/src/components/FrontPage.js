@@ -19,7 +19,6 @@ const FrontPage = ({user}) => {
   }, [bars]);
 
   const allBars = () =>
-    // TODO ei mene tänne enää sitten kun bars arrayssa on pituutta?
     bars.map(bar => {
       return (
           <Bar

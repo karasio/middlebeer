@@ -1,6 +1,7 @@
 import React from 'react';
 import './menu.css';
 import LoginForm from './LoginForm';
+import logo from '../media/logoSquare40x40.gif';
 
 const LogoutButton = ({user, username, password, setUser, setPage}) => {
   //console.log(user);
@@ -15,7 +16,7 @@ const LogoutButton = ({user, username, password, setUser, setPage}) => {
 
   return (
       user !== null
-          ? <button className='menuBarItem' onClick={handleLogout}>Logout</button>
+          ? <button className='menuBarItem' onClick={handleLogout}>logout</button>
           : ''
   )
 };
@@ -49,6 +50,7 @@ const MyPageButton = ({ user, setPage }) => {
 const Menu = ({user, username, password, setUser, handleLogin, setPage}) => {
   return (
       <div className='menubar'>
+        <img src={logo} alt={'logo'} className='menuBarItem'/>
         <button onClick={() => setPage('front')} className='menuBarItem'>frontpage</button>
         <LoginForm handleLogin={handleLogin} username={username} password={password} user={user} />
         <RegisterButton className='menuBarItem' setPage={setPage} user={user}/>

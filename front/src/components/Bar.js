@@ -8,8 +8,6 @@ const Bar = ({ bar }) => {
   const barStyle = {
     paddingTop: 10,
     paddingLeft: 2,
-    radius: 2,
-    borderWidth: 1,
     marginBottom: 5
   };
 
