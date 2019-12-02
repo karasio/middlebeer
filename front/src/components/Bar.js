@@ -172,7 +172,8 @@ const Bar = ({ bar, bars, setBars, user, setNotification }) => {
                     <button onClick={() => setEditVisible(false)}>cancel</button>
                   </form>
                 </ul>
-            
+                : ''}
+
             {/*{ blogUser.name !== undefined ? <p>added by {blogUser.name}</p> : <p>no idea who added this</p> }*/}
           {/*{ blogUser.username === user.username ? <button onClick={() => removeBlog(id)}>remove</button> : <></> }*/}
         </div>

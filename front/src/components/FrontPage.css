@@ -48,6 +48,7 @@ h4:hover {
     border-radius: 5px;
     margin: 0 0 5px 0;
     width: calc(100% - 6px);
+}
 
 .notification {
     background: lightgray;
