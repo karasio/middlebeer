@@ -89,14 +89,13 @@ const Bar = ({ bar, setBars, user }) => {
   };
 
   return (
-      <div>
+      <>
         <div style={hideWhenVisible} className='barListItem'>
           <h4 onClick={() => setDetailsVisible(true)}>
             {bar.name} {bar.city}
           </h4>
         </div>
         <div style={showWhenVisible} className='extraInfo'>
-          <div>
             <h3 onClick={() => setDetailsVisible(false)}>{bar.name}</h3>
             <p>{bar.address}, {bar.city}</p>
             <p>{bar.likes} likes
@@ -134,10 +133,9 @@ const Bar = ({ bar, setBars, user }) => {
             </ul>
 
             {/*{ blogUser.name !== undefined ? <p>added by {blogUser.name}</p> : <p>no idea who added this</p> }*/}
-          </div>
           {/*{ blogUser.username === user.username ? <button onClick={() => removeBlog(id)}>remove</button> : <></> }*/}
         </div>
-      </div>
+      </>
   );
 };
 

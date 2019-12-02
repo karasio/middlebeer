@@ -42,15 +42,13 @@ const FrontPage = ({bars, setBars, user}) => {
 
             {/* tämä menee hooks > index.js:lle lomakkeen käsittelyyn, pitäisi
           passata filtteriarvoksi allBarsille?*/}
-            <div className='anecdote'><h1>"mmm.. tasty"</h1></div>
-
             <div className='filterInputWrapper'>
                 <input className='filterInput'
                        {...filterValue.object}
                        placeholder={'filter results by bar name or city'}
                 />
             </div>
-            <div>
+            <div className='barsWrapper'>
             {barsToShow(getFilteredBars(filterValue))}
             </div>
         </div>

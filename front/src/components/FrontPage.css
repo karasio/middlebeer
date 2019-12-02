@@ -17,22 +17,42 @@ input {
     margin-top: 10px;
 }
 
+h4, h3 {
+    margin: 0;
+}
+
+
 h3:hover {
-    background: darksalmon;
+    background: #C7E2FF;
 }
 
 h4:hover {
-    background: darksalmon;
+    background: #C7E2FF;
 }
 
+.barsWrapper {
+    width: 80%;
+    margin: 0 auto 0 auto;
+}
 
-.barListItem h3 h4{
-    margin: 0 0 0 0;
+.barListItem {
+    background: #EDF4FA;
+    height: 20px;
+    border-radius: 5px;
+    margin: 0 0 5px 0;
+    width: 100%;
+}
+
+.extraInfo {
+    border: solid #C7E2FF;
+    border-radius: 5px;
+    margin: 0 0 5px 0;
+    width: calc(100% - 6px);
 }
 
 .filterInputWrapper {
     width: 45%;
-    margin: 5% auto 0 auto;
+    margin: 5% auto 20px auto;
 }
 
 .anecdote {

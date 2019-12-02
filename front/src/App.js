@@ -104,7 +104,7 @@ const App = () => {
 
     return (
         <>
-            <div className='DEBUG'>
+            <div className='DEBUG' style={{display: "none"}}>
               <button onClick={() => {
                 setUser(null);
                 window.localStorage.clear();
@@ -122,7 +122,7 @@ const App = () => {
                 {whichPageToShow()}
             </div>
             <br/><br/>
-            <div>Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+            <div style={{position: "fixed", bottom: 5, right: 5}}>Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
         </>
     );
 };
