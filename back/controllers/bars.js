@@ -27,6 +27,28 @@ barsRouter.get('/:id', async (request, response) => {
   response.json(bars.map(bar => bar.toJSON()));
 });
 
+barsRouter.put('/:id', async (request, response) =>{
+  const body = request.body;
+  /*const bar = new Bar({
+    newName: body.name,
+    newAddress: body.address,
+    newCity: body.city,
+    newPrices: body.prices,
+    likes: body.likes === undefined ? 0 : body.likes,
+    newUser: user._id
+  });*/
+  const updatedBar = await Bar.updateOne(
+      {name: body.name},
+      {
+        $set :{likes: body.likes},
+      }
+  );
+  //TODO: Tänne viel joku järkevämpi palautus.
+  response.send("Bar liked!");
+
+
+});
+
 barsRouter.put('/', async (request, response, next) => {
   const body = request.body;
   console.log("body", body);
