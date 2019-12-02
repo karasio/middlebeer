@@ -40,19 +40,21 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
 
     return (
         <div className='contentWrapper'>
-          <div className='anecdote'><h1>"mmm.. tasty"</h1></div>
 
-          <div className='filterInputWrapper'>
-            <input className='filterInput'
-                   {...filterValue.object}
-                   placeholder={'filter results by bar name or city'}
-            />
-          </div>
-          <Notification message={notification}/>
-          <div>
+            {/* tämä menee hooks > index.js:lle lomakkeen käsittelyyn, pitäisi
+          passata filtteriarvoksi allBarsille?*/}
+            <div className='anecdote'><h1>"mmm.. tasty"</h1></div>
+            <div className='filterInputWrapper'>
+                <input className='filterInput'
+                       {...filterValue.object}
+                       placeholder={'filter results by bar name or city'}
+                />
+            </div>
+            <div className='barsWrapper'>
             {barsToShow(getFilteredBars(filterValue))}
-          </div>
+            </div>
         </div>
+
     );
 };
 
