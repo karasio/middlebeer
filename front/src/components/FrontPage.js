@@ -30,7 +30,7 @@ const FrontPage = ({bars, setBars, user}) => {
 
         bars.forEach(bar => {
             // console.log('filtering', pattern, bar.name, pattern.test(bar.name))
-            if (pattern.test(bar.name)) {
+            if (pattern.test(bar.name) || pattern.test(bar.city)) {
                 filteredBarsCopy.push(bar)
             }
         })
