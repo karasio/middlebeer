@@ -9,3 +9,11 @@ button {
 input {
     margin-top: 10px;
 }
+
+h3:hover {
+    background: darksalmon;
+}
+
+h4:hover {
+    background: darksalmon;
+}

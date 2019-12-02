@@ -45,20 +45,19 @@ barsRouter.get('/:id', async (request, response) => {
 
 barsRouter.put('/:id', async (request, response, next) => {
   const body = request.body;
-  console.log("body", body);
+  console.log('TÖÖÖÖÖÖÖÖÖÖÖ', body);
   try {
     const decodedToken = jwt.verify(request.token, process.env.SECRET);
     if (!request.token || !decodedToken.id) {
-      console.log('back/controller/bars/65');
       return response.status(401).json({ error: 'token missing or invalid' });
     }
-    const user = await User.findById(decodedToken.id);
-    const updatedBar = await Bar.updateOne(
-        {id: body.id},
-        {
-          $set :{name: body.name, address: body.address, city: body.city, prices: body.prices, user: user.id, likes: body.likes},
-        }
-    );
+
+    const bar = {
+      prices: body.prices,
+      likes: body.likes
+    };
+
+    await Bar.findByIdAndUpdate(request.params.id, bar, { new: body.likes, new: body.prices });
     const bars = await Bar
     .find({}).populate('user', { username: 1, name: 1 });
     console.log("bars", bars);

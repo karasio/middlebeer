@@ -3,7 +3,7 @@ import Bar from '../components/Bar'
 import {useField} from '../hooks';
 import '../components/FrontPage.css'
 
-const FrontPage = ({bars}) => {
+const FrontPage = ({bars, setBars, user}) => {
 
     const filterValue = useField('type: text');
 
@@ -18,6 +18,8 @@ const FrontPage = ({bars}) => {
                 <Bar
                     key={bar.id}
                     bar={bar}
+                    user={user}
+                    setBars={setBars}
                 />
             )
         });

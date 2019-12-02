@@ -1,11 +1,21 @@
 import React from 'react';
+import barService from '../services/bars';
 
-const MyPage = ({user, setPage}) => {
+const MyPage = ({user, setPage, bars}) => {
   console.log(user);
+
+  const barsAdded = () => {
+
+  };
+
   return (
       <div>
         hello {user.name}
-        <p>bars you have added</p> <p>bars you have liked</p>
+        <div>
+          bars you have added
+
+        </div>
+        <p>bars you have liked</p>
       </div>
   )
 };

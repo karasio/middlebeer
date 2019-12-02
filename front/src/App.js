@@ -64,7 +64,9 @@ const App = () => {
                 return (
                     <div>
                         <FrontPage
+                            user={user}
                             bars={bars}
+                            setBars={setBars}
                         />
                     </div>
                 );
@@ -82,13 +84,17 @@ const App = () => {
                         <MyPage
                             user={user}
                             setPage={setPage}/>
+                            bars={bars}
                     </>
                 )
             default:
                 return (
                     <div>
                         <FrontPage
-                            bars={bars}/>
+                            user={user}
+                            bars={bars}
+                            setBars={setBars}
+                            />
                     </div>
                 );
         }
@@ -97,13 +103,13 @@ const App = () => {
 
     return (
         <>
-            {/*<div className='DEBUG'>*/}
-            {/*  <button onClick={() => {*/}
-            {/*    setUser(null);*/}
-            {/*    window.localStorage.clear();*/}
-            {/*  }}>nollaa käyttäjä</button>*/}
-            {/*  <button onClick={() => console.log('user on ', user)}>KUKA KÄYTTÄÄ</button>*/}
-            {/*</div>*/}
+            <div className='DEBUG'>
+              <button onClick={() => {
+                setUser(null);
+                window.localStorage.clear();
+              }}>nollaa käyttäjä</button>
+              <button onClick={() => console.log('user on ', user)}>KUKA KÄYTTÄÄ</button>
+            </div>
 
             <Menu user={user}
                   username={username}
