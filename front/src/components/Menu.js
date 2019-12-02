@@ -1,7 +1,7 @@
 import React from 'react';
 import './menu.css';
 import LoginForm from './LoginForm';
-import logo from '../media/logoSquare40x40.gif';
+import logo from '../media/beer.png';
 
 const LogoutButton = ({user, username, password, setUser, setPage}) => {
   //console.log(user);
@@ -16,7 +16,7 @@ const LogoutButton = ({user, username, password, setUser, setPage}) => {
 
   return (
       user !== null
-          ? <button id='menuLogoutButton' onClick={handleLogout}>logout</button>
+          ? <button id='menuLogoutButton' onClick={handleLogout}>Logout</button>
           : ''
   )
 };
@@ -42,7 +42,7 @@ const MyPageButton = ({ user, setPage }) => {
 
   return (
       user !== null
-      ? <button  id='menuMyPageButton' onClick={myPageButtonClicked}>my page</button>
+      ? <button  id='menuMyPageButton' onClick={myPageButtonClicked}>My page</button>
           : ''
   )
 };
@@ -51,7 +51,7 @@ const Menu = ({user, username, password, setUser, handleLogin, setPage}) => {
   return (
       <div className='menubar'>
         <img src={logo} alt={'logo'} className='menuBarItem' id='menuLogo'/>
-        <button onClick={() => setPage('front')} className='menuBarItem' id='menuFrontpageButton'>frontpage</button>
+        <button onClick={() => setPage('front')} className='menuBarItem' id='menuFrontpageButton'>Middlebeer</button>
         <LoginForm handleLogin={handleLogin} username={username} password={password} user={user} />
         <RegisterButton setPage={setPage} user={user}/>
         <MyPageButton className='menuBarItem' user={user} setPage={setPage} />
@@ -61,3 +61,4 @@ const Menu = ({user, username, password, setUser, handleLogin, setPage}) => {
 };
 
 export default Menu;
+

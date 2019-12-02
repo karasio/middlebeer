@@ -1,3 +1,10 @@
+
+.contentWrapper {
+    width: 90%;
+    margin: 0 auto 0 auto;
+}
+
+
 ul {
     list-style-image: url('beer2.svg');
 }
@@ -16,4 +23,32 @@ h3:hover {
 
 h4:hover {
     background: darksalmon;
+}
+
+
+.barListItem h3 h4{
+    margin: 0 0 0 0;
+}
+
+.filterInputWrapper {
+    width: 45%;
+    margin: 5% auto 0 auto;
+}
+
+.anecdote {
+    width: 50%;
+    margin: 5% auto 0 auto;
+    text-align: center;
+    font-style: italic;
+}
+
+.filterInput {
+    font-family: 'Raleway', sans-serif;
+    width: 100%;
+    font-size: larger;
+    display: inline-block;
+    padding-left: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }

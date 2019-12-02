@@ -1,6 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+
 .DEBUG {
+    display: none;
     background: orangered;
     border: orangered;
+    margin: 0 0 5px 0;
+    padding: 0 0 2px 0;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
 }
 
 .menubar {
@@ -12,15 +21,31 @@
 
 .menuBarItem {
     height: 100%;
-    margin: 0 5px 0 5px
+    margin: 0 5px 0 5px;
+}
+
+.menuBarItem input {
+    font-family: 'Raleway', sans-serif;
+    font-size: larger;
+    width: 120px;
+    padding: 6px 10px;
+    margin: 2px 5px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .menubar button{
+    font-family: 'Raleway', sans-serif;
     height: 100%;
     font-size: 20px;
-    border-radius: 10px;
-    border-color: darksalmon;
+    border-width: 0;
     background: none;
+}
+
+.menubar button:hover {
+    background: #B37400;
 }
 
 #menuLogo {
@@ -28,24 +53,30 @@
 }
 
 #menuFrontpageButton {
-    color: chartreuse;
     float: left;
 }
 
 #menuLoginForm {
-    color: blue;
     float: right;
+    margin-right: 0;
+}
+
+#menuLoginButton {
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 0 15px 0 15px;
 }
 
 #menuRegisterButton {
-    color: blueviolet;
     float: right;
 }
 
 #menuMyPageButton {
-    color: brown;
 }
 
 #menuLogoutButton {
-    color: darkgoldenrod;
+    float: right;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 0 15px 0 15px;
 }

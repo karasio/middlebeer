@@ -21,8 +21,8 @@ const LoginForm = ({
                   placeholder={'password'}
 
               />
-              <button
-                  type='submit'>login</button>
+              <button id='menuLoginButton'
+                  type='submit'>Login</button>
             </form>
           : ''
   );
