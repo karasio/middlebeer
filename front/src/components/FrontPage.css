@@ -48,6 +48,29 @@ h4:hover {
     border-radius: 5px;
     margin: 0 0 5px 0;
     width: calc(100% - 6px);
+
+.notification {
+    background: lightgray;
+    font-size: 20px;
+    color: forestgreen;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.error {
+    background: lightgray;
+    font-size: 20px;
+    color: red;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.barListItem h3 h4{
+    margin: 0 0 0 0;
 }
 
 .filterInputWrapper {

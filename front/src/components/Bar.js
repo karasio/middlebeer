@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import barService from '../services/bars';
 import '../components/FrontPage.css'
 
-const Bar = ({ bar, setBars, user }) => {
+const Bar = ({ bar, bars, setBars, user, setNotification }) => {
   const [detailsVisible, setDetailsVisible] = useState(false);
   const hideWhenVisible = { display: detailsVisible ? 'none' : '' };
   const showWhenVisible = { display: detailsVisible ? '' : 'none' };
@@ -30,26 +30,31 @@ const Bar = ({ bar, setBars, user }) => {
         .then(returnedBars => setBars(returnedBars));
   };
 
-  const savePrices = (id) => {
-    console.log('beer', typeof(beer), 'cider', typeof(cider), 'longk', typeof(longdrink));
+  const editBar = async (id) => {
+    //console.log('beer', typeof(beer), 'cider', typeof(cider), 'longk', typeof(longdrink));
 
-    // TODO saisko if-elseif-elsestä jotenkin funktion?
-    //  tempCider toimii nyt (testattu, ettei 0 / tyhjä string / kissa mee kantaan
-
-    let tempCider;
-    if(!isNaN(Number.parseFloat(cider)) && Number.parseFloat(cider) !== 0) {
-      console.log('kaikki pitäs olla ok?');
-      tempCider = Number.parseFloat(cider);
-    } else if ((cider === null || isNaN(cider) || cider === '' || cider === 0) && !bar.prices.cider) {
-      console.log('ei kelpo numero, ei vanhaa dataa');
-      console.log('siideri on nan tai null:', cider);
-      console.log('kannasta', bar.prices.cider);
-      setCider(undefined);
-    } else if (bar.prices.cider) {
-      console.log('vanhassa datassa hinta, mutta uus huttua');
-      tempCider = bar.prices.cider;
+    const figureOutPrice = (userInput, priceFromDb) => {
+      if(!isNaN(Number.parseFloat(userInput)) && Number.parseFloat(userInput) !== 0) {
+        console.log('kaikki pitäs olla ok?');
+        return Number.parseFloat(userInput);
+      } else if ((userInput === null || isNaN(userInput) || userInput === '' || userInput === 0) && !priceFromDb) {
+        setNotification({msg: 'Invalid input', sort: 'error'});
+        setTimeout(() => {
+          setNotification({msg: null, sort: null})
+        }, 10000);
+        console.log('ei kelpo numero, ei vanhaa dataa');
+        console.log('siideri on nan tai null:', userInput);
+        console.log('kannasta', priceFromDb);
+        return undefined;
+      } else if (priceFromDb) {
+        setNotification({msg: 'Invalid input', sort: 'error'});
+        setTimeout(() => {
+          setNotification({msg: null, sort: null})
+        }, 10000);
+        console.log('vanhassa datassa hinta, mutta uus huttua');
+        return priceFromDb;
+      }
     }
-
 
     const edited = {
       name: bar.name,
@@ -59,18 +64,48 @@ const Bar = ({ bar, setBars, user }) => {
       user: user,
       id: bar.id,
       prices: {
-        beer: (beer === 0.00 || beer === '') ? bar.prices.beer : Number.parseFloat(beer),
-        cider: tempCider,
-        longdrink: (longdrink === 0.00 || beer === '') ? bar.prices.longdrink : Number.parseFloat(longdrink)
+        beer: figureOutPrice(beer, bar.prices.beer),
+        cider: figureOutPrice(cider, bar.prices.cider),
+        longdrink: figureOutPrice(longdrink, bar.prices.longdrink)
       }
     };
     console.log(bar.id, edited.prices);
 
     //debugger;
-    barService
-        .update(id, edited)
-        .then(returnedBars => setBars(returnedBars));
+    const returnedBars = await barService.update(id, edited);
+    // setNotification({msg: 'tööt', sort: 'error'});
+    // debugger;
+    // setTimeout(() => {
+    //   setNotification({msg: null, sort: null});
+    // }, 5000);
+    setBars(returnedBars);
 
+  };
+
+  const removeBar = (id) => {
+    const barToRemove = bars.find(b => b.id === id);
+    const sureToDelete = window.confirm(`Delete ${barToRemove.name}?`);
+
+    if(sureToDelete) {
+      barService
+      .remove(id)
+      .then(() => {
+        setNotification({ msg: `${barToRemove.name} was removed`, sort: 'info' });
+        setTimeout(() => {
+          setNotification({ msg: null, sort: null });
+        }, 5000);
+        barService
+        .getAll()
+        .then(freshBars => setBars(freshBars));
+      })
+      .catch(error => {
+        console.log('Virhe removessa', error.response.data.error);
+        setNotification({ msg: error.response.data.error, sort: 'error' });
+        setTimeout(() => {
+          setNotification({ msg: null, sort: null });
+        }, 5000);
+      });
+    }
   };
 
   const handleBeerChange = (e) => {
@@ -99,39 +134,45 @@ const Bar = ({ bar, setBars, user }) => {
             <h3 onClick={() => setDetailsVisible(false)}>{bar.name}</h3>
             <p>{bar.address}, {bar.city}</p>
             <p>{bar.likes} likes
-              <button onClick={() => likeBar(bar.id)}>like</button>
-              <button onClick={() => setEditVisible(true)}>edit</button>
+              {user !== null ?
+                  <button onClick={() => likeBar(bar.id)}>like</button>
+              : ''}
+              {user !== null ?
+                  <button onClick={() => setEditVisible(true)}>edit</button>
+                  : ''
+              }
             </p>
             <ul style={showDefault}>
               {(bar.prices.beer === undefined || bar.prices.beer === null) ? '' : <li> Beer {bar.prices.beer.toFixed(2)}€</li>}
               {(bar.prices.cider === undefined || bar.prices.cider === null) ? '' : <li> Cider {bar.prices.cider.toFixed(2)}€ </li>}
               {(bar.prices.longdrink === undefined || bar.prices.longdrink === null) ? '' : <li>Long Drink {bar.prices.longdrink.toFixed(2)}€</li> }
             </ul>
-            <ul style={showEdit}>
-              <form onSubmit={() => savePrices(bar.id)}>
-                <li>Beer
-                  <input
-                      value={beer}
-                      onChange={handleBeerChange}
-                  />
-                </li>
-                <li> Cider
-                  <input
-                      value={cider}
-                      onChange={handleCiderChange}
-                  />
-                </li>
-                <li> Long drink
-                  <input
-                      value={longdrink}
-                      onChange={handleLongdrinkChange}
-                  />
-                </li>
-                <button type='submit'>save</button>
-                <button onClick={() => setEditVisible(false)}>cancel</button>
-              </form>
-            </ul>
-
+            {user !== null ?
+                <ul style={showEdit}>
+                  <form onSubmit={() => editBar(bar.id)}>
+                    <li>Beer
+                      <input
+                          value={beer}
+                          onChange={handleBeerChange}
+                      />
+                    </li>
+                    <li> Cider
+                      <input
+                          value={cider}
+                          onChange={handleCiderChange}
+                      />
+                    </li>
+                    <li> Long drink
+                      <input
+                          value={longdrink}
+                          onChange={handleLongdrinkChange}
+                      />
+                    </li>
+                    <button type='submit'>save</button>
+                    <button onClick={() => setEditVisible(false)}>cancel</button>
+                  </form>
+                </ul>
+            
             {/*{ blogUser.name !== undefined ? <p>added by {blogUser.name}</p> : <p>no idea who added this</p> }*/}
           {/*{ blogUser.username === user.username ? <button onClick={() => removeBlog(id)}>remove</button> : <></> }*/}
         </div>
