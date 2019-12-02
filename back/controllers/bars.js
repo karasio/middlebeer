@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken');
 const getTokenFrom = request => {
   const authorization = request.get('authorization');
   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-    console.log('täälööä');
     return authorization.substring(7);
   }
   return null;
@@ -15,44 +14,38 @@ const getTokenFrom = request => {
 barsRouter.get('/', async (request, response) => {
   const bars = await Bar
   .find({}).populate('user', { username: 1, name: 1 });
-  console.log(bars);
   response.json(bars.map(bar => bar.toJSON()));
 });
 
 barsRouter.get('/:id', async (request, response) => {
   const userId = request.params.id;
-  console.log(userId);
   const bars = await  Bar
       .find({user: userId});
   response.json(bars.map(bar => bar.toJSON()));
 });
 
-barsRouter.put('/:id', async (request, response) =>{
+/*barsRouter.put('/:id', async (request, response, next) =>{
   const body = request.body;
-  /*const bar = new Bar({
-    newName: body.name,
-    newAddress: body.address,
-    newCity: body.city,
-    newPrices: body.prices,
-    likes: body.likes === undefined ? 0 : body.likes,
-    newUser: user._id
-  });*/
-  const updatedBar = await Bar.updateOne(
-      {name: body.name},
-      {
-        $set :{likes: body.likes},
-      }
-  );
-  //TODO: Tänne viel joku järkevämpi palautus.
-  response.send("Bar liked!");
+  try {
+    const updatedBar = await Bar.updateOne(
+        {name: body.name},
+        {
+          $set: {likes: body.likes},
+        }
+    );
+    const bars = await Bar.find({}).populate('user', {username: 1, name: 1});
+    console.log(bars);
+    response.json(bars.map(bar => bar.toJSON()));
+  } catch (exception) {
+    next(exception);
+  }
 
 
-});
+});*/
 
-barsRouter.put('/', async (request, response, next) => {
+barsRouter.put('/:id', async (request, response, next) => {
   const body = request.body;
   console.log("body", body);
-
   try {
     const decodedToken = jwt.verify(request.token, process.env.SECRET);
     if (!request.token || !decodedToken.id) {
@@ -60,23 +53,16 @@ barsRouter.put('/', async (request, response, next) => {
       return response.status(401).json({ error: 'token missing or invalid' });
     }
     const user = await User.findById(decodedToken.id);
-    const bar = new Bar({
-      newName: body.name,
-      newAddress: body.address,
-      newCity: body.city,
-      newPrices: body.prices,
-      likes: body.likes === undefined ? 0 : body.likes,
-      newUser: user._id
-    });
     const updatedBar = await Bar.updateOne(
-        {name: body.name},
+        {id: body.id},
         {
-          $set :{address: body.address, city: body.city, prices: body.prices, user: user._id},
+          $set :{name: body.name, address: body.address, city: body.city, prices: body.prices, user: user.id, likes: body.likes},
         }
     );
-    console.log("updated bar", updatedBar);
-    //TODO: Tänne viel joku järkevämpi palautus.
-    response.send("Bar updated!");
+    const bars = await Bar
+    .find({}).populate('user', { username: 1, name: 1 });
+    console.log("bars", bars);
+    response.json(bars.map(bar => bar.toJSON()));
   } catch (exception) {
     next(exception);
   }
