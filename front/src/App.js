@@ -13,6 +13,7 @@ const App = () => {
     const [user, setUser] = useState(null);
     const [page, setPage] = useState('front');
     const [bars, setBars] = useState([]);
+    const [notification, setNotification] = useState({msg: null, sort: null});
 
     useEffect(() => {
         barService
@@ -67,6 +68,8 @@ const App = () => {
                             user={user}
                             bars={bars}
                             setBars={setBars}
+                            notification={notification}
+                            setNotification={setNotification}
                         />
                     </div>
                 );
@@ -94,6 +97,8 @@ const App = () => {
                             user={user}
                             bars={bars}
                             setBars={setBars}
+                            notification={notification}
+                            setNotification={setNotification}
                             />
                     </div>
                 );

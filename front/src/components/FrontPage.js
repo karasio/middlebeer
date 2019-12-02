@@ -1,12 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import Bar from '../components/Bar'
 import {useField} from '../hooks';
 import '../components/FrontPage.css'
+import Notification from './Notification';
 
-const FrontPage = ({bars, setBars, user}) => {
-
+const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
     const filterValue = useField('type: text');
-
 
     useEffect(() => {
         console.log('FrontPage useEffect', bars);
@@ -20,6 +19,8 @@ const FrontPage = ({bars, setBars, user}) => {
                     bar={bar}
                     user={user}
                     setBars={setBars}
+                    bars={bars}
+                    setNotification={setNotification}
                 />
             )
         });
@@ -39,14 +40,15 @@ const FrontPage = ({bars, setBars, user}) => {
 
     return (
         <div>
+            <h2>MiddleBEER</h2>
+            <p>check where you'll be drinking next time!</p>
             <form>
-                {/* tämä menee hooks > index.js:lle lomakkeen käsittelyyn, pitäisi
-          passata filtteriarvoksi allBarsille?*/}
                 <input
                     {...filterValue.object}
                     placeholder={'filter results'}
                 />
             </form>
+            <Notification message={notification}/>
             {barsToShow(getFilteredBars(filterValue))}
         </div>
     );
