@@ -30,6 +30,7 @@ const App = () => {
         const loggedUserJSON = window.localStorage.getItem('loggedInUser');
         if (loggedUserJSON) {
             const user = JSON.parse(loggedUserJSON);
+            console.log('localstoragesta kaivettu usr', user);
             setUser(user);
             barService.setToken(user.token);
             userService.setToken(user.token);

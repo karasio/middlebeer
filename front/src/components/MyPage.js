@@ -14,7 +14,6 @@ const MyPage = ({user, setPage, bars, setBars, setNotification, notification, se
   //   setUserBars(userId.bars);
   // });
 
-
   // const getBarsAdded = async () => {
   //   const allUsers = await userService.getAll();
   //   const userId = allUsers.filter(u => u.username === user.username);
@@ -24,6 +23,9 @@ const MyPage = ({user, setPage, bars, setBars, setNotification, notification, se
 
   const [city, setCity] = useState('');
 
+
+  // TODO tää ei löydy koskaan reloadin/uudelleenkirjautumisen jälkeen,
+  //  sillä user-oliolla ei ole kenttää defaultCity syystä X
   useEffect(() => {
     console.log('def city', user.defaultCity);
     user.defaultCity ? setCity(user.defaultCity) : setCity('');
