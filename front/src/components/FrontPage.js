@@ -24,6 +24,7 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
                     setBars={setBars}
                     bars={bars}
                     setNotification={setNotification}
+                    notification={notification}
                 />
             )
         });
@@ -41,7 +42,7 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
         return filteredBarsCopy
     }
 
-    console.log(viewmodeSelector);
+    //console.log(viewmodeSelector);
     return (
 
         <div className='contentWrapper'>
@@ -68,6 +69,7 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
             </div>
 
             <div className='barsWrapper'>
+                <Notification message={notification}/>
                 {barsToShow(getFilteredBars(filterValue))}
             </div>
         </div>

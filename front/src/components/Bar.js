@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import barService from '../services/bars';
 import '../components/FrontPage.css'
+import Notification from './Notification';
 
-const Bar = ({ bar, bars, setBars, user, setNotification }) => {
+const Bar = ({ bar, bars, setBars, user, setNotification, notification }) => {
   const [detailsVisible, setDetailsVisible] = useState(false);
   const hideWhenVisible = { display: detailsVisible ? 'none' : '' };
   const showWhenVisible = { display: detailsVisible ? '' : 'none' };
@@ -36,6 +37,7 @@ const Bar = ({ bar, bars, setBars, user, setNotification }) => {
     const figureOutPrice = (userInput, priceFromDb) => {
       if(!isNaN(Number.parseFloat(userInput)) && Number.parseFloat(userInput) !== 0) {
         console.log('kaikki pitäs olla ok?');
+        setNotification({msg: 'Data changed', sort: 'info'});
         return Number.parseFloat(userInput);
       } else if ((userInput === null || isNaN(userInput) || userInput === '' || userInput === 0) && !priceFromDb) {
         setNotification({msg: 'Invalid input', sort: 'error'});
@@ -79,7 +81,7 @@ const Bar = ({ bar, bars, setBars, user, setNotification }) => {
     //   setNotification({msg: null, sort: null});
     // }, 5000);
     setBars(returnedBars);
-
+    setEditVisible(false);
   };
 
   const removeBar = (id) => {
@@ -147,9 +149,10 @@ const Bar = ({ bar, bars, setBars, user, setNotification }) => {
               {(bar.prices.cider === undefined || bar.prices.cider === null) ? '' : <li> Cider {bar.prices.cider.toFixed(2)}€ </li>}
               {(bar.prices.longdrink === undefined || bar.prices.longdrink === null) ? '' : <li>Long Drink {bar.prices.longdrink.toFixed(2)}€</li> }
             </ul>
+          {/*<Notification message={notification} />*/}
             {user !== null ?
                 <ul style={showEdit}>
-                  <form onSubmit={() => editBar(bar.id)}>
+                  {/*<form onSubmit={() => editBar(bar.id)}>*/}
                     <li>Beer
                       <input
                           value={beer}
@@ -168,14 +171,14 @@ const Bar = ({ bar, bars, setBars, user, setNotification }) => {
                           onChange={handleLongdrinkChange}
                       />
                     </li>
-                    <button className='clickable' type='submit'>save</button>
+                    <button className='clickable' onClick={() => editBar(bar.id)}>save</button>
                     <button onClick={() => setEditVisible(false)}>cancel</button>
-                  </form>
+                  {/*</form>*/}
                 </ul>
                 : ''}
 
             {/*{ blogUser.name !== undefined ? <p>added by {blogUser.name}</p> : <p>no idea who added this</p> }*/}
-          {/*{ blogUser.username === user.username ? <button onClick={() => removeBlog(id)}>remove</button> : <></> }*/}
+          { user !== null ? <button onClick={() => removeBar(bar.id)}>remove</button> : <></> }
         </div>
       </>
   );
