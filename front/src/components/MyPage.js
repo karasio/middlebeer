@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import '../components/MyPage.css'
 import userService from '../services/users';
 import Bar from './Bar';
+import AddBar from './AddBar';
 
 const MyPage = ({user, setPage, bars, setBars, setNotification, notification, setUser}) => {
   //console.log(user);
@@ -82,10 +83,13 @@ const MyPage = ({user, setPage, bars, setBars, setNotification, notification, se
       <div className='contentWrapper'>
           <h1>Hello {user.name}!</h1>
         <div>
+          <h2 >Add new bar</h2>
+          <AddBar user={user} setBars={setBars}/>
           <h2>Here is some information about your activity:</h2>
           <p>Bars added by you</p>
           {barsAdded()}
           {/*<p>bars you have liked</p>*/}
+          <h2>Settings</h2>
           {city !== '' ? <p>Default city: {city}</p> : ''}
           <select name='cityOption' onChange={handleClick} value={city}>
             {uniqueTowns.map(town => {
