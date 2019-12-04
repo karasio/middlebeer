@@ -31,33 +31,28 @@ const Bar = ({ bar, bars, setBars, user, setNotification, notification }) => {
         .then(returnedBars => setBars(returnedBars));
   };
 
-  const editBar = async (id) => {
+  const editBar = async () => {
     //console.log('beer', typeof(beer), 'cider', typeof(cider), 'longk', typeof(longdrink));
 
+    let flag = '';
+
     const figureOutPrice = (userInput, priceFromDb) => {
-      if(!isNaN(Number.parseFloat(userInput)) && Number.parseFloat(userInput) !== 0) {
-        console.log('kaikki pitäs olla ok?');
-        setNotification({msg: 'Data changed', sort: 'info'});
+      if(!isNaN(Number.parseFloat(userInput)) && Number.parseFloat(userInput) > 0) {
+        console.log(userInput, 'kaikki pitäs olla ok?');
+       flag += '';
         return Number.parseFloat(userInput);
       } else if ((userInput === null || isNaN(userInput) || userInput === '' || userInput === 0) && !priceFromDb) {
-        setNotification({msg: 'Invalid input', sort: 'error'});
-        setTimeout(() => {
-          setNotification({msg: null, sort: null})
-        }, 10000);
-        console.log('ei kelpo numero, ei vanhaa dataa');
+        console.log(userInput, 'ei kelpo numero, ei vanhaa dataa');
         console.log('siideri on nan tai null:', userInput);
         console.log('kannasta', priceFromDb);
+        flag += '.';
         return undefined;
       } else if (priceFromDb) {
-        setNotification({msg: 'Invalid input', sort: 'error'});
-        setTimeout(() => {
-          setNotification({msg: null, sort: null})
-        }, 10000);
-        console.log('vanhassa datassa hinta, mutta uus huttua');
+        console.log(userInput,'vanhassa datassa hinta, mutta uus huttua');
+        flag += '.';
         return priceFromDb;
       }
     }
-
     const edited = {
       name: bar.name,
       address: bar.address,
@@ -71,10 +66,23 @@ const Bar = ({ bar, bars, setBars, user, setNotification, notification }) => {
         longdrink: figureOutPrice(longdrink, bar.prices.longdrink)
       }
     };
+
+    if(flag === '') {
+      setNotification({msg: 'Data changed', sort: 'info'});
+      setTimeout(() => {
+        setNotification({msg: null, sort: null})
+      }, 5000);
+
+    } else {
+      setNotification({msg: 'Something went wrong', sort: 'error'});
+      setTimeout(() => {
+        setNotification({msg: null, sort: null})
+      }, 5000);
+    }
     console.log(bar.id, edited.prices);
 
     //debugger;
-    const returnedBars = await barService.update(id, edited);
+    const returnedBars = await barService.update(bar.id, edited);
     // setNotification({msg: 'tööt', sort: 'error'});
     // debugger;
     // setTimeout(() => {
@@ -82,6 +90,9 @@ const Bar = ({ bar, bars, setBars, user, setNotification, notification }) => {
     // }, 5000);
     setBars(returnedBars);
     setEditVisible(false);
+    setBeer(bar.prices.beer === undefined ? 0.00 : bar.prices.beer);
+    setCider(bar.prices.cider === undefined ? 0.00 : bar.prices.cider);
+    setLongdrink(bar.prices.longdrink === undefined ? 0.00 : bar.prices.longdrink);
   };
 
   const removeBar = (id) => {
@@ -152,7 +163,10 @@ const Bar = ({ bar, bars, setBars, user, setNotification, notification }) => {
           {/*<Notification message={notification} />*/}
             {user !== null ?
                 <ul style={showEdit}>
-                  {/*<form onSubmit={() => editBar(bar.id)}>*/}
+                  <form onSubmit={(e) => {
+                    e.preventDefault();
+                    editBar();
+                  }}>
                     <li>Beer
                       <input
                           value={beer}
@@ -171,9 +185,9 @@ const Bar = ({ bar, bars, setBars, user, setNotification, notification }) => {
                           onChange={handleLongdrinkChange}
                       />
                     </li>
-                    <button className='clickable' onClick={() => editBar(bar.id)}>save</button>
+                    <button className='clickable' type='submit'>save</button>
                     <button onClick={() => setEditVisible(false)}>cancel</button>
-                  {/*</form>*/}
+                  </form>
                 </ul>
                 : ''}
 
