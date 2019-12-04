@@ -84,8 +84,7 @@ const MyPage = ({user, setPage, bars, setBars, setNotification, notification, se
           <p>Bars added by you</p>
           {barsAdded()}
           {/*<p>bars you have liked</p>*/}
-          {city === '' ? <p>Default city: {city}</p> : ''}
-          <form>
+          {city !== '' ? <p>Default city: {city}</p> : ''}
           <select name='cityOption' onChange={handleClick} value={city}>
             {uniqueTowns.map(town => {
               return (
@@ -94,7 +93,6 @@ const MyPage = ({user, setPage, bars, setBars, setNotification, notification, se
             })}
           </select>
             <button onClick={saveDefaultCity}>set as default</button>
-          </form>
         </div>
       </div>
   );
