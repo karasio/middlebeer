@@ -126,19 +126,19 @@ const Bar = ({ bar, bars, setBars, user, setNotification }) => {
   return (
       <>
         <div style={hideWhenVisible} className='barListItem'>
-          <h4 onClick={() => setDetailsVisible(true)}>
+          <h4 className='clickable' onClick={() => setDetailsVisible(true)}>
             {bar.name} {bar.city}
           </h4>
         </div>
         <div style={showWhenVisible} className='extraInfo'>
-            <h3 onClick={() => setDetailsVisible(false)}>{bar.name}</h3>
+            <h3 className='clickable' onClick={() => setDetailsVisible(false)}>{bar.name}</h3>
             <p>{bar.address}, {bar.city}</p>
             <p>{bar.likes} likes
               {user !== null ?
-                  <button onClick={() => likeBar(bar.id)}>like</button>
+                  <button className='clickable' onClick={() => likeBar(bar.id)}>like</button>
               : ''}
               {user !== null ?
-                  <button onClick={() => setEditVisible(true)}>edit</button>
+                  <button className='clickable' onClick={() => setEditVisible(true)}>edit</button>
                   : ''
               }
             </p>
@@ -168,7 +168,7 @@ const Bar = ({ bar, bars, setBars, user, setNotification }) => {
                           onChange={handleLongdrinkChange}
                       />
                     </li>
-                    <button type='submit'>save</button>
+                    <button className='clickable' type='submit'>save</button>
                     <button onClick={() => setEditVisible(false)}>cancel</button>
                   </form>
                 </ul>

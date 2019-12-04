@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Bar from '../components/Bar'
 import {useField} from '../hooks';
 import '../components/FrontPage.css'
@@ -6,6 +6,9 @@ import Notification from './Notification';
 
 const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
     const filterValue = useField('type: text');
+    const [viewmodeSelector, setViewmodeSelector] = useState(true)
+    const selectedLeft = {background: viewmodeSelector ? '#C7E2FF' : '#EDF4FA'}
+    const selectedRight = {background: viewmodeSelector ? '#EDF4FA' : '#C7E2FF'}
 
     useEffect(() => {
         console.log('FrontPage useEffect', bars);
@@ -38,20 +41,34 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
         return filteredBarsCopy
     }
 
+    console.log(viewmodeSelector);
     return (
-        <div className='contentWrapper'>
 
-            {/* tämä menee hooks > index.js:lle lomakkeen käsittelyyn, pitäisi
-          passata filtteriarvoksi allBarsille?*/}
+        <div className='contentWrapper'>
             <div className='anecdote'><h1>"mmm.. tasty"</h1></div>
+
             <div className='filterInputWrapper'>
                 <input className='filterInput'
                        {...filterValue.object}
                        placeholder={'filter results by bar name or city'}
                 />
             </div>
+
+            <div className='listViewRadioWrapper'>
+                <button className='listViewRadioButton' id='listViewRadioButtonLeft'
+                        onClick={() => setViewmodeSelector(true)}
+                        style={selectedLeft}>
+                    TOP 5
+                </button>
+                <button className='listViewRadioButton' id='listViewRadioButtonRight'
+                        onClick={() => setViewmodeSelector(false)}
+                        style={selectedRight}>
+                    Cheapest
+                </button>
+            </div>
+
             <div className='barsWrapper'>
-            {barsToShow(getFilteredBars(filterValue))}
+                {barsToShow(getFilteredBars(filterValue))}
             </div>
         </div>
 

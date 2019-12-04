@@ -1,4 +1,5 @@
 import React from 'react';
+import '../components/MyPage.css'
 import barService from '../services/bars';
 
 const MyPage = ({user, setPage, bars}) => {
@@ -9,13 +10,14 @@ const MyPage = ({user, setPage, bars}) => {
   };
 
   return (
-      <div>
-        hello {user.name}
+      <div className='contentWrapper'>
+          <h1>Hello {user.name}!</h1>
         <div>
-          bars you have added
+            <h2>Here is some information about your activity:</h2>
+            <p>bars you have added</p>
 
-        </div>
         <p>bars you have liked</p>
+        </div>
       </div>
   )
 };

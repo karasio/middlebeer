@@ -13,10 +13,6 @@ button {
     margin-left: 5px;
 }
 
-input {
-    margin-top: 10px;
-}
-
 h4, h3 {
     margin: 0;
 }
@@ -30,9 +26,74 @@ h4:hover {
     background: #C7E2FF;
 }
 
+.anecdote {
+    width: 50%;
+    margin: 5% auto 0 auto;
+    text-align: center;
+    font-style: italic;
+}
+
+.filterInputWrapper {
+    width: 45%;
+    margin: 5% auto 20px auto;
+}
+
+.filterInput {
+    font-family: 'Raleway', sans-serif;
+    width: 100%;
+    font-size: larger;
+    display: inline-block;
+    padding-left: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+
+.listViewRadioWrapper {
+    width: 25%;
+    height: 25px;
+    margin: 0 auto 20px auto;
+}
+
+.listViewRadioButton {
+    cursor: pointer;
+    margin: 0 auto;
+    width: 50%;
+    height: 100%;
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    border-width: 0;
+
+
+    background: #EDF4FA;
+}
+
+/*.listViewRadioButton:hover {
+    background: #C7E2FF;
+}*/
+
+#listViewRadioButtonLeft {
+    float: left;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+#listViewRadioButtonRight {
+    float: right;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+
+
+
 .barsWrapper {
-    width: 80%;
     margin: 0 auto 0 auto;
+}
+
+.clickable {
+    cursor: pointer;
 }
 
 .barListItem {
@@ -70,29 +131,3 @@ h4:hover {
     margin-bottom: 10px;
 }
 
-.barListItem h3 h4{
-    margin: 0 0 0 0;
-}
-
-.filterInputWrapper {
-    width: 45%;
-    margin: 5% auto 20px auto;
-}
-
-.anecdote {
-    width: 50%;
-    margin: 5% auto 0 auto;
-    text-align: center;
-    font-style: italic;
-}
-
-.filterInput {
-    font-family: 'Raleway', sans-serif;
-    width: 100%;
-    font-size: larger;
-    display: inline-block;
-    padding-left: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}

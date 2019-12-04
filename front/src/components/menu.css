@@ -45,6 +45,7 @@ body {
 }
 
 .menubar button:hover {
+    cursor: pointer;
     background: #B37400;
 }
 
