@@ -15,7 +15,8 @@ const userSchema = mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Bar'
     }
-  ]
+  ],
+  defaultCity: String
 });
 
 userSchema.plugin(uniqueValidator);

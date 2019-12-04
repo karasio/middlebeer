@@ -24,25 +24,6 @@ barsRouter.get('/:id', async (request, response) => {
   response.json(bars.map(bar => bar.toJSON()));
 });
 
-/*barsRouter.put('/:id', async (request, response, next) =>{
-  const body = request.body;
-  try {
-    const updatedBar = await Bar.updateOne(
-        {name: body.name},
-        {
-          $set: {likes: body.likes},
-        }
-    );
-    const bars = await Bar.find({}).populate('user', {username: 1, name: 1});
-    console.log(bars);
-    response.json(bars.map(bar => bar.toJSON()));
-  } catch (exception) {
-    next(exception);
-  }
-
-
-});*/
-
 barsRouter.put('/:id', async (request, response, next) => {
   const body = request.body;
   console.log('TÖÖÖÖÖÖÖÖÖÖÖ', body);

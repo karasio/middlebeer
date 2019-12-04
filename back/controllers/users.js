@@ -1,15 +1,21 @@
 const bcrypt = require('bcrypt');
 const usersRouter = require('express').Router();
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
+
+const getTokenFrom = request => {
+  const authorization = request.get('authorization');
+  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+    return authorization.substring(7);
+  }
+  return null;
+};
 
 usersRouter.get('/', async (request, response) => {
   const users = await User
     .find({}).populate('bars', { name: 1, address: 1, city: 1 });
   response.json(users.map(u => u.toJSON()));
 });
-
-
-
 
 usersRouter.get('/:id', async (request, response) => {
   console.log('Mennään');
@@ -40,6 +46,25 @@ usersRouter.post('/', async (request, response, next) => {
     });
     const savedUser = await user.save();
     response.json(savedUser);
+  } catch (exception) {
+    next(exception);
+  }
+});
+
+// to save default city to db
+usersRouter.put('/:id', async (request, response, next) => {
+  try {
+    const body = request.body;
+
+    const decodedToken = jwt.verify(request.token, process.env.SECRET);
+    if (!request.token || !decodedToken.id) {
+      return response.status(401).json({ error: 'token missing or invalid' });
+    }
+
+    const user = { defaultCity: body.defaultCity };
+    const updatedUser = await User.findByIdAndUpdate(request.params.id, user, { new: body.defaultCity });
+    // returns the altered user ONLY
+    response.json(updatedUser.toJSON());
   } catch (exception) {
     next(exception);
   }

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import loginService from './services/login';
 import barService from './services/bars';
+import userService from './services/users'
 import {useField} from './hooks';
 import Menu from './components/Menu'
 import FrontPage from './components/FrontPage'
@@ -31,6 +32,7 @@ const App = () => {
             const user = JSON.parse(loggedUserJSON);
             setUser(user);
             barService.setToken(user.token);
+            userService.setToken(user.token);
         }
     }, [page]);
 
@@ -47,6 +49,7 @@ const App = () => {
             setUser(user);
             console.log('user set', user);
             barService.setToken(user.token);
+            userService.setToken(user.token);
             username.reset();
             password.reset();
 
@@ -91,6 +94,7 @@ const App = () => {
                             setBars={setBars}
                             setNotification={setNotification}
                             notification={notification}
+                            setUser={setUser}
                         />
                     </>
                 )
@@ -112,7 +116,7 @@ const App = () => {
 
     return (
         <>
-            <div className='DEBUG' style={{display: "none"}}>
+            <div className='DEBUG' style={{display: ""}}>
               <button onClick={() => {
                 setUser(null);
                 window.localStorage.clear();
