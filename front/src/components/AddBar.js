@@ -1,12 +1,13 @@
 import React, {useState} from "react";
+import barService from "../services/bars";
 
-const AddBar = () => {
+const AddBar = ({user, setBars}) => {
     const [barName, setBarName] = useState('')
     const [barAddress, setBarAddress] = useState('')
     const [barCity, setBarCity] = useState('')
-    const [beer, setBeer] = useState(0);
-    const [cider, setCider] = useState(0);
-    const [longdrink, setLongdrink] = useState(0);
+    const [beer, setBeer] = useState('');
+    const [cider, setCider] = useState('');
+    const [longdrink, setLongdrink] = useState('');
 
     const handleNameChange = (e) => {
         setBarName(e.target.value)
@@ -33,11 +34,38 @@ const AddBar = () => {
     }
 
 
-    const addBarSubmit = () => {
+    const addBarSubmit = async () => {
         console.log('submit tähän')
+        const bar = {
+            name: barName,
+            address: barAddress,
+            city: barCity,
+            prices: {
+                beer: beer,
+                longdrink: longdrink,
+                cider: cider,
+            },
+            user: user,
+        }
+
+        const r = await barService.create(bar)
+        setBars(r)
+        setBarName('')
+        setBarAddress('')
+        setBarCity('')
+        setBeer('')
+        setCider('')
+        setLongdrink('')
+
     }
 
     const cancelAddBar = () => {
+        setBarName('')
+        setBarAddress('')
+        setBarCity('')
+        setBeer('')
+        setCider('')
+        setLongdrink('')
         console.log('cancel tästä')
     }
 
