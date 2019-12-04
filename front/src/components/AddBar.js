@@ -37,9 +37,18 @@ const AddBar = () => {
         console.log('submit tähän')
     }
 
+    const cancelAddBar = () => {
+        console.log('cancel tästä')
+    }
+
     return (
         <div>
-            <form onSubmit={() => addBarSubmit()}>
+            <form onSubmit={(e) => {
+                e.preventDefault()
+                addBarSubmit()
+            }
+            }>
+
                 <li>Name
                     <input value={barName}
                            onChange={handleNameChange}/>
@@ -74,7 +83,7 @@ const AddBar = () => {
 
 
                 <button className='clickable' type='submit'>Add!</button>
-                <button onClick={() => console.log('cancel tästä')}>cancel</button>
+                <button onClick={() => cancelAddBar()}>cancel</button>
 
             </form>
         </div>
