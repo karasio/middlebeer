@@ -18,7 +18,7 @@ usersRouter.get('/:id', async (request, response) => {
   const user = await User.findById(userId);
   console.log(user);
   const bars = await User
-  .find({_id: userId}).populate('bars', {name: 1, address: 1, city: 1});
+  .find({_id: userId}).populate('bars', {name: 1, address: 1, city: 1, prices: 1});
   response.json(bars.map(bar => bar.toJSON()));
 });
 

@@ -88,6 +88,9 @@ const App = () => {
                             user={user}
                             setPage={setPage}
                             bars={bars}
+                            setBars={setBars}
+                            setNotification={setNotification}
+                            notification={notification}
                         />
                     </>
                 )
