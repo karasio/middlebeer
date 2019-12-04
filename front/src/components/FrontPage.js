@@ -68,17 +68,19 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
                 />
             </div>
 
-            <div className='listViewRadioWrapper'>
-                <button className='listViewRadioButton' id='listViewRadioButtonLeft'
-                        onClick={() => setViewmodeSelector(true)}
-                        style={selectedLeft}>
-                    TOP 5
-                </button>
-                <button className='listViewRadioButton' id='listViewRadioButtonRight'
-                        onClick={() => setViewmodeSelector(false)}
-                        style={selectedRight}>
-                    Cheapest
-                </button>
+            <div className='radioButtonWrapper'>
+                <div className='listViewRadioButtons'>
+                    <button className='listViewRadioButton' id='listViewRadioButtonLeft'
+                            onClick={() => setViewmodeSelector(true)}
+                            style={selectedLeft}>
+                        Most liked!
+                    </button>
+                    <button className='listViewRadioButton' id='listViewRadioButtonRight'
+                            onClick={() => setViewmodeSelector(false)}
+                            style={selectedRight}>
+                        Cheap beer, now.
+                    </button>
+                </div>
             </div>
 
             <div className='barsWrapper'>
@@ -90,7 +92,7 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
             </div>
 
 
-            <AddBar user={user} setBars={setBars}/>
+            {/*<AddBar user={user} setBars={setBars}/>*/}
         </div>
 
     );

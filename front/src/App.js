@@ -117,7 +117,7 @@ const App = () => {
 
     return (
         <>
-            <div className='DEBUG' style={{display: ""}}>
+            <div className='DEBUG' style={{display: "none"}}>
               <button onClick={() => {
                 setUser(null);
                 window.localStorage.clear();

@@ -9,36 +9,58 @@
 
 body {
     font-family: 'Raleway', sans-serif;
+    min-width: fit-content;
+}
+
+@media (min-width: 910px) {
+}
+
+@media (max-width: 910px) {
 }
 
 .menubar {
+    padding: 10px 0 10px 90px;
     background: orange;
     border-radius: 5px;
-    width: 100%;
+    min-height: 60px;
+    width: calc(100% - 90px);
     margin: 10px 0 20px 0;
-    height: 50px;
 }
 
-.menuBarItem {
+#menuLogo {
+    position: fixed;
+    top: 4px;
+    left: 10px;
+    height: 95px;
+}
+
+.menuContentWrapper {
+    min-height: 60px;
     height: 100%;
-    margin: 0 5px 0 5px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
-.menuBarItem input {
-    font-family: 'Raleway', sans-serif;
-    font-size: larger;
-    width: 120px;
-    padding: 6px 10px;
-    margin: 2px 5px;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.menubar button{
-    font-family: 'Raleway', sans-serif;
+.flex25 {
     height: 100%;
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.flex75 {
+    flex-grow: 3;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.menubar button {
+
+    font-family: 'Raleway', sans-serif;
     font-size: 20px;
     border-width: 0;
     background: none;
@@ -46,43 +68,50 @@ body {
 
 .menubar button:hover {
     cursor: pointer;
-    background: #B37400;
-}
-
-#menuLogo {
-    float: left;
-    position: relative;
-    top: -7px;
-    height: 130%;
 }
 
 #menuFrontpageButton {
+
     font-size: 32px;
     font-style: oblique;
     float: left;
 }
 
-#menuLoginForm {
-    float: right;
-    margin-right: 0;
-}
-
-#menuLoginButton {
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
-    padding: 0 15px 0 15px;
+#menuMyPageButton {
+    min-width: 100px;
 }
 
 #menuRegisterButton {
-    float: right;
+    min-width: 100px;
 }
 
-#menuMyPageButton {
+
+/* login form styles */
+#menuLoginForm {
+    padding: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    height: fit-content;
+    width: fit-content;
+}
+
+#menuLoginForm input {
+    font-family: 'Raleway', sans-serif;
+    font-size: larger;
+    height: 40px;
+    width: 120px;
+    margin: 0 5px;
+    padding-left: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#menuLoginButton {
+    padding: 6px 15px 6px 2px;
 }
 
 #menuLogoutButton {
-    float: right;
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
-    padding: 0 15px 0 15px;
+    padding: 6px 15px 6px 2px;
 }

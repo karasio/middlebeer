@@ -1,6 +1,6 @@
 
 .contentWrapper {
-    width: 90%;
+    width: 70%;
     margin: 0 auto 0 auto;
 }
 
@@ -26,15 +26,15 @@ h4:hover {
     background: #C7E2FF;
 }
 
-.anecdote {
+.anecdote h1 {
     width: 50%;
-    margin: 5% auto 0 auto;
+    margin: 20% auto 0 auto;
     text-align: center;
     font-style: italic;
 }
 
 .filterInputWrapper {
-    width: 45%;
+    width: 100%;
     margin: 5% auto 20px auto;
 }
 
@@ -49,18 +49,25 @@ h4:hover {
     box-sizing: border-box;
 }
 
+.radioButtonWrapper {
+    min-width: 220px;
+    width: 50%;
+    margin: 0 auto;
+}
 
-.listViewRadioWrapper {
-    width: 25%;
-    height: 25px;
+.listViewRadioButtons {
+    display: inline-block;
+
+    width: 100%;
     margin: 0 auto 20px auto;
 }
 
 .listViewRadioButton {
+
     cursor: pointer;
     margin: 0 auto;
     width: 50%;
-    height: 100%;
+    height: 60px;
     font-family: 'Raleway', sans-serif;
     font-size: 20px;
     border-width: 0;
