@@ -91,7 +91,10 @@ barsRouter.post('/', async (request, response, next) => {
     const savedBar = await bar.save();
     user.bars = user.bars.concat(savedBar._id);
     await user.save();
-    response.json(savedBar.toJSON());
+    const bars = await Bar
+    .find({}).populate('user', { username: 1, name: 1 });
+    console.log("bars", bars);
+    response.json(bars.map(bar => bar.toJSON()));
   } catch (exception) {
     next(exception);
   }
