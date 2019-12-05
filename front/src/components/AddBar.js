@@ -41,9 +41,9 @@ const AddBar = ({user, setBars}) => {
             address: barAddress,
             city: barCity,
             prices: {
-                beer: beer,
-                longdrink: longdrink,
-                cider: cider,
+                beer: beer === '' ? undefined : beer,
+                longdrink: longdrink === '' ? undefined : longdrink,
+                cider: cider === '' ? undefined : cider,
             },
             user: user,
         }
