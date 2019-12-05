@@ -23,10 +23,17 @@ loginRouter.post('/', async (request, response) => {
   };
 
   const token = jwt.sign(userForToken, process.env.SECRET);
+  console.log('tokeni',token);
 
-  response
-  .status(200)
-  .send({ token, username: user.username, name: user.name, defaultCity: user.defaultCity });
+  if(user.defaultCity) {
+    response
+    .status(200)
+    .send({ token, username: user.username, name: user.name, defaultCity: user.defaultCity });
+  } else {
+    response
+    .status(200)
+    .send({ token, username: user.username, name: user.name});
+  }
 });
 
 module.exports = loginRouter;

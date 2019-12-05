@@ -3,7 +3,7 @@ import Bar from '../components/Bar'
 import {useField} from '../hooks';
 import '../components/FrontPage.css'
 import Notification from './Notification';
-import AddBar from "./AddBar";
+//import AddBar from "./AddBar";
 
 const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
     const filterValue = useField('type: text');
@@ -44,13 +44,13 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
     }
 
     const sortBarByLikes = (bars) => {
-        console.log('sorting by likes')
+        //console.log('sorting by likes')
         let sortable = bars;
         return sortable.sort((a, b) => (a.likes < b.likes) ? 1 : (a.likes === b.likes) ? ((a.likes < b.likes) ? 1 : -1) : -1)
     }
 
     const sortBarByCheapestBeer = (bars) => {
-        console.log('sorting by cheapest beer')
+        //console.log('sorting by cheapest beer')
         let sortable = bars;
         return sortable.sort((a, b) => (a.prices.beer > b.prices.beer) ? 1 : (a.prices.beer === b.prices.beer) ? ((a.prices.beer > b.prices.beer) ? 1 : -1) : -1)
     }
@@ -58,7 +58,7 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
 
     return (
         <div className='contentWrapper'>
-            {console.log('rendering')}
+            {/*{console.log('rendering')}*/}
             <div className='anecdote'><h1>"mmm.. tasty"</h1></div>
 
             <div className='filterInputWrapper'>

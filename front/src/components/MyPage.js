@@ -23,13 +23,20 @@ const MyPage = ({user, setPage, bars, setBars, setNotification, notification, se
   // };
 
   const [city, setCity] = useState('');
+  const [users, setUsers] = useState([]);
 
-
-  // TODO tää ei löydy koskaan reloadin/uudelleenkirjautumisen jälkeen,
-  //  sillä user-oliolla ei ole kenttää defaultCity syystä X
   useEffect(() => {
     console.log('def city', user.defaultCity);
     user.defaultCity ? setCity(user.defaultCity) : setCity('');
+  }, [user.defaultCity]);
+
+  useEffect(() => {
+    userService
+    .getAll()
+    .then((response) => {
+      console.log('käyttäjät on ',response);
+      setUsers(response)
+    });
   }, []);
 
   const usersBars = bars.filter(bar => bar.user.username === user.username);
@@ -58,14 +65,13 @@ const MyPage = ({user, setPage, bars, setBars, setNotification, notification, se
     setCity(e.target.value);
   };
 
-  const saveDefaultCity = (e) => {
+  const saveDefaultCity = async (e) => {
     e.preventDefault();
-    console.log('tallennushommaa');
-    const users = bars.map(bar => bar.user);
-    console.log(users);
 
-    const modifiedUser = bars.map(bar => bar.user).find(u => u.username === user.username);
+    const modifiedUser = users.find(u => u.username === user.username);
+    console.log('find user', modifiedUser);
 
+    //debugger;
     modifiedUser.defaultCity = city;
     modifiedUser.token = user.token;
 
@@ -73,8 +79,11 @@ const MyPage = ({user, setPage, bars, setBars, setNotification, notification, se
     userService
         .update(modifiedUser.id, modifiedUser)
         .then(response => {
-          //console.log(response);
+          console.log('TÄMÄ ON PALVELIMEN RESPONSE, JOKA SETUSER(RESPONSE)',response);
           setUser(response);
+          window.localStorage.setItem(
+          'loggedInUser', JSON.stringify(response)
+      );
     })
   };
 

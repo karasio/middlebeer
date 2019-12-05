@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import barService from '../services/bars';
 import '../components/FrontPage.css'
-import Notification from './Notification';
+//import Notification from './Notification';
 
 const Bar = ({ bar, bars, setBars, user, setNotification, notification }) => {
   const [detailsVisible, setDetailsVisible] = useState(false);
@@ -36,6 +36,7 @@ const Bar = ({ bar, bars, setBars, user, setNotification, notification }) => {
 
     let flag = '';
 
+
     const figureOutPrice = (userInput, priceFromDb) => {
       if(!isNaN(Number.parseFloat(userInput)) && Number.parseFloat(userInput) > 0) {
         console.log(userInput, 'kaikki pitäs olla ok?');
@@ -52,7 +53,8 @@ const Bar = ({ bar, bars, setBars, user, setNotification, notification }) => {
         flag += '.';
         return priceFromDb;
       }
-    }
+    };
+
     const edited = {
       name: bar.name,
       address: bar.address,
