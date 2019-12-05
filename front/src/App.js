@@ -35,6 +35,7 @@ const App = () => {
             barService.setToken(user.token);
             userService.setToken(user.token);
         }
+        setNotification({msg: null, sort: null});
     }, [page]);
 
     const handleLogin = async (event) => {
