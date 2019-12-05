@@ -3,6 +3,7 @@ import '../components/MyPage.css'
 import userService from '../services/users';
 import Bar from './Bar';
 import AddBar from './AddBar';
+import Notification from './Notification';
 
 const MyPage = ({user, setPage, bars, setBars, setNotification, notification, setUser}) => {
   //console.log(user);
@@ -37,6 +38,7 @@ const MyPage = ({user, setPage, bars, setBars, setNotification, notification, se
       console.log('käyttäjät on ',response);
       setUsers(response)
     });
+    setNotification({msg: null, sort: null});
   }, []);
 
   const usersBars = bars.filter(bar => bar.user.username === user.username);
@@ -87,13 +89,20 @@ const MyPage = ({user, setPage, bars, setBars, setNotification, notification, se
     })
   };
 
+  const capitalize = (value) => {
+    return value.toLowerCase()
+    .split(/ /)
+    .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+    .join(' ');
+  };
 
   return (
       <div className='contentWrapper'>
-          <h1>Hello {user.name}!</h1>
+          <h1>Hello {capitalize(user.name)}!</h1>
+          <Notification message={notification} />
         <div>
           <h2 >Add new bar</h2>
-          <AddBar user={user} setBars={setBars}/>
+          <AddBar user={user} setBars={setBars} setNotification={setNotification}/>
           <h2>Here is some information about your activity:</h2>
           <p>Bars added by you</p>
           {barsAdded()}
