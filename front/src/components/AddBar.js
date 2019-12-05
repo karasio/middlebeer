@@ -40,15 +40,18 @@ const AddBar = ({user, setBars, setNotification}) => {
             .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
             .join(' ');
         };
-        setBarName(capitalize(barName));
-        setBarAddress(capitalize(barAddress));
-        setBarCity(capitalize(barCity));
+
+        return {
+            name: capitalize(barName),
+            address: capitalize(barAddress),
+            city: capitalize(barCity)
+        }
     };
 
 
     const addBarSubmit = async () => {
-        validateInput();
-        console.log('submit tähän');
+        const barInfo = validateInput();
+        console.log('barinfo', barInfo);
 
          try {
              if (beer === '' && cider === '' && longdrink === '') {
@@ -56,9 +59,9 @@ const AddBar = ({user, setBars, setNotification}) => {
                  throw new Error('No prices');
              }
              const bar = {
-                 name: barName,
-                 address: barAddress,
-                 city: barCity,
+                 name: barInfo.name,
+                 address: barInfo.address,
+                 city: barInfo.city,
                  prices: {
                      beer: beer === '' ? undefined : beer,
                      longdrink: longdrink === '' ? undefined : longdrink,
@@ -67,6 +70,8 @@ const AddBar = ({user, setBars, setNotification}) => {
                  user: user,
              }
 
+             console.log(barName, barAddress, barCity);
+             //debugger;
              const r = await barService.create(bar)
              setBars(r)
              setNotification({msg: 'Bar added', sort: 'info'});
