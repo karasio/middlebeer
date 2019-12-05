@@ -68,7 +68,7 @@ const AddBar = ({user, setBars}) => {
         setLongdrink('')
         console.log('cancel tästä')
     }
-
+//TODO sisennykset....
     return (
         <div>
 
@@ -78,6 +78,7 @@ const AddBar = ({user, setBars}) => {
             }
             }>
                 <table>
+                <thead>
                 <tr>
                 <td>Name</td>
                     <td><input value={barName}
@@ -131,9 +132,11 @@ const AddBar = ({user, setBars}) => {
                 </tr>
 
 
-                <button className='clickable' type='submit'>Add!</button>
-                <button onClick={() => cancelAddBar()}>cancel</button>
+
+                </thead>
                 </table>
+                            <button className='clickable' type='submit'>Add!</button>
+  <button onClick={() => cancelAddBar()}>cancel</button>
 
             </form>
         </div>
