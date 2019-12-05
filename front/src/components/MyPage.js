@@ -5,6 +5,18 @@ import Bar from './Bar';
 import AddBar from './AddBar';
 import Notification from './Notification';
 
+/**
+ * Component for rendering users own page.
+ * @param user - user that is logged in
+ * @param setPage - //TODO not used atm!!
+ * @param bars - list of bars
+ * @param setBars - to alter list of bars
+ * @param setNotification - to alter notification object
+ * @param notification - notification object
+ * @param setUser - used to set user if changes to user are made
+ * @returns {*}
+ */
+
 const MyPage = ({user, setPage, bars, setBars, setNotification, notification, setUser}) => {
   const [city, setCity] = useState('');
   const [users, setUsers] = useState([]);
@@ -50,6 +62,10 @@ const MyPage = ({user, setPage, bars, setBars, setNotification, notification, se
     setCity(e.target.value);
   };
 
+  /**
+   * Event handler for changing users default city
+   * Makes api call to change user information on database and sets user to useState variable
+   */
   const saveDefaultCity = async (e) => {
     e.preventDefault();
 
@@ -72,6 +88,10 @@ const MyPage = ({user, setPage, bars, setBars, setNotification, notification, se
     })
   };
 
+  /**
+   * Forms string to first upper case letter, rest lower case letter
+   * @returns formalized string
+   */
   const capitalize = (value) => {
     return value.toLowerCase()
     .split(/ /)

@@ -2,6 +2,16 @@ import React, {useState} from 'react';
 import barService from '../services/bars';
 import '../components/FrontPage.css'
 //import Notification from './Notification';
+/**
+ * Component for rendering a bar to a list of bars
+ * @param bar - one bar
+ * @param bars bars - list of bars
+ * @param setBars - to alter list of bars
+ * @param user - user that is logged in
+ * @param setNotification - to alter notification object
+ * @param notification - notification object
+ * @returns {*}
+ */
 
 const Bar = ({ bar, bars, setBars, user, setNotification, notification }) => {
   const [detailsVisible, setDetailsVisible] = useState(false);
@@ -14,6 +24,10 @@ const Bar = ({ bar, bars, setBars, user, setNotification, notification }) => {
   const [cider, setCider] = useState(bar.prices.cider === undefined ? 0.00 : bar.prices.cider);
   const [longdrink, setLongdrink] = useState(bar.prices.longdrink === undefined ? 0.00 :  bar.prices.longdrink);
 
+  /**
+   * Function to handle liking a bar
+   * Makes api call to change bar information on database and sets bars to useState variable
+   */
   const likeBar = (id) => {
     console.log(`bar ${id} liked`);
     const newBar = {
@@ -31,12 +45,25 @@ const Bar = ({ bar, bars, setBars, user, setNotification, notification }) => {
         .then(returnedBars => setBars(returnedBars));
   };
 
+  /**
+   * Function to handle editing a bar
+   * Checks user input so that it is valid
+   * Makes api call to change bar information on database and sets bar to useState variable
+   */
   const editBar = async () => {
     //console.log('beer', typeof(beer), 'cider', typeof(cider), 'longk', typeof(longdrink));
 
     let flag = '';
 
-
+    /**
+     * Checks user input for drink prices (expecting numbers) and validates it
+     * if input is valid
+     * @returns user input
+     * if user input is invalid & former price can be found in database
+     * @returns former price
+     * if user input is invalid and no former price can be found in database
+     * @returns undefined
+     */
     const figureOutPrice = (userInput, priceFromDb) => {
       if(!isNaN(Number.parseFloat(userInput)) && Number.parseFloat(userInput) > 0) {
         console.log(userInput, 'kaikki pitäs olla ok?');
@@ -97,6 +124,10 @@ const Bar = ({ bar, bars, setBars, user, setNotification, notification }) => {
     setLongdrink(bar.prices.longdrink === undefined ? 0.00 : bar.prices.longdrink);
   };
 
+  /**
+   * Function to handle removing a bar
+   * Makes api call to delete bar information from database and sets bars to useState variable
+   */
   const removeBar = (id) => {
     const barToRemove = bars.find(b => b.id === id);
     const sureToDelete = window.confirm(`Delete ${barToRemove.name}?`);

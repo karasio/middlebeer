@@ -6,6 +6,10 @@ import Notification from './Notification';
 //import AddBar from "./AddBar";
 import beerPic from '../media/4800234604_23f50117e9_c.jpg'
 
+/**
+ * Component for front page view with list of bars and info text
+ */
+
 const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
     const filterValue = useField('type: text');
     const [viewmodeSelector, setViewmodeSelector] = useState(true)
@@ -36,6 +40,10 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
             )
         });
 
+    /**
+     * Filter bar list according to filter value
+     * @returns filtered array
+     */
     const getFilteredBars = (exp) => {
         let pattern = new RegExp(exp.object.value, 'i')
         let filteredBarsCopy = []
@@ -49,12 +57,20 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
         return filteredBarsCopy
     }
 
+    /**
+     * sorts bar list according to likes
+     * @returns array filtered by bar.likes ascending
+     */
     const sortBarByLikes = (bars) => {
         //console.log('sorting by likes')
         let sortable = bars;
         return sortable.sort((a, b) => (a.likes < b.likes) ? 1 : (a.likes === b.likes) ? ((a.likes < b.likes) ? 1 : -1) : -1)
     }
 
+    /**
+     * sorts bar list according to beer price
+     * @returns array filtered by bar.prices.beer ascending
+     */
     const sortBarByCheapestBeer = (bars) => {
         //console.log('sorting by cheapest beer')
         let sortable = bars;
@@ -115,8 +131,6 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
                     <img className='foto' src={beerPic} alt='pint of beer' />
                 </div>
             </div>
-
-            {/*<AddBar user={user} setBars={setBars}/>*/}
         </div>
 
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * Handles login input
+ * Component for Login Form
  * @param handleLogin Function that is called when user tries to log in
  * @param username Username input value
  * @param password Password input value

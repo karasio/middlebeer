@@ -1,6 +1,10 @@
 import React, {useState} from "react";
 import barService from "../services/bars";
 
+/**
+ * Component for rendering table of input fields to add a bar to site
+ */
+
 const AddBar = ({user, setBars, setNotification}) => {
     const [barName, setBarName] = useState('')
     const [barAddress, setBarAddress] = useState('')
@@ -33,7 +37,11 @@ const AddBar = ({user, setBars, setNotification}) => {
         setLongdrink(e.target.value)
     }
 
-    const validateInput = () => {
+    /**
+     * Function to fix user input with first upper case letter and rest lower case letter
+     * @returns {{address: *, city: *, name: *}}
+     */
+    const capitalizeString = () => {
         const capitalize = (value) => {
             return value.toLowerCase()
             .split(/ /)
@@ -48,9 +56,13 @@ const AddBar = ({user, setBars, setNotification}) => {
         }
     };
 
-
+    /**
+     * Handles save button click for adding a bar
+     * create bar object from user input and send to database
+     * @returns {Promise<void>}
+     */
     const addBarSubmit = async () => {
-        const barInfo = validateInput();
+        const barInfo = capitalizeString();
         console.log('barinfo', barInfo);
 
          try {
@@ -93,9 +105,11 @@ const AddBar = ({user, setBars, setNotification}) => {
 
              }, 5000);
          }
-
     };
 
+    /**
+     * Handles cancel button click when not adding a bar
+     */
     const cancelAddBar = () => {
         setBarName('')
         setBarAddress('')
@@ -104,8 +118,8 @@ const AddBar = ({user, setBars, setNotification}) => {
         setCider('')
         setLongdrink('')
         console.log('cancel tästä')
-    }
-//TODO sisennykset....
+    };
+
     return (
         <div>
             <form onSubmit={(e) => {
