@@ -71,47 +71,69 @@ const AddBar = ({user, setBars}) => {
 
     return (
         <div>
+
             <form onSubmit={(e) => {
                 e.preventDefault()
                 addBarSubmit()
             }
             }>
+                <table>
+                <tr>
+                <td>Name</td>
+                    <td><input value={barName}
+                           onChange={handleNameChange}
+                           placeholder="Janoinnen poro"/>
 
-                <li>Name
-                    <input value={barName}
-                           onChange={handleNameChange}/>
-                </li>
-                <li>Address
-                    <input value={barAddress}
-                           onChange={handleAddressChange}/>
-                </li>
-                <li>City
-                    <input value={barCity}
-                           onChange={handleCityChange}/>
-                </li>
+                </td>
+                </tr>
+                <tr>
+                <td>Address</td>
+                    <td><input value={barAddress}
+                           onChange={handleAddressChange}
+                           placeholder="Porokuja 1 A"/>
 
-                <li>Beer
-                    <input
+                </td>
+                </tr>
+                <tr>
+                <td>City</td>
+                    <td><input value={barCity}
+                           onChange={handleCityChange}
+                           placeholder="Utsjoki"/>
+
+                </td>
+                </tr>
+                <tr>
+                <td>Beer</td>
+                    <td><input
                         value={beer}
                         onChange={handleBeerChange}
+                        placeholder="5.80"
                     />
-                </li>
-                <li>Cider
-                    <input
+                    </td>
+                </tr>
+                <tr>
+                <td>Cider</td>
+                    <td><input
                         value={cider}
                         onChange={handleCiderChange}
+                        placeholder="6.50"
                     />
-                </li>
-                <li>Long drink
-                    <input
+                        </td>
+                </tr>
+                        <tr>
+                <td>Long drink</td>
+                    <td><input
                         value={longdrink}
                         onChange={handleLongdrinkChange}
+                        placeholder="6.20"
                     />
-                </li>
+                        </td>
+                </tr>
 
 
                 <button className='clickable' type='submit'>Add!</button>
                 <button onClick={() => cancelAddBar()}>cancel</button>
+                </table>
 
             </form>
         </div>
