@@ -6,38 +6,21 @@ import AddBar from './AddBar';
 import Notification from './Notification';
 
 const MyPage = ({user, setPage, bars, setBars, setNotification, notification, setUser}) => {
-  //console.log(user);
-  // const [userBars, setUserBars] = useState([]);
-  //
-  // const allUsers = userService
-  //   .getAll()
-  //     .then((response) => {
-  //   const userId = response.filter(u => u.username === user.username);
-  //   setUserBars(userId.bars);
-  // });
-
-  // const getBarsAdded = async () => {
-  //   const allUsers = await userService.getAll();
-  //   const userId = allUsers.filter(u => u.username === user.username);
-  //   //console.log('userId',userId, 'raflat');
-  //   setUserBars(userId.bars);
-  // };
-
   const [city, setCity] = useState('');
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     console.log('def city', user.defaultCity);
-    user.defaultCity ? setCity(user.defaultCity) : setCity('');
   }, [user.defaultCity]);
 
   useEffect(() => {
     userService
     .getAll()
     .then((response) => {
-      console.log('käyttäjät on ',response);
+      //console.log('käyttäjät on ',response);
       setUsers(response)
     });
+    user.defaultCity ? setCity(user.defaultCity) : setCity('');
     setNotification({msg: null, sort: null});
   }, []);
 

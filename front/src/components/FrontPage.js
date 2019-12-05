@@ -4,6 +4,7 @@ import {useField} from '../hooks';
 import '../components/FrontPage.css'
 import Notification from './Notification';
 //import AddBar from "./AddBar";
+import beerPic from '../media/4800234604_23f50117e9_c.jpg'
 
 const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
     const filterValue = useField('type: text');
@@ -14,6 +15,11 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
     useEffect(() => {
         console.log('FrontPage useEffect', bars);
     }, [bars]);
+
+    useEffect(() => {
+        // TODO MITEN HALP FILTERVALUEKSI user.defaultCity!!
+        // user.defaultCity !== undefined ? filterValue.object.setValue(user.defaultCity) : ''
+    }, []);
 
     const barsToShow = (barArray) =>
         barArray.map(bar => {
@@ -62,6 +68,11 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
         return sortable.sort((a, b) => (a.prices.beer > b.prices.beer) ? 1 : (a.prices.beer === b.prices.beer) ? ((a.prices.beer > b.prices.beer) ? 1 : -1) : -1)
     }
 
+    const infoText =
+        'MiddleBeer is built to help you decide where to crab a pint ' +
+        ' or several if such is your wish. List above helps every user, however as a logged' +
+        ' in user you can submit your own entry and set preferences which ' +
+        'city is shown as a default.';
 
     return (
         <div className='contentWrapper'>
@@ -98,6 +109,12 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
                 }
             </div>
 
+            <div className='infoText'>
+                {infoText}
+                <div>
+                    <img className='foto' src={beerPic} alt='pint of beer' />
+                </div>
+            </div>
 
             {/*<AddBar user={user} setBars={setBars}/>*/}
         </div>

@@ -12,5 +12,5 @@ export const useField = (type) => {
     setValue('');
   };
 
-  return { reset, object: { type, value, onChange } };
+  return { reset, object: { type, value, setValue, onChange } };
 };
