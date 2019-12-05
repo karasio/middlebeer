@@ -52,7 +52,7 @@ const Menu = ({user, username, password, setUser, handleLogin, setPage}) => {
         <div className='menubar'>
 
 
-            <img src={logo} alt={'logo'} className='menuBarItem' id='menuLogo'/>
+            <img src={logo} alt={'logo'} onClick={() => setPage('front')} className='menuBarItem' id='menuLogo'/>
             <div className='menuContentWrapper'>
 
                 <div className='flex25'>
