@@ -22,6 +22,10 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
 
     useEffect(() => {
         // TODO MITEN HALP FILTERVALUEKSI user.defaultCity!!
+      console.log('USER!!!!!!!', user);
+      if (user != null){
+        filterValue.object.setValue(user.defaultCity);
+        }
         // user.defaultCity !== undefined ? filterValue.object.setValue(user.defaultCity) : ''
     }, []);
 
