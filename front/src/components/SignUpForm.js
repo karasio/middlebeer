@@ -42,19 +42,24 @@ const SignUpForm = ({setPage}) => {
         <div>
           <h3>welcome new user!</h3>
           <form onSubmit={handleRegister}>
-            <div>
-              name
-              <input {...newName.object}/>
-            </div>
-            <div>
-              username
-              <input {...newUsername.object}/>
-            </div>
-            <div>
-              password
-              <input {...newPassword.object}/>
-            </div>
+      <table>
+      <tbody>
+            <tr>
+              <td>name</td>
+              <td><input {...newName.object}/></td>
+            </tr>
+            <tr>
+              <td>username</td>
+              <td><input {...newUsername.object}/></td>
+            </tr>
+            <tr>
+              <td>password</td>
+              <td><input {...newPassword.object}/></td>
+            </tr>
+  </tbody>
+  </table>
             <button type='submit'>sign up</button>
+
           </form>
         </div>
     );

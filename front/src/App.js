@@ -54,6 +54,7 @@ const App = () => {
             userService.setToken(user.token);
             username.reset();
             password.reset();
+            setPage('front')
 
         } catch (exception) {
             console.log('handleLogin catch', exception);
