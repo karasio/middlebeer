@@ -31,7 +31,6 @@ h4:hover {
 }
 
 .filterInput {
-    font-family: 'Raleway', sans-serif;
     width: 100%;
     font-size: larger;
     display: inline-block;
@@ -49,28 +48,19 @@ h4:hover {
 
 .listViewRadioButtons {
     display: inline-block;
-
     width: 100%;
     margin: 0 auto 20px auto;
 }
 
 .listViewRadioButton {
-
-    cursor: pointer;
     margin: 0 auto;
     width: 50%;
     height: 60px;
     font-family: 'Raleway', sans-serif;
     font-size: 20px;
     border-width: 0;
-
-
     background: #EDF4FA;
 }
-
-/*.listViewRadioButton:hover {
-    background: #C7E2FF;
-}*/
 
 #listViewRadioButtonLeft {
     float: left;
@@ -86,10 +76,6 @@ h4:hover {
 
 .barsWrapper {
     margin: 0 auto 0 auto;
-}
-
-.clickable {
-    cursor: pointer;
 }
 
 .barListItem {

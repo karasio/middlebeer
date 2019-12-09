@@ -42,22 +42,16 @@
 }
 
 .menuFlexRight {
-    flex-grow: 3;
+    flex-grow: 1;
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
 
 .menubar button {
-
-    font-family: 'Raleway', sans-serif;
     font-size: 20px;
     border-width: 0;
     background: none;
-}
-
-.menubar button:hover {
-    cursor: pointer;
 }
 
 #menuFrontpageButton {
@@ -87,7 +81,6 @@
 }
 
 #menuLoginForm input {
-    font-family: 'Raleway', sans-serif;
     font-size: larger;
     height: 40px;
     width: 120px;
