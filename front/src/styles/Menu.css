@@ -4,7 +4,7 @@
     border-radius: 5px;
     min-height: 60px;
     width: calc(100% - 90px);
-    margin: 10px 0 20px 0;
+    margin: 10px auto 20px auto;
 }
 
 #menuLogo {
@@ -14,8 +14,8 @@
     height: 95px;
 }
 
-#menuLogo:hover{
-    cursor:pointer;
+#menuLogo:hover {
+    cursor: pointer;
 }
 
 .menuContentWrapper {

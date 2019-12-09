@@ -24,11 +24,11 @@ const App = () => {
 
         const loggedUserJSON = window.localStorage.getItem('loggedInUser');
         if (loggedUserJSON) {
-          const user = JSON.parse(loggedUserJSON);
-          console.log('localstoragesta kaivettu usr', user);
-          setUser(user);
-          barService.setToken(user.token);
-          userService.setToken(user.token);
+            const user = JSON.parse(loggedUserJSON);
+            console.log('localstoragesta kaivettu usr', user);
+            setUser(user);
+            barService.setToken(user.token);
+            userService.setToken(user.token);
         }
         setNotification({msg: null, sort: null});
 
@@ -47,7 +47,7 @@ const App = () => {
 
         try {
             const user = await loginService.login({username: username.object.value, password: password.object.value});
-            console.log('loginin jälkeen',user);
+            console.log('loginin jälkeen', user);
             window.localStorage.setItem(
                 'loggedInUser', JSON.stringify(user)
             );
@@ -114,7 +114,7 @@ const App = () => {
                             setBars={setBars}
                             notification={notification}
                             setNotification={setNotification}
-                            />
+                        />
                     </div>
                 );
         }
@@ -124,11 +124,12 @@ const App = () => {
     return (
         <>
             <div className='DEBUG' style={{display: "none"}}>
-              <button onClick={() => {
-                setUser(null);
-                window.localStorage.clear();
-              }}>nollaa käyttäjä</button>
-              <button onClick={() => console.log('user on ', user)}>KUKA KÄYTTÄÄ</button>
+                <button onClick={() => {
+                    setUser(null);
+                    window.localStorage.clear();
+                }}>nollaa käyttäjä
+                </button>
+                <button onClick={() => console.log('user on ', user)}>KUKA KÄYTTÄÄ</button>
             </div>
 
             <Menu user={user}
@@ -137,11 +138,10 @@ const App = () => {
                   setUser={setUser}
                   handleLogin={handleLogin}
                   setPage={setPage}/>
-            <div>
+            <div className='contentWrapper'>
                 {whichPageToShow()}
+                <br/><br/>
             </div>
-            <br/><br/>
-            <div style={{float: 'right'}}>Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
         </>
     );
 };

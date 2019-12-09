@@ -11,10 +11,20 @@ body, input, button {
     font-family: 'Raleway', sans-serif;
 }
 
+h4, h3, h2 {
+    margin: 0;
+}
+
+button {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
 .inContentButton {
     background: orange;
     border: none;
     width: 65px;
+    margin-top: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
     border-radius: 5px;
@@ -22,7 +32,8 @@ body, input, button {
 
 .contentWrapper {
     width: 70%;
-    margin: 0 auto 0 auto;
+    height: calc(100vh - 80px - 37px);
+    margin: 120px auto 0 auto;
 }
 
 .notification {
@@ -43,4 +54,5 @@ body, input, button {
 
 .clickable {
     cursor: pointer;
+    padding: 5px;
 }

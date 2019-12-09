@@ -16,11 +16,11 @@
     list-style-image: url('../media/beer2.svg');
 }
 
-.extraInfo h3:hover {
+.extraInfo h3:hover, .extraInfo h3:active {
     background: #C7E2FF;
 }
 
-.extraInfo h4:hover {
+.barListItem h4:hover, .barListItem h4:active {
     background: #C7E2FF;
     border-radius: 5px;
 }

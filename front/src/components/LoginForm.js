@@ -8,31 +8,32 @@ import React from 'react';
  * @param user User that is logged in.
  */
 const LoginForm = ({
-                     handleLogin,
-                     username,
-                     password,
-                     user,
+                       handleLogin,
+                       username,
+                       password,
+                       user,
                    }) => {
-  // console.log(username);
-  // console.log(password);
-  return (
-      user === null
-          ?
+    // console.log(username);
+    // console.log(password);
+    return (
+        user === null
+            ?
             <form className='menuBarItem' id='menuLoginForm' onSubmit={handleLogin}>
-              <input
-                  {...username.object}
-                  placeholder={'username'}
-              />
-              <input
-                  {...password.object}
-                  placeholder={'password'}
+                <input
+                    {...username.object}
+                    placeholder={'username'}
+                />
+                <input
+                    {...password.object}
+                    placeholder={'password'}
 
-              />
-              <button className='clickable' id='menuLoginButton'
-                  type='submit'>Login</button>
+                />
+                <button className='clickable' id='menuLoginButton'
+                        type='submit'>Login
+                </button>
             </form>
-          : ''
-  );
+            : ''
+    );
 };
 
 export default LoginForm;

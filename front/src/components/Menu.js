@@ -29,7 +29,8 @@ const RegisterButton = ({setPage, user}) => {
 
     return (
         user === null
-            ? <button className='menuBarItem clickable' id='menuRegisterButton' onClick={registerButtonClicked}>Sign up</button>
+            ? <button className='menuBarItem clickable' id='menuRegisterButton' onClick={registerButtonClicked}>Sign
+                up</button>
             : ''
     )
 };
@@ -61,18 +62,15 @@ const Menu = ({user, username, password, setUser, handleLogin, setPage}) => {
                     </button>
                     <RegisterButton setPage={setPage} user={user}/>
                     <MyPageButton className='menuBarItem' user={user} setPage={setPage}/>
-            </div>
-            <div className='menuFlexRight'>
-
-
-
+                </div>
+                <div className='menuFlexRight'>
 
 
                     <LoginForm handleLogin={handleLogin} username={username} password={password} user={user}/>
                     <LogoutButton className='menuBarItem' user={user} username={username} password={password}
                                   setUser={setUser}
                                   setPage={setPage}/>
-            </div>
+                </div>
             </div>
         </div>
     );

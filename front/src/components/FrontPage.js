@@ -3,15 +3,14 @@ import Bar from '../components/Bar'
 import {useField} from '../hooks';
 import '../styles/FrontPage.css'
 import Notification from './Notification';
-//import AddBar from "./AddBar";
-import beerPic from '../media/001-beer-11.png'
+import infoTextIcon from '../media/001-beer-11.png'
 
 /**
  * Component for front page view with list of bars and info text
  */
 
 const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
-    const filterValue = useField('type: text');
+    const filterValue = useField('text');
     const [viewmodeSelector, setViewmodeSelector] = useState(true)
     const [showInfo, setShowInfo] = useState(false)
     const hideInfoText = {display: showInfo ? 'block' : 'none'}
@@ -23,11 +22,11 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
     // }, [bars]);
 
     useEffect(() => {
-      if (user != null){
-        filterValue.setValue(user.defaultCity);
-        }else{
-        filterValue.setValue('');
-      }
+        if (user != null) {
+            filterValue.setValue(user.defaultCity);
+        } else {
+            filterValue.setValue('');
+        }
         // user.defaultCity !== undefined ? filterValue.object.setValue(user.defaultCity) : ''
     }, [user]);
 
@@ -104,7 +103,7 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
                     </div>
                 </div>
                 <div className='infoTextContentWrapper' style={hideInfoText}>
-                    <img className='foto' src={beerPic} alt='pint of beer'/>
+                    <img className='infoTextIcon' src={infoTextIcon} alt='pint of beer'/>
                     {infoTextString}
 
                 </div>
@@ -114,11 +113,9 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
 
 
     return (
-        <div className='contentWrapper'>
+        <div>
             {/*{console.log('rendering')}*/}
             <div className='anecdote'><h1>"mmm.. tasty"</h1></div>
-
-            <InfoText showInfo={showInfo} setShowInfo={setShowInfo}/>
             <div className='filterInputWrapper'>
                 <input className='filterInput'
                        {...filterValue.object}
@@ -149,7 +146,10 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
                     barsToShow(sortBarByCheapestBeer(getFilteredBars(filterValue)))
                 }
             </div>
-
+            <InfoText showInfo={showInfo} setShowInfo={setShowInfo}/>
+            <div style={{float: "right", marginTop: '50px'}}>Icons made by <a
+                href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good
+                Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
         </div>
 
     );

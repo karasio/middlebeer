@@ -44,9 +44,9 @@ const AddBar = ({user, setBars, setNotification}) => {
     const capitalizeString = () => {
         const capitalize = (value) => {
             return value.toLowerCase()
-            .split(/ /)
-            .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-            .join(' ');
+                .split(/ /)
+                .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+                .join(' ');
         };
 
         return {
@@ -65,46 +65,46 @@ const AddBar = ({user, setBars, setNotification}) => {
         const barInfo = capitalizeString();
         console.log('barinfo', barInfo);
 
-         try {
-             if (beer === '' && cider === '' && longdrink === '') {
-                 setNotification({msg: 'Please do tell prices!', sort: 'error'})
-                 throw new Error('No prices');
-             }
-             const bar = {
-                 name: barInfo.name,
-                 address: barInfo.address,
-                 city: barInfo.city,
-                 prices: {
-                     beer: beer === '' ? undefined : beer,
-                     longdrink: longdrink === '' ? undefined : longdrink,
-                     cider: cider === '' ? undefined : cider,
-                 },
-                 user: user,
-             }
+        try {
+            if (beer === '' && cider === '' && longdrink === '') {
+                setNotification({msg: 'Please do tell prices!', sort: 'error'})
+                throw new Error('No prices');
+            }
+            const bar = {
+                name: barInfo.name,
+                address: barInfo.address,
+                city: barInfo.city,
+                prices: {
+                    beer: beer === '' ? undefined : beer,
+                    longdrink: longdrink === '' ? undefined : longdrink,
+                    cider: cider === '' ? undefined : cider,
+                },
+                user: user,
+            }
 
-             console.log(barName, barAddress, barCity);
-             //debugger;
-             const r = await barService.create(bar)
-             setBars(r)
-             setNotification({msg: 'Bar added', sort: 'info'});
-             setTimeout(() => {
-                 setNotification({msg: null, sort: null});
+            console.log(barName, barAddress, barCity);
+            //debugger;
+            const r = await barService.create(bar)
+            setBars(r)
+            setNotification({msg: 'Bar added', sort: 'info'});
+            setTimeout(() => {
+                setNotification({msg: null, sort: null});
 
-             }, 5000);
-             setBarName('')
-             setBarAddress('')
-             setBarCity('')
-             setBeer('')
-             setCider('')
-             setLongdrink('')
-         } catch (exception) {
-             console.log(exception);
-             setNotification({msg: 'Something went wrong', sort: 'error'});
-             setTimeout(() => {
-                 setNotification({msg: null, sort: null});
+            }, 5000);
+            setBarName('')
+            setBarAddress('')
+            setBarCity('')
+            setBeer('')
+            setCider('')
+            setLongdrink('')
+        } catch (exception) {
+            console.log(exception);
+            setNotification({msg: 'Something went wrong', sort: 'error'});
+            setTimeout(() => {
+                setNotification({msg: null, sort: null});
 
-             }, 5000);
-         }
+            }, 5000);
+        }
     };
 
     /**
@@ -182,7 +182,7 @@ const AddBar = ({user, setBars, setNotification}) => {
                     </thead>
                 </table>
                 <button className='inContentButton clickable' type='submit'>Add!</button>
-                <button className='inContentButton clickable' onClick={() => cancelAddBar()}>Cancel</button>
+                <button className='inContentButton clickable' onClick={cancelAddBar}>Cancel</button>
 
             </form>
         </div>

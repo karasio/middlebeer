@@ -3,7 +3,8 @@ import barService from '../services/bars';
 import '../styles/Bar.css'
 
 /**
- * Component for rendering a bar to a list of bars
+ * Component for rendering a item from bar information to a list of bars
+ * Notice that functionality for liking, editing and removing bar information is handled here
  * @param bar - one bar
  * @param bars bars - list of bars
  * @param setBars - to alter list of bars
@@ -183,14 +184,10 @@ const Bar = ({bar, bars, setBars, user, setNotification, notification}) => {
                 <h3 className='clickable' onClick={() => setDetailsVisible(false)}>{bar.name}</h3>
                 <div className='extraInfoContentWrapper'>
                     <p>{bar.address}, {bar.city}</p>
-                    <p>{bar.likes} likes
-                        {user !== null ?
-                            <button className='inContentButton clickable' onClick={() => likeBar(bar.id)}>Like</button>
-                            : ''}
-                        {user !== null ?
-                            <button className='inContentButton clickable' onClick={() => setEditVisible(true)}>Edit</button>
-                            : ''
-                        }
+                    <p>{user !== null ?
+                        <button className='inContentButton clickable' onClick={() => likeBar(bar.id)}>Like</button>
+                        : ''}
+                        {bar.likes} likes
                     </p>
                     <ul style={showDefault}>
                         {(bar.prices.beer === undefined || bar.prices.beer === null) ? '' :
@@ -226,13 +223,20 @@ const Bar = ({bar, bars, setBars, user, setNotification, notification}) => {
                                     />
                                 </li>
                                 <button className='inContentButton clickable' type='submit'>Save</button>
-                                <button className='inContentButton clickable' onClick={() => setEditVisible(false)}>Cancel</button>
+                                <button className='inContentButton clickable' onClick={() => removeBar(bar.id)}>Remove
+                                </button>
+                                <button className='inContentButton clickable'
+                                        onClick={() => setEditVisible(false)}>Cancel
+                                </button>
                             </form>
                         </ul>
                         : ''}
 
                     {/*{ blogUser.name !== undefined ? <p>added by {blogUser.name}</p> : <p>no idea who added this</p> }*/}
-                    {user !== null ? <button className='inContentButton clickable' onClick={() => removeBar(bar.id)}>Remove</button> : <></>}
+                    {user !== null ?
+                        <button className='inContentButton clickable' onClick={() => setEditVisible(true)}>Edit</button>
+                        : ''
+                    }
                 </div>
             </div>
         </>

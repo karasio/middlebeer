@@ -1,8 +1,3 @@
-
-h1 {
-    margin: 130px auto 10px 0;
-}
-
-h2 {
-    margin: 50px auto 10px 0;
+h2.myPageHeader, h3.myPageHeader, h4.myPageHeader {
+    margin: 40px 0 0 0;
 }
