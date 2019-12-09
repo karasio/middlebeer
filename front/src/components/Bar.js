@@ -65,6 +65,9 @@ const Bar = ({bar, bars, setBars, user, setNotification, notification}) => {
          * @returns undefined
          */
         const figureOutPrice = (userInput, priceFromDb) => {
+            if (typeof userInput === 'string') {
+                userInput = userInput.replace(',', '.');
+            }
             if (!isNaN(Number.parseFloat(userInput)) && Number.parseFloat(userInput) > 0) {
                 console.log(userInput, 'kaikki pitäs olla ok?');
                 flag += '';
