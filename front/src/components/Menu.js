@@ -16,7 +16,7 @@ const LogoutButton = ({user, username, password, setUser, setPage}) => {
 
     return (
         user !== null
-            ? <button id='menuLogoutButton clickable' onClick={handleLogout}>Logout</button>
+            ? <button className='clickable' id='menuLogoutButton' onClick={handleLogout}>Logout</button>
             : ''
     )
 };
@@ -42,7 +42,7 @@ const MyPageButton = ({user, setPage}) => {
 
     return (
         user !== null
-            ? <button id='menuMyPageButton clickable' onClick={myPageButtonClicked}>My page</button>
+            ? <button className='clickable' id='menuMyPageButton' onClick={myPageButtonClicked}>My page</button>
             : ''
     )
 };

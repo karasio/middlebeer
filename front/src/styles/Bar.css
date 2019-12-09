@@ -1,0 +1,29 @@
+.barListItem {
+    background: #EDF4FA;
+    border-radius: 5px;
+    margin: 0 0 5px 0;
+    width: 100%;
+}
+
+.extraInfo {
+    border: solid #C7E2FF;
+    border-radius: 5px;
+    width: calc(100% - 6px);
+}
+
+.extraInfo ul {
+    list-style-image: url('../media/beer2.svg');
+}
+
+.extraInfo h3:hover {
+    background: #C7E2FF;
+}
+
+.extraInfo h4:hover {
+    background: #C7E2FF;
+    border-radius: 5px;
+}
+
+.extraInfoContentWrapper {
+    padding: 5px;
+}
