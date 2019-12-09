@@ -13,7 +13,7 @@ const getTokenFrom = request => {
 
 usersRouter.get('/', async (request, response) => {
   const users = await User
-    .find({}).populate('bars', { name: 1, address: 1, city: 1 });
+    .find({}).populate('bars', { user:0 });
   response.json(users.map(u => u.toJSON()));
 });
 
@@ -24,7 +24,7 @@ usersRouter.get('/:id', async (request, response) => {
   const user = await User.findById(userId);
   console.log(user);
   const bars = await User
-  .find({_id: userId}).populate('bars', {name: 1, address: 1, city: 1, prices: 1});
+  .find({_id: userId}).populate('bars', {user: 0});
   response.json(bars.map(bar => bar.toJSON()));
 });
 
@@ -55,6 +55,7 @@ usersRouter.post('/', async (request, response, next) => {
 usersRouter.put('/:id', async (request, response, next) => {
   try {
     const body = request.body;
+    console.log('TÄRKEE BODY', body);
 
     const decodedToken = jwt.verify(request.token, process.env.SECRET);
     if (!request.token || !decodedToken.id) {
