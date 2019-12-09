@@ -40,7 +40,7 @@ const initialUsers = [
     name: 'user',
     password: 'user'
   }
-]
+];
 
 const nonExistingId = async () => {
   const bar = new Bar({ name: 'bar to remove', address: 'some address', city: 'some city'});
@@ -60,6 +60,14 @@ const usersInDb = async () => {
   return users.map(u => u.toJSON());
 };
 
+const getTokenFrom = request => {
+  const authorization = request.get('authorization');
+  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+    return authorization.substring(7);
+  }
+  return null;
+};
+
 module.exports = {
-  initialBars, nonExistingId, barsInDb, usersInDb
+  initialBars, initialUsers, nonExistingId, barsInDb, usersInDb
 };
