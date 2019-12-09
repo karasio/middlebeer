@@ -18,10 +18,10 @@ barsRouter.get('/', async (request, response) => {
 });
 
 barsRouter.get('/:id', async (request, response) => {
-  const userId = request.params.id;
-  const bars = await  Bar
-      .find({user: userId});
-  response.json(bars.map(bar => bar.toJSON()));
+  const barId = request.params.id;
+  const bar = await  Bar
+      .find({_id: barId});
+  response.json(bar);
 });
 
 barsRouter.put('/:id', async (request, response, next) => {
