@@ -132,7 +132,7 @@ const AddBar = ({user, setBars, setNotification}) => {
                         <td>Name</td>
                         <td><input value={barName}
                                    onChange={handleNameChange}
-                                   placeholder="Janoinnen poro"/>
+                                   placeholder="Janoinen poro"/>
 
                         </td>
                     </tr>
