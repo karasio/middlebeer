@@ -11,6 +11,15 @@ body, input, button {
     font-family: 'Raleway', sans-serif;
 }
 
+.inContentButton {
+    background: orange;
+    border: none;
+    width: 65px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+}
+
 .contentWrapper {
     width: 70%;
     margin: 0 auto 0 auto;

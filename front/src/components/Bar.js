@@ -182,10 +182,10 @@ const Bar = ({bar, bars, setBars, user, setNotification, notification}) => {
                     <p>{bar.address}, {bar.city}</p>
                     <p>{bar.likes} likes
                         {user !== null ?
-                            <button className='clickable' onClick={() => likeBar(bar.id)}>like</button>
+                            <button className='inContentButton clickable' onClick={() => likeBar(bar.id)}>Like</button>
                             : ''}
                         {user !== null ?
-                            <button className='clickable' onClick={() => setEditVisible(true)}>edit</button>
+                            <button className='inContentButton clickable' onClick={() => setEditVisible(true)}>Edit</button>
                             : ''
                         }
                     </p>
@@ -222,14 +222,14 @@ const Bar = ({bar, bars, setBars, user, setNotification, notification}) => {
                                         onChange={handleLongdrinkChange}
                                     />
                                 </li>
-                                <button className='clickable' type='submit'>save</button>
-                                <button onClick={() => setEditVisible(false)}>cancel</button>
+                                <button className='inContentButton clickable' type='submit'>Save</button>
+                                <button className='inContentButton clickable' onClick={() => setEditVisible(false)}>Cancel</button>
                             </form>
                         </ul>
                         : ''}
 
                     {/*{ blogUser.name !== undefined ? <p>added by {blogUser.name}</p> : <p>no idea who added this</p> }*/}
-                    {user !== null ? <button onClick={() => removeBar(bar.id)}>remove</button> : <></>}
+                    {user !== null ? <button className='inContentButton clickable' onClick={() => removeBar(bar.id)}>Remove</button> : <></>}
                 </div>
             </div>
         </>
