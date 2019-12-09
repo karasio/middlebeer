@@ -1,21 +1,10 @@
-ul {
-    list-style-image: url('../media/beer2.svg');
-}
-
 button {
     margin-left: 5px;
 }
 
 h4, h3 {
     margin: 0;
-}
-
-h3:hover {
-    background: #C7E2FF;
-}
-
-h4:hover {
-    background: #C7E2FF;
+    padding: 5px;
 }
 
 .anecdote h1 {
@@ -78,27 +67,20 @@ h4:hover {
     margin: 0 auto 0 auto;
 }
 
-.barListItem {
-    background: #EDF4FA;
-    height: 20px;
-    border-radius: 5px;
-    margin: 0 0 5px 0;
-    width: 100%;
+.hidden {
+    display: none;
 }
 
-.extraInfo {
-    border: solid #C7E2FF;
-    border-radius: 5px;
-    margin: 0 0 5px 0;
-    width: calc(100% - 6px);
-}
-
-
-.infoText {
+.infoTextWrapper {
     background: orange;
     border-radius: 5px;
     margin-top: 20px;
     padding: 10px;
+}
+
+.infoTextContentWrapper {
+    width: 100%;
+    padding-top: 10px;
 }
 
 .foto{

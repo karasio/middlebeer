@@ -13,6 +13,8 @@ import beerPic from '../media/4800234604_23f50117e9_c.jpg'
 const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
     const filterValue = useField('type: text');
     const [viewmodeSelector, setViewmodeSelector] = useState(true)
+    const [showInfo, setShowInfo] = useState(true)
+    const hideInfoText = {display: showInfo ? 'block' : 'none'}
     const selectedLeft = {background: viewmodeSelector ? '#C7E2FF' : '#EDF4FA'}
     const selectedRight = {background: viewmodeSelector ? '#EDF4FA' : '#C7E2FF'}
 
@@ -22,12 +24,12 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
 
     useEffect(() => {
         // TODO MITEN HALP FILTERVALUEKSI user.defaultCity!!
-      console.log('USER!!!!!!!', user);
-      if (user != null){
-        filterValue.object.setValue(user.defaultCity);
-        }else{
-        filterValue.object.setValue('');
-      }
+        console.log('USER!!!!!!!', user);
+        if (user != null) {
+            filterValue.object.setValue(user.defaultCity);
+        } else {
+            filterValue.object.setValue('');
+        }
         // user.defaultCity !== undefined ? filterValue.object.setValue(user.defaultCity) : ''
     }, [user]);
 
@@ -90,11 +92,29 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
         return sortable.sort((a, b) => (a.prices.beer > b.prices.beer) ? 1 : (a.prices.beer === b.prices.beer) ? ((a.prices.beer > b.prices.beer) ? 1 : -1) : -1)
     }
 
-    const infoText =
-        'MiddleBeer is built to help you decide where to crab a pint ' +
-        ' or several if such is your wish. List above helps every user, however as a logged' +
-        ' in user you can submit your own entry and set preferences which ' +
-        'city is shown as a default.';
+    const InfoText = ({showInfo, setShowInfo}) => {
+
+        const infoTextString =
+            'MiddleBeer is built to help you decide where to crab a pint ' +
+            ' or several if such is your wish. List above helps every user, however as a logged' +
+            ' in user you can submit your own entry and set preferences which ' +
+            'city is shown as a default.';
+
+        return (
+            <div className='infoTextWrapper'>
+                <div className='infoTextHeaderWrapper'>
+                    <button onClick={() => setShowInfo(!showInfo)}>
+                        {showInfo ? 'Hide info' : 'Show info'}
+                    </button>
+                </div>
+                <div className='infoTextContentWrapper' style={hideInfoText}>
+                    {infoTextString}
+                    <img className='foto' src={beerPic} alt='pint of beer'/>
+                </div>
+            </div>
+        )
+    }
+
 
     return (
         <div className='contentWrapper'>
@@ -130,13 +150,7 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
                     barsToShow(sortBarByCheapestBeer(getFilteredBars(filterValue)))
                 }
             </div>
-
-            <div className='infoText'>
-                {infoText}
-                <div>
-                    <img className='foto' src={beerPic} alt='pint of beer' />
-                </div>
-            </div>
+            <InfoText showInfo={showInfo} setShowInfo={setShowInfo}/>
         </div>
 
     );
