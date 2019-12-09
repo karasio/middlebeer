@@ -72,7 +72,7 @@ const MyPage = ({user, bars, setBars, setNotification, notification, setUser}) =
     console.log('find user', modifiedUser);
 
     //debugger;
-    modifiedUser.defaultCity = city;
+    city === 'None' ? modifiedUser.defaultCity = undefined : modifiedUser.defaultCity = city;
     modifiedUser.token = user.token;
 
     console.log('täät',modifiedUser);
@@ -113,7 +113,7 @@ const MyPage = ({user, bars, setBars, setNotification, notification, setUser}) =
           <h2>Settings</h2>
           {city !== '' ? <p>Default city: {city}</p> : ''}
           <select name='cityOption' onChange={handleClick} value={city}>
-            <option key={'none'}></option>
+            <option key={'none'}>--None--</option>
             {uniqueTowns.map(town => {
               return (
                   <option key={town}>{town}</option>

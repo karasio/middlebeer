@@ -16,13 +16,13 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
     const selectedLeft = {background: viewmodeSelector ? '#C7E2FF' : '#EDF4FA'}
     const selectedRight = {background: viewmodeSelector ? '#EDF4FA' : '#C7E2FF'}
 
-    useEffect(() => {
-        console.log('FrontPage useEffect', bars);
-    }, [bars]);
+    // useEffect(() => {
+    //     console.log('FrontPage useEffect', bars);
+    // }, [bars]);
 
     useEffect(() => {
         // TODO MITEN HALP FILTERVALUEKSI user.defaultCity!!
-      console.log('USER!!!!!!!', user);
+      //console.log('USER!!!!!!!', user);
       if (user != null){
         filterValue.object.setValue(user.defaultCity);
         }else{
