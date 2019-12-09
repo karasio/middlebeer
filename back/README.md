@@ -13,7 +13,8 @@ Returns json of bar
     GET
     
 * **URL params**
-    id=[integer]
+
+    id=[String] Bar id
     
 * **Response**
 
@@ -82,7 +83,7 @@ Updates bar and retursn JSON of all bars
     
 * **URL params**
 
-    id=[integer]
+    id=[String] Bar id
 
 * ** Data params**
 
@@ -122,10 +123,117 @@ Delete bar from database
     
 * **URL params**
 
-    id=[integer]
+    id=[String] Bar id
     
 * **Response**
 
     **Code**: 204, Bar deleted
 
+**Show user**
+----
+
+Returns JSON of user
+
+* **URL**
+
+    /api/users/:id
     
+* **Mehtod**
+
+    GET
+    
+* **URL params**
+
+    id=[string] User id
+    
+* **Response**
+
+    * **Content**: `{
+                    "bars": [{Added bar1 Json},
+                    {Added bar2 JSON}, ...]
+                    "username": "kake",
+                    "name": "kake",
+                    "id": "5dde6f2ee440b4227c891dce"
+                    "default city": "Espoo"
+                    }`
+                    
+**Show users**
+----
+
+Returns JSON of all users
+
+* **URL**
+
+    /api/users
+    
+* **Method**
+
+    GET
+    
+* **Response**
+
+    * **Content**: `[
+                    {user1 JSON},
+                    {user2 JSON}, ...]`
+                    
+**Add user**
+----
+
+Adds new user
+
+* **URL**
+
+    /api/users
+    
+* **Method**
+
+    POST
+    
+* **Data params**
+
+    body={"username": "user",
+          "name": "user",
+          "password": "123"}
+
+* **Response**
+
+    * **Content**: `{
+                   "bars": [],
+                   "username": "user",
+                   "name": "user",
+                   "id": "5dedfec0371cc963586c644f"
+                   }`
+    
+**Add default city to user**
+----
+
+Adds default city for user
+
+* **URL**
+
+    /api/users/:id
+    
+* **Method**
+
+    PUT
+    
+* **URL params**
+
+    id=[String] User id
+    
+* **Data params**
+
+    body=[user JSON]
+    
+    _Example_
+    
+    _{[{Bar1 JSON}, {Bar2 JSON}, ...] 
+    "username": "sr",
+    "name": "Samu",
+    "defaultCity": "Espoo",
+    "id": "5ddf8b5e1d14b71718da7f0c"
+    "token": "token"_
+    
+* **Response**
+
+    * **Content**: `{User JSON}`
