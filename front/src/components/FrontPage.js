@@ -25,9 +25,11 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
       console.log('USER!!!!!!!', user);
       if (user != null){
         filterValue.object.setValue(user.defaultCity);
-        }
+        }else{
+        filterValue.object.setValue('');
+      }
         // user.defaultCity !== undefined ? filterValue.object.setValue(user.defaultCity) : ''
-    }, []);
+    }, [user]);
 
     const barsToShow = (barArray) =>
         barArray.map(bar => {
