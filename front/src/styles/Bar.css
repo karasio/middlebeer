@@ -9,6 +9,7 @@
     border: solid #C7E2FF;
     border-radius: 5px;
     width: calc(100% - 6px);
+    margin: 0 0 5px 0;
 }
 
 .extraInfo ul {

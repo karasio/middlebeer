@@ -120,7 +120,7 @@ const MyPage = ({user, bars, setBars, setNotification, notification, setUser}) =
               )
             })}
           </select>
-            <button onClick={saveDefaultCity}>set as default</button>
+            <button className='inContentButton clickable' onClick={saveDefaultCity} style={{width: '100px'}}>set as default</button>
         </div>
       </div>
   );

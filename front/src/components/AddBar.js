@@ -181,8 +181,8 @@ const AddBar = ({user, setBars, setNotification}) => {
                     </tr>
                     </thead>
                 </table>
-                <button className='clickable' type='submit'>Add!</button>
-                <button onClick={() => cancelAddBar()}>cancel</button>
+                <button className='inContentButton clickable' type='submit'>Add!</button>
+                <button className='inContentButton clickable' onClick={() => cancelAddBar()}>Cancel</button>
 
             </form>
         </div>
