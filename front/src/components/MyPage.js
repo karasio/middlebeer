@@ -8,7 +8,6 @@ import Notification from './Notification';
 /**
  * Component for rendering users own page.
  * @param user - user that is logged in
- * @param setPage - //TODO not used atm!!
  * @param bars - list of bars
  * @param setBars - to alter list of bars
  * @param setNotification - to alter notification object
@@ -17,7 +16,7 @@ import Notification from './Notification';
  * @returns {*}
  */
 
-const MyPage = ({user, setPage, bars, setBars, setNotification, notification, setUser}) => {
+const MyPage = ({user, bars, setBars, setNotification, notification, setUser}) => {
   const [city, setCity] = useState('');
   const [users, setUsers] = useState([]);
 
@@ -76,14 +75,15 @@ const MyPage = ({user, setPage, bars, setBars, setNotification, notification, se
     modifiedUser.defaultCity = city;
     modifiedUser.token = user.token;
 
-    //console.log('täät',modifiedUser);
+    console.log('täät',modifiedUser);
+    // debugger;
     userService
         .update(modifiedUser.id, modifiedUser)
         .then(response => {
           console.log('TÄMÄ ON PALVELIMEN RESPONSE, JOKA SETUSER(RESPONSE)',response);
-          setUser(response);
+          setUser(modifiedUser);
           window.localStorage.setItem(
-          'loggedInUser', JSON.stringify(response)
+          'loggedInUser', JSON.stringify(modifiedUser)
       );
     })
   };
@@ -113,6 +113,7 @@ const MyPage = ({user, setPage, bars, setBars, setNotification, notification, se
           <h2>Settings</h2>
           {city !== '' ? <p>Default city: {city}</p> : ''}
           <select name='cityOption' onChange={handleClick} value={city}>
+            <option key={'none'}></option>
             {uniqueTowns.map(town => {
               return (
                   <option key={town}>{town}</option>

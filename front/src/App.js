@@ -21,6 +21,17 @@ const App = () => {
         barService
             .getAll()
             .then(initialBars => setBars(initialBars));
+
+        const loggedUserJSON = window.localStorage.getItem('loggedInUser');
+        if (loggedUserJSON) {
+          const user = JSON.parse(loggedUserJSON);
+          console.log('localstoragesta kaivettu usr', user);
+          setUser(user);
+          barService.setToken(user.token);
+          userService.setToken(user.token);
+        }
+        setNotification({msg: null, sort: null});
+
     }, []);
 
     useEffect(() => {
@@ -28,24 +39,15 @@ const App = () => {
     }, [user]);
 
     useEffect(() => {
-        const loggedUserJSON = window.localStorage.getItem('loggedInUser');
-        if (loggedUserJSON) {
-            const user = JSON.parse(loggedUserJSON);
-            console.log('localstoragesta kaivettu usr', user);
-            setUser(user);
-            barService.setToken(user.token);
-            userService.setToken(user.token);
-        }
         setNotification({msg: null, sort: null});
     }, [page]);
 
     const handleLogin = async (event) => {
         event.preventDefault();
-        // console.log('handleLoginissa username', username);
-        // console.log('handleLoginissa password', password);
 
         try {
             const user = await loginService.login({username: username.object.value, password: password.object.value});
+            console.log('loginin jälkeen',user);
             window.localStorage.setItem(
                 'loggedInUser', JSON.stringify(user)
             );
@@ -85,6 +87,8 @@ const App = () => {
                     <>
                         <SignUpForm
                             setPage={setPage}
+                            notification={notification}
+                            setNotification={setNotification}
                         />
                     </>
                 );
@@ -93,7 +97,6 @@ const App = () => {
                     <>
                         <MyPage
                             user={user}
-                            setPage={setPage}
                             bars={bars}
                             setBars={setBars}
                             setNotification={setNotification}

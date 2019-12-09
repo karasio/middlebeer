@@ -65,6 +65,7 @@ usersRouter.put('/:id', async (request, response, next) => {
     const user = { defaultCity: body.defaultCity };
     const updatedUser = await User.findByIdAndUpdate(request.params.id, user, { new: body.defaultCity });
     // returns the altered user ONLY
+    console.log(updatedUser);
     response.json(updatedUser.toJSON());
   } catch (exception) {
     next(exception);
