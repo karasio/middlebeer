@@ -1,5 +1,5 @@
 import React from 'react';
-import './menu.css';
+import '../styles/menu.css';
 import LoginForm from './LoginForm';
 import logo from '../media/beer.png';
 
@@ -55,14 +55,14 @@ const Menu = ({user, username, password, setUser, handleLogin, setPage}) => {
             <img src={logo} alt={'logo'} onClick={() => setPage('front')} className='menuBarItem' id='menuLogo'/>
             <div className='menuContentWrapper'>
 
-                <div className='flex25'>
+                <div className='menuFlexLeft'>
                     <button onClick={() => setPage('front')} className='menuBarItem' id='menuFrontpageButton'>
                         Middlebeer
                     </button>
                     <RegisterButton setPage={setPage} user={user}/>
                     <MyPageButton className='menuBarItem' user={user} setPage={setPage}/>
             </div>
-            <div className='flex75'>
+            <div className='menuFlexRight'>
 
 
 

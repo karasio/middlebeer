@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import '../components/MyPage.css'
+import '../styles/MyPage.css'
 import userService from '../services/users';
 import Bar from './Bar';
 import AddBar from './AddBar';

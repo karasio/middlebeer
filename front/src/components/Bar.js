@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import barService from '../services/bars';
-import '../components/FrontPage.css'
+import '../styles/FrontPage.css'
 //import Notification from './Notification';
 /**
  * Component for rendering a bar to a list of bars

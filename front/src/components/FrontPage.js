@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Bar from '../components/Bar'
 import {useField} from '../hooks';
-import '../components/FrontPage.css'
+import '../styles/FrontPage.css'
 import Notification from './Notification';
 //import AddBar from "./AddBar";
 import beerPic from '../media/4800234604_23f50117e9_c.jpg'

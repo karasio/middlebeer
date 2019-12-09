@@ -1,12 +1,5 @@
-
-.contentWrapper {
-    width: 70%;
-    margin: 0 auto 0 auto;
-}
-
-
 ul {
-    list-style-image: url('beer2.svg');
+    list-style-image: url('../media/beer2.svg');
 }
 
 button {
@@ -16,7 +9,6 @@ button {
 h4, h3 {
     margin: 0;
 }
-
 
 h3:hover {
     background: #C7E2FF;
@@ -115,21 +107,6 @@ h4:hover {
     width: calc(100% - 6px);
 }
 
-.notification {
-    font-size: 20px;
-    color: yellowgreen;
-    padding: 5px;
-    padding-left: 0;
-    margin-bottom: 10px;
-}
-
-.error {
-    font-size: 20px;
-    color: orangered;
-    padding: 5px;
-    padding-left: 0;
-    margin-bottom: 10px;
-}
 
 .infoText {
     background: orange;
