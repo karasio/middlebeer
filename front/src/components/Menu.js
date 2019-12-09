@@ -1,5 +1,5 @@
 import React from 'react';
-import './menu.css';
+import '../styles/Menu.css';
 import LoginForm from './LoginForm';
 import logo from '../media/beer.png';
 
@@ -16,7 +16,7 @@ const LogoutButton = ({user, username, password, setUser, setPage}) => {
 
     return (
         user !== null
-            ? <button id='menuLogoutButton' onClick={handleLogout}>Logout</button>
+            ? <button id='menuLogoutButton clickable' onClick={handleLogout}>Logout</button>
             : ''
     )
 };
@@ -29,7 +29,7 @@ const RegisterButton = ({setPage, user}) => {
 
     return (
         user === null
-            ? <button className='menuBarItem' id='menuRegisterButton' onClick={registerButtonClicked}>Sign up</button>
+            ? <button className='menuBarItem clickable' id='menuRegisterButton' onClick={registerButtonClicked}>Sign up</button>
             : ''
     )
 };
@@ -42,7 +42,7 @@ const MyPageButton = ({user, setPage}) => {
 
     return (
         user !== null
-            ? <button id='menuMyPageButton' onClick={myPageButtonClicked}>My page</button>
+            ? <button id='menuMyPageButton clickable' onClick={myPageButtonClicked}>My page</button>
             : ''
     )
 };
@@ -55,14 +55,14 @@ const Menu = ({user, username, password, setUser, handleLogin, setPage}) => {
             <img src={logo} alt={'logo'} onClick={() => setPage('front')} className='menuBarItem' id='menuLogo'/>
             <div className='menuContentWrapper'>
 
-                <div className='flex25'>
-                    <button onClick={() => setPage('front')} className='menuBarItem' id='menuFrontpageButton'>
+                <div className='menuFlexLeft'>
+                    <button onClick={() => setPage('front')} className='menuBarItem clickable' id='menuFrontpageButton'>
                         Middlebeer
                     </button>
                     <RegisterButton setPage={setPage} user={user}/>
                     <MyPageButton className='menuBarItem' user={user} setPage={setPage}/>
             </div>
-            <div className='flex75'>
+            <div className='menuFlexRight'>
 
 
 

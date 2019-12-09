@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Bar from '../components/Bar'
 import {useField} from '../hooks';
-import '../components/FrontPage.css'
+import '../styles/FrontPage.css'
 import Notification from './Notification';
 //import AddBar from "./AddBar";
 import beerPic from '../media/4800234604_23f50117e9_c.jpg'
@@ -110,12 +110,12 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
 
             <div className='radioButtonWrapper'>
                 <div className='listViewRadioButtons'>
-                    <button className='listViewRadioButton' id='listViewRadioButtonLeft'
+                    <button className='listViewRadioButton clickable' id='listViewRadioButtonLeft'
                             onClick={() => setViewmodeSelector(true)}
                             style={selectedLeft}>
                         Most liked!
                     </button>
-                    <button className='listViewRadioButton' id='listViewRadioButtonRight'
+                    <button className='listViewRadioButton clickable' id='listViewRadioButtonRight'
                             onClick={() => setViewmodeSelector(false)}
                             style={selectedRight}>
                         Cheap beer, now.

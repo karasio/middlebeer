@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import './styles/App.css';
 import loginService from './services/login';
 import barService from './services/bars';
 import userService from './services/users'
@@ -137,7 +138,7 @@ const App = () => {
                 {whichPageToShow()}
             </div>
             <br/><br/>
-            <div style={{position: "fixed", bottom: 5, right: 5}}>Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+            <div style={{float: 'right'}}>Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
         </>
     );
 };

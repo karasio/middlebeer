@@ -1,17 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
-
-.DEBUG {
-    background: orangered;
-    border: orangered;
-    margin: 0 0 5px 0;
-    padding: 0 0 2px 0;
-}
-
-body {
-    font-family: 'Raleway', sans-serif;
-    min-width: fit-content;
-}
-
 @media (min-width: 910px) {
 }
 
@@ -28,7 +14,7 @@ body {
 }
 
 #menuLogo {
-    position: fixed;
+    position: absolute;
     top: 4px;
     left: 10px;
     height: 95px;
@@ -47,7 +33,7 @@ body {
     flex-wrap: wrap;
 }
 
-.flex25 {
+.menuFlexLeft {
     height: 100%;
     flex-grow: 1;
     display: flex;
@@ -55,23 +41,17 @@ body {
     align-items: center;
 }
 
-.flex75 {
-    flex-grow: 3;
+.menuFlexRight {
+    flex-grow: 1;
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
 
 .menubar button {
-
-    font-family: 'Raleway', sans-serif;
     font-size: 20px;
     border-width: 0;
     background: none;
-}
-
-.menubar button:hover {
-    cursor: pointer;
 }
 
 #menuFrontpageButton {
@@ -101,7 +81,6 @@ body {
 }
 
 #menuLoginForm input {
-    font-family: 'Raleway', sans-serif;
     font-size: larger;
     height: 40px;
     width: 120px;

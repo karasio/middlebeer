@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import barService from '../services/bars';
-import '../components/FrontPage.css'
-//import Notification from './Notification';
+import '../styles/Bar.css'
+
 /**
  * Component for rendering a bar to a list of bars
  * @param bar - one bar

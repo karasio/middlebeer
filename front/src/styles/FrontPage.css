@@ -1,12 +1,5 @@
-
-.contentWrapper {
-    width: 70%;
-    margin: 0 auto 0 auto;
-}
-
-
 ul {
-    list-style-image: url('beer2.svg');
+    list-style-image: url('../media/beer2.svg');
 }
 
 button {
@@ -16,7 +9,6 @@ button {
 h4, h3 {
     margin: 0;
 }
-
 
 h3:hover {
     background: #C7E2FF;
@@ -39,7 +31,6 @@ h4:hover {
 }
 
 .filterInput {
-    font-family: 'Raleway', sans-serif;
     width: 100%;
     font-size: larger;
     display: inline-block;
@@ -57,28 +48,19 @@ h4:hover {
 
 .listViewRadioButtons {
     display: inline-block;
-
     width: 100%;
     margin: 0 auto 20px auto;
 }
 
 .listViewRadioButton {
-
-    cursor: pointer;
     margin: 0 auto;
     width: 50%;
     height: 60px;
     font-family: 'Raleway', sans-serif;
     font-size: 20px;
     border-width: 0;
-
-
     background: #EDF4FA;
 }
-
-/*.listViewRadioButton:hover {
-    background: #C7E2FF;
-}*/
 
 #listViewRadioButtonLeft {
     float: left;
@@ -96,10 +78,6 @@ h4:hover {
     margin: 0 auto 0 auto;
 }
 
-.clickable {
-    cursor: pointer;
-}
-
 .barListItem {
     background: #EDF4FA;
     height: 20px;
@@ -115,21 +93,6 @@ h4:hover {
     width: calc(100% - 6px);
 }
 
-.notification {
-    font-size: 20px;
-    color: yellowgreen;
-    padding: 5px;
-    padding-left: 0;
-    margin-bottom: 10px;
-}
-
-.error {
-    font-size: 20px;
-    color: orangered;
-    padding: 5px;
-    padding-left: 0;
-    margin-bottom: 10px;
-}
 
 .infoText {
     background: orange;
