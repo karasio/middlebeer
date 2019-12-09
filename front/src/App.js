@@ -35,7 +35,7 @@ const App = () => {
     }, []);
 
     useEffect(() => {
-        console.log('user muuttui', user);
+        //console.log('user muuttui', user);
     }, [user]);
 
     useEffect(() => {

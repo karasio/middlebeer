@@ -72,7 +72,7 @@ const MyPage = ({user, bars, setBars, setNotification, notification, setUser}) =
     console.log('find user', modifiedUser);
 
     //debugger;
-    city === 'None' ? modifiedUser.defaultCity = undefined : modifiedUser.defaultCity = city;
+    city === '--None--' ? modifiedUser.defaultCity = undefined : modifiedUser.defaultCity = city;
     modifiedUser.token = user.token;
 
     console.log('täät',modifiedUser);

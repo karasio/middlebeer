@@ -23,12 +23,10 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
     // }, [bars]);
 
     useEffect(() => {
-        // TODO MITEN HALP FILTERVALUEKSI user.defaultCity!!
-      //console.log('USER!!!!!!!', user);
       if (user != null){
-        filterValue.object.setValue(user.defaultCity);
+        filterValue.setValue(user.defaultCity);
         }else{
-        filterValue.object.setValue('');
+        filterValue.setValue('');
       }
         // user.defaultCity !== undefined ? filterValue.object.setValue(user.defaultCity) : ''
     }, [user]);
@@ -82,13 +80,11 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
     const sortBarByCheapestBeer = (bars) => {
         //console.log('sorting by cheapest beer')
         let sortable = bars;
-
-        // tällä sai satumaan pois ekalta paikalta
         const noBeer = (bar) => {
             return bar.prices.beer !== undefined;
         };
         sortable = bars.filter(noBeer);
-        //
+
         return sortable.sort((a, b) => (a.prices.beer > b.prices.beer) ? 1 : (a.prices.beer === b.prices.beer) ? ((a.prices.beer > b.prices.beer) ? 1 : -1) : -1)
     }
 
