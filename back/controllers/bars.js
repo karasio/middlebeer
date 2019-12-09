@@ -20,7 +20,7 @@ barsRouter.get('/', async (request, response) => {
 barsRouter.get('/:id', async (request, response) => {
   const barId = request.params.id;
   const bar = await  Bar
-      .find({_id: barId});
+      .find({_id: barId}).populate('user', { username: 1, name: 1 });
   response.json(bar);
 });
 

@@ -1,4 +1,40 @@
-#API usage
+# API usage
+
+**Show bar**
+---
+Returns json of bar
+
+* **URL**
+
+    /api/bars/:id
+    
+* **Method**
+
+    GET
+    
+* **URL params**
+    id=[integer]
+    
+* **Response**
+
+    * **Content**: `{
+                   "prices": {
+                   "beer": 4,
+                   "cider": 6,
+                   "longdrink": 8
+                   },
+                   "name": "Mallaskaski",
+                   "address": "Kaskipiha 1",
+                   "city": "Espoo",
+                   "likes": 20,
+                   "user": {
+                   "username": "timo",
+                   "name": "timo",
+                   "id": "5de0fd9fe1a9657d5e9db498"
+                   },
+                   "id": "5de3aac1d04f08df5150ec29"
+                   }`
+
 **Show bars**
 ----
   Returns json of all bars.
@@ -13,23 +49,7 @@
   
 * **Response:**
 
-   * **Content:** `[{
-                     "prices": {
-                     "beer": 4,
-                     "cider": 6,
-                     "longdrink": 8
-                     },
-                     "name": "Mallaskaski",
-                     "address": "Kaskipiha 1",
-                     "city": "Espoo",
-                     "likes": 20,
-                     "user": {
-                     "username": "timo",
-                     "name": "timo",
-                     "id": "5de0fd9fe1a9657d5e9db498"
-                     },
-                     "id": "5de3aac1d04f08df5150ec29"
-                     }, {bar2 JSON}, ...]`
+   * **Content:** `[{bar1 JSON}, {bar2 JSON}, ...]`
  
 **Add bar**
 ----
