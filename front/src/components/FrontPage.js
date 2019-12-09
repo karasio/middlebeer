@@ -4,7 +4,7 @@ import {useField} from '../hooks';
 import '../styles/FrontPage.css'
 import Notification from './Notification';
 //import AddBar from "./AddBar";
-import beerPic from '../media/4800234604_23f50117e9_c.jpg'
+import beerPic from '../media/001-beer-11.png'
 
 /**
  * Component for front page view with list of bars and info text
@@ -13,7 +13,7 @@ import beerPic from '../media/4800234604_23f50117e9_c.jpg'
 const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
     const filterValue = useField('type: text');
     const [viewmodeSelector, setViewmodeSelector] = useState(true)
-    const [showInfo, setShowInfo] = useState(true)
+    const [showInfo, setShowInfo] = useState(false)
     const hideInfoText = {display: showInfo ? 'block' : 'none'}
     const selectedLeft = {background: viewmodeSelector ? '#C7E2FF' : '#EDF4FA'}
     const selectedRight = {background: viewmodeSelector ? '#EDF4FA' : '#C7E2FF'}
@@ -103,13 +103,14 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
         return (
             <div className='infoTextWrapper'>
                 <div className='infoTextHeaderWrapper'>
-                    <button onClick={() => setShowInfo(!showInfo)}>
-                        {showInfo ? 'Hide info' : 'Show info'}
-                    </button>
+                    <div className='infoTextHideButton clickable' onClick={() => setShowInfo(!showInfo)}>
+                        {showInfo ? 'Hide help' : 'Show help'}
+                    </div>
                 </div>
                 <div className='infoTextContentWrapper' style={hideInfoText}>
-                    {infoTextString}
                     <img className='foto' src={beerPic} alt='pint of beer'/>
+                    {infoTextString}
+
                 </div>
             </div>
         )
@@ -121,6 +122,7 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
             {/*{console.log('rendering')}*/}
             <div className='anecdote'><h1>"mmm.. tasty"</h1></div>
 
+            <InfoText showInfo={showInfo} setShowInfo={setShowInfo}/>
             <div className='filterInputWrapper'>
                 <input className='filterInput'
                        {...filterValue.object}
@@ -143,6 +145,7 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
                 </div>
             </div>
 
+
             <div className='barsWrapper'>
                 <Notification message={notification}/>
                 {viewmodeSelector ?
@@ -150,7 +153,7 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
                     barsToShow(sortBarByCheapestBeer(getFilteredBars(filterValue)))
                 }
             </div>
-            <InfoText showInfo={showInfo} setShowInfo={setShowInfo}/>
+
         </div>
 
     );
