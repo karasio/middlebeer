@@ -3,20 +3,24 @@ const usersRouter = require('express').Router();
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
-const getTokenFrom = request => {
-  const authorization = request.get('authorization');
-  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-    return authorization.substring(7);
-  }
-  return null;
-};
+/**
+ * Handles contacts to MongoDB regarding users
+ */
 
+/**
+ * GET request to get all users
+ * response: all users as json
+ */
 usersRouter.get('/', async (request, response) => {
   const users = await User
     .find({}).populate('bars', { user:0 });
   response.json(users.map(u => u.toJSON()));
 });
 
+/**
+ * GET request for getting a specific user with id from database
+ * response: user information as json
+ */
 usersRouter.get('/:id', async (request, response) => {
   console.log('Mennään');
   const userId = request.params.id;
@@ -28,6 +32,12 @@ usersRouter.get('/:id', async (request, response) => {
   response.json(bars.map(bar => bar.toJSON()));
 });
 
+
+/**
+ * POST request for adding a user to database
+ * Uses bcrypt to encrypt user password and password hash is saved to database
+ * response: added user as json or status 401 if password is too short
+ */
 usersRouter.post('/', async (request, response, next) => {
   try {
     const body = request.body;
@@ -51,7 +61,12 @@ usersRouter.post('/', async (request, response, next) => {
   }
 });
 
-// to save default city to db
+/**
+ * PUT request for changing user information with id value in database
+ * validates user with json web token
+ * Changeable values: default city
+ * response: altered user as json
+ */
 usersRouter.put('/:id', async (request, response, next) => {
   try {
     const body = request.body;
@@ -64,7 +79,6 @@ usersRouter.put('/:id', async (request, response, next) => {
 
     const user = { defaultCity: body.defaultCity };
     const updatedUser = await User.findByIdAndUpdate(request.params.id, user, { new: body.defaultCity });
-    // returns the altered user ONLY
     console.log(updatedUser);
     response.json(updatedUser.toJSON());
   } catch (exception) {

@@ -3,6 +3,16 @@ const bcrypt = require('bcrypt');
 const loginRouter = require('express').Router();
 const User = require('../models/user');
 
+/**
+ * Handles contacts to MongoDB regarding login
+ */
+
+/**
+ * POST request to log user in
+ * check password with Bcrypt
+ * response: if invalid username or password: status 401
+ * else status 200 & user token, username, name and defaultCity (if not undefined)
+ */
 loginRouter.post('/', async (request, response) => {
   const body = request.body;
   console.log('controllers/login.js',body);

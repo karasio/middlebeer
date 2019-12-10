@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 //const uniqueValidator = require('mongoose-unique-validator');
 
+/**
+ * Defines bar schema for mongo database
+ */
+
 const barSchema = new mongoose.Schema({
   name: {
     type: String,

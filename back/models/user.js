@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 
 const uniqueValidator = require('mongoose-unique-validator');
 
+/**
+ * Defines user schema for mongo database
+ */
 const userSchema = mongoose.Schema({
   username: {
     type: String,

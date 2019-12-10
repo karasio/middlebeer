@@ -4,7 +4,7 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
 /**
- * Handles contacts to MongoDB
+ * Handles contacts to MongoDB regarding bars
  */
 
 /**
