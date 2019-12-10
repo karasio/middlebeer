@@ -96,9 +96,9 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
             'city is shown as a default.';
 
         return (
-            <div className='infoTextWrapper'>
+            <div className='infoTextWrapper clickable'onClick={() => setShowInfo(!showInfo)}>
                 <div className='infoTextHeaderWrapper'>
-                    <div className='infoTextHideButton clickable' onClick={() => setShowInfo(!showInfo)}>
+                    <div className='infoTextHideButton'>
                         {showInfo ? 'Hide help' : 'Show help'}
                     </div>
                 </div>
