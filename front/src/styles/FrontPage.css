@@ -7,29 +7,6 @@
     font-style: italic;
 }
 
-/********* ANECDOTE ********/
-
-.anecdote {
-    margin: 0 auto 0 auto;
-    text-align: center;
-}
-
-blockquote {
-    margin: 0 auto 0 auto;
-    width: 50%;
-    text-align: center;
-    /*background: #EDF4FA;*/
-    font-size: xx-large;
-    padding: 5px;
-    border-radius: 4px;
-}
-
-.anecdoteBy {
-    font-size: small;
-}
-/********* ANECDOTE ends ********/
-
-
 .filterInputWrapper {
     width: 100%;
     margin: 80px auto 20px auto;
@@ -114,11 +91,6 @@ blockquote {
 
 /********* ANECDOTE ********/
 @media only screen and (max-width: 600px) {
-    blockquote {
-        width: 80%;
-        font-size: large;
-    }
-
     .contentWrapper {
         margin-top: 0;
     }
@@ -129,6 +101,10 @@ blockquote {
 
     .barsWrapper {
         margin-top: 20px;
+    }
+
+    .filterInput {
+        font-size: smaller;
     }
 }
 

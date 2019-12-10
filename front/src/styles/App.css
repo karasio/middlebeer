@@ -65,10 +65,37 @@ button {
     display: none;
 }
 
+/********* ANECDOTE ********/
+
+.anecdote {
+    margin: 0 auto 0 auto;
+    text-align: center;
+}
+
+blockquote {
+    margin: 0 auto 0 auto;
+    width: 50%;
+    text-align: center;
+    /*background: #EDF4FA;*/
+    font-size: xx-large;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.anecdoteBy {
+    font-size: small;
+}
+/********* ANECDOTE ends ********/
+
 @media only screen and (max-width: 600px) {
     .barListItem h4{
         background-image: url('../media/expand.png');
         /*background-repeat: no-repeat;*/
+    }
+
+    blockquote {
+        width: 80%;
+        font-size: large;
     }
 
     .expandIcon {

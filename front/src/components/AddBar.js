@@ -65,6 +65,12 @@ const AddBar = ({user, setBars, setNotification}) => {
         };
 
         try {
+
+            if (barName === '' || barAddress === '' || barCity === '') {
+                setNotification({msg: 'Fill name, address & city!', sort: 'error'});
+                throw new Error('Not sufficient bar data');
+            }
+
             const prices = {
                 beer: figureOutPrice(beer),
                 cider: figureOutPrice(cider),

@@ -8,6 +8,7 @@ import Menu from './components/Menu'
 import FrontPage from './components/FrontPage'
 import SignUpForm from './components/SignUpForm';
 import MyPage from './components/MyPage';
+import anecdoteList from './utils/anecdotes';
 
 const App = () => {
     const username = useField('text');
@@ -133,6 +134,19 @@ const App = () => {
         }
     };
 
+    const RandomAnecdote = () => {
+        const rnd = Math.floor(Math.random() * anecdoteList.anecdotes.length);
+        console.log(rnd);
+        return (
+            <div className='anecdote'>
+                <blockquote>
+                    <p>"{anecdoteList.anecdotes[rnd].text}"</p>
+                    <p className='anecdoteBy'>{anecdoteList.anecdotes[rnd].by}</p>
+                </blockquote>
+            </div>
+        )
+    };
+
 
     return (
         <>
@@ -152,6 +166,7 @@ const App = () => {
                   handleLogin={handleLogin}
                   setPage={setPage}/>
             <div className='contentWrapper'>
+                {page === 'front' ? <RandomAnecdote/> : ''}
                 {whichPageToShow()}
                 <br/><br/>
             </div>
