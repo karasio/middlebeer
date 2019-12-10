@@ -3,6 +3,7 @@ import {useField} from '../hooks';
 import userService from '../services/users';
 import loginService from '../services/login';
 import Notification from './Notification';
+import barService from '../services/bars';
 
 /**
  * Component for rendering sign up page
@@ -47,6 +48,8 @@ const SignUpForm = ({setPage, notification, setNotification, setUser}) => {
                 username: newUsername.object.value,
                 password: newPassword.object.value,
             });
+            barService.setToken(newUser.token);
+            userService.setToken(newUser.token);
             setUser(newUser);
             window.localStorage.setItem(
                 'loggedInUser', JSON.stringify(newUser),
