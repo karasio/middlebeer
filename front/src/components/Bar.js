@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import barService from '../services/bars';
 import '../styles/Bar.css'
+import helper from '../utils/validation_helper';
 
 /**
  * Component for rendering a item from bar information to a list of bars
@@ -113,14 +114,9 @@ const Bar = ({bar, bars, setBars, user, setNotification, notification}) => {
             }, 5000);
         }
         console.log(bar.id, edited.prices);
-
-        //debugger;
+        
         const returnedBars = await barService.update(bar.id, edited);
-        // setNotification({msg: 'tööt', sort: 'error'});
-        // debugger;
-        // setTimeout(() => {
-        //   setNotification({msg: null, sort: null});
-        // }, 5000);
+
         setBars(returnedBars);
         setEditVisible(false);
         setBeer(bar.prices.beer === undefined ? 0.00 : bar.prices.beer);

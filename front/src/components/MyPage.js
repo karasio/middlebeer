@@ -4,6 +4,7 @@ import Bar from './Bar';
 import AddBar from './AddBar';
 import Notification from './Notification';
 import '../styles/MyPage.css';
+import helper from '../utils/validation_helper';
 
 /**
  * Component for rendering users own page.
@@ -88,20 +89,9 @@ const MyPage = ({user, bars, setBars, setNotification, notification, setUser}) =
             })
     };
 
-    /**
-     * Forms string to first upper case letter, rest lower case letter
-     * @returns formalized string
-     */
-    const capitalize = (value) => {
-        return value.toLowerCase()
-            .split(/ /)
-            .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-            .join(' ');
-    };
-
     return (
         <div>
-            <h1 className='myPageHeader'>Hello {capitalize(user.name)}!</h1>
+            <h1 className='myPageHeader'>Hello {helper.capitalize(user.name)}!</h1>
             <Notification message={notification}/>
             <div>
                 <h2 className='myPageHeader'>Add new bar</h2>

@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import barService from "../services/bars";
+import helper from '../utils/validation_helper';
 
 /**
  * Component for rendering table of input fields to add a bar to site
@@ -41,20 +42,13 @@ const AddBar = ({user, setBars, setNotification}) => {
      * Function to fix user input with first upper case letter and rest lower case letter
      * @returns {{address: *, city: *, name: *}}
      */
-    const capitalizeString = () => {
-        const capitalize = (value) => {
-            return value.toLowerCase()
-                .split(/ /)
-                .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-                .join(' ');
-        };
-
-        return {
-            name: capitalize(barName),
-            address: capitalize(barAddress),
-            city: capitalize(barCity)
-        }
-    };
+    // const capitalizeString = () => {
+    //     return {
+    //         name: helper.capitalize(barName),
+    //         address: helper.capitalize(barAddress),
+    //         city: helper.capitalize(barCity)
+    //     }
+    // };
 
     /**
      * Handles save button click for adding a bar
@@ -62,30 +56,55 @@ const AddBar = ({user, setBars, setNotification}) => {
      * @returns {Promise<void>}
      */
     const addBarSubmit = async () => {
-        const barInfo = capitalizeString();
-        console.log('barinfo', barInfo);
+        //const barInfo = capitalizeString();
+        //console.log('barinfo', barInfo);
+        let flag;
+
+        const figureOutPrice = (userInput) => {
+            if (typeof userInput === 'string') {
+                userInput = userInput.replace(',', '.');
+            }
+            if (!isNaN(Number.parseFloat(userInput)) && Number.parseFloat(userInput) > 0) {
+                console.log(userInput, 'kaikki pitäs olla ok?');
+                flag += '';
+                return Number.parseFloat(userInput);
+            } else if ((userInput === null || isNaN(userInput) || userInput === '' || userInput === 0)) {
+                console.log(userInput, 'ei kelpo numero, ei vanhaa dataa');
+                console.log('siideri on nan tai null:', userInput);
+                flag += '.';
+                return undefined;
+            }
+        };
 
         try {
-            if (beer === '' && cider === '' && longdrink === '') {
-                setNotification({msg: 'Please do tell prices!', sort: 'error'})
+            const prices = {
+                beer: figureOutPrice(beer),
+                cider: figureOutPrice(cider),
+                longdrink: figureOutPrice(longdrink)
+            };
+
+            console.log('prices', prices);
+            if ((beer === '' && cider === '' && longdrink === '') || (prices.beer === undefined && prices.cider === undefined && prices.longdrink === undefined)) {
+                setNotification({msg: 'Please do tell decent prices!', sort: 'error'});
                 throw new Error('No prices');
             }
+
             const bar = {
-                name: barInfo.name,
-                address: barInfo.address,
-                city: barInfo.city,
+                name: helper.capitalize(barName),
+                address: helper.capitalize(barAddress),
+                city: helper.capitalize(barCity),
                 prices: {
-                    beer: beer === '' ? undefined : beer,
-                    longdrink: longdrink === '' ? undefined : longdrink,
-                    cider: cider === '' ? undefined : cider,
+                    beer: beer === '' ? undefined : prices.beer,
+                    longdrink: longdrink === '' ? undefined : prices.longdrink,
+                    cider: cider === '' ? undefined : prices.cider,
                 },
                 user: user,
-            }
+            };
+            console.log('bar', bar);
 
-            console.log(barName, barAddress, barCity);
             //debugger;
-            const r = await barService.create(bar)
-            setBars(r)
+            const r = await barService.create(bar);
+            setBars(r);
             setNotification({msg: 'Bar added', sort: 'info'});
             setTimeout(() => {
                 setNotification({msg: null, sort: null});
@@ -99,7 +118,7 @@ const AddBar = ({user, setBars, setNotification}) => {
             setLongdrink('')
         } catch (exception) {
             console.log(exception);
-            setNotification({msg: 'Something went wrong', sort: 'error'});
+            //setNotification({msg: 'Something went wrong', sort: 'error'});
             setTimeout(() => {
                 setNotification({msg: null, sort: null});
 
