@@ -39,18 +39,6 @@ const AddBar = ({user, setBars, setNotification}) => {
     }
 
     /**
-     * Function to fix user input with first upper case letter and rest lower case letter
-     * @returns {{address: *, city: *, name: *}}
-     */
-    // const capitalizeString = () => {
-    //     return {
-    //         name: helper.capitalize(barName),
-    //         address: helper.capitalize(barAddress),
-    //         city: helper.capitalize(barCity)
-    //     }
-    // };
-
-    /**
      * Handles save button click for adding a bar
      * create bar object from user input and send to database
      * @returns {Promise<void>}
@@ -83,7 +71,7 @@ const AddBar = ({user, setBars, setNotification}) => {
                 longdrink: figureOutPrice(longdrink)
             };
 
-            console.log('prices', prices);
+            //console.log('prices', prices);
             if ((beer === '' && cider === '' && longdrink === '') || (prices.beer === undefined && prices.cider === undefined && prices.longdrink === undefined)) {
                 setNotification({msg: 'Please do tell decent prices!', sort: 'error'});
                 throw new Error('No prices');
@@ -93,16 +81,11 @@ const AddBar = ({user, setBars, setNotification}) => {
                 name: helper.capitalize(barName),
                 address: helper.capitalize(barAddress),
                 city: helper.capitalize(barCity),
-                prices: {
-                    beer: beer === '' ? undefined : prices.beer,
-                    longdrink: longdrink === '' ? undefined : prices.longdrink,
-                    cider: cider === '' ? undefined : prices.cider,
-                },
+                prices: prices,
                 user: user,
             };
-            console.log('bar', bar);
+            //console.log('bar', bar);
 
-            //debugger;
             const r = await barService.create(bar);
             setBars(r);
             setNotification({msg: 'Bar added', sort: 'info'});
