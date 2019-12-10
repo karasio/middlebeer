@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import barService from '../services/bars';
 import '../styles/Bar.css'
-import helper from '../utils/validation_helper';
+import expand from '../media/expand.png';
+import collapse from '../media/collapse.png';
 
 /**
  * Component for rendering a item from bar information to a list of bars
@@ -114,7 +115,7 @@ const Bar = ({bar, bars, setBars, user, setNotification, notification}) => {
             }, 5000);
         }
         console.log(bar.id, edited.prices);
-        
+
         const returnedBars = await barService.update(bar.id, edited);
 
         setBars(returnedBars);
@@ -173,11 +174,11 @@ const Bar = ({bar, bars, setBars, user, setNotification, notification}) => {
         <>
             <div style={hideWhenVisible} className='barListItem'>
                 <h4 className='clickable' onClick={() => setDetailsVisible(true)}>
-                    {bar.name} {bar.city}
+                    {bar.name} {bar.city} <img className='expandIcon' src={expand} alt='expand'/>
                 </h4>
             </div>
             <div style={showWhenVisible} className='extraInfo'>
-                <h3 className='clickable' onClick={() => setDetailsVisible(false)}>{bar.name}</h3>
+                <h3 className='clickable' onClick={() => setDetailsVisible(false)}>{bar.name} <img className='collapseIcon' src={collapse} alt='collapse'/></h3>
                 <div className='extraInfoContentWrapper'>
                     <p>{bar.address}, {bar.city}</p>
                     <p>{user !== null ?

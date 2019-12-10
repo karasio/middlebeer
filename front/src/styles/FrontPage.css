@@ -118,6 +118,18 @@ blockquote {
         width: 80%;
         font-size: large;
     }
+
+    .contentWrapper {
+        margin-top: 0;
+    }
+
+    .filterInputWrapper {
+        margin-top: 20px;
+    }
+
+    .barsWrapper {
+        margin-top: 20px;
+    }
 }
 
 

@@ -56,3 +56,35 @@ button {
     cursor: pointer;
     padding: 5px;
 }
+
+.expandIcon {
+    display: none;
+}
+
+.collapseIcon {
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .barListItem h4{
+        background-image: url('../media/expand.png');
+        /*background-repeat: no-repeat;*/
+    }
+
+    .expandIcon {
+        display: block;
+        height: 10px;
+        width: 10px;
+        float: right;
+        padding: 5px;
+
+    }
+
+    .collapseIcon {
+        display: block;
+        height: 10px;
+        width: 10px;
+        float: right;
+        padding: 5px;
+    }
+}
