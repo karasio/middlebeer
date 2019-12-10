@@ -139,33 +139,33 @@ describe('signed in user procedures', () => {
     expect(newUsers.length).toBe(originalUsers.length);
   });
 
-  // TODO EI TOIMI
-  // test('add blog with user', async () => {
-  //   const originalBars = await helper.barsInDb();
-  //   const users = await helper.usersInDb();
-  //   const someUser = users[0];
-  //   someUser.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imtha2UiLCJpZCI6IjVkZGU2ZjJlZTQ0MGI0MjI3Yzg5MWRjZSIsImlhdCI6MTU3NTg5MDg4NH0.5Mn_eo4Q_nxcNGaioglF7MKO3hI1-JV8aC_ywEnYneE';
-  //
-  //
-  //   const newBar = {
-  //     name: 'Hilton',
-  //     address: 'Some street',
-  //     city: 'Some city',
-  //     prices: {
-  //       beer: 12
-  //     },
-  //     userId: someUser.id
-  //   };
-  //
-  //   await api
-  //   .post('/api/bars')
-  //   .send(newBar)
-  //   .expect(200)
-  //   .expect('Content-Type', /application\/json/);
-  //
-  //   const newBars = await helper.barsInDb();
-  //   expect(newBars.length).toBe(originalBars.length + 1);
-  // });
+
+  test('add blog with user', async () => {
+    const originalBars = await helper.barsInDb();
+    const users = await helper.usersInDb();
+    const someUser = users[0];
+    someUser.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imtha2UiLCJpZCI6IjVkZGU2ZjJlZTQ0MGI0MjI3Yzg5MWRjZSIsImlhdCI6MTU3NTg5MDg4NH0.5Mn_eo4Q_nxcNGaioglF7MKO3hI1-JV8aC_ywEnYneE';
+
+
+    const newBar = {
+      name: 'Hilton',
+      address: 'Some street',
+      city: 'Some city',
+      prices: {
+        beer: 12
+      },
+      userId: someUser.id
+    };
+
+    await api
+    .post('/api/bars')
+    .send(newBar)
+    .expect(200)
+    .expect('Content-Type', /application\/json/);
+
+    const newBars = await helper.barsInDb();
+    expect(newBars.length).toBe(originalBars.length + 1);
+  });
 
 });
 

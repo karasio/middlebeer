@@ -12,7 +12,7 @@ import Notification from './Notification';
  * @returns {*}
  */
 
-const SignUpForm = ({setPage, notification, setNotification}) => {
+const SignUpForm = ({setPage, notification, setNotification, setUser}) => {
     const newName = useField('text');
     const newUsername = useField('text');
     const newPassword = useField('password');
@@ -47,6 +47,7 @@ const SignUpForm = ({setPage, notification, setNotification}) => {
                 username: newUsername.object.value,
                 password: newPassword.object.value,
             });
+            setUser(newUser);
             window.localStorage.setItem(
                 'loggedInUser', JSON.stringify(newUser),
             );

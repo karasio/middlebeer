@@ -101,6 +101,7 @@ const App = () => {
                             setPage={setPage}
                             notification={notification}
                             setNotification={setNotification}
+                            setUser={setUser}
                         />
                     </>
                 );

@@ -1,5 +1,10 @@
 require('dotenv').config();
 
+/**
+ * Helper for database connection.
+ * Uses dotenv to get MongoDB url & port
+ */
+
 let PORT = process.env.PORT;
 let MONGODB_URI = process.env.MONGODB_URI;
 
