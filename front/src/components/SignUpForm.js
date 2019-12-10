@@ -57,12 +57,7 @@ const SignUpForm = ({setPage, notification, setNotification, setUser}) => {
             setPage('front');
         } catch (exception) {
             console.log(exception.response.data.error);
-            if (exception.response.data.error ===
-                'password (min. 3 characters) needs to be defined') {
-                setNotification({msg: exception.response.data.error, sort: 'error'})
-            } else {
-                setNotification({msg: 'username is already taken', sort: 'error'})
-            }
+            setNotification({msg: exception.response.data.error, sort: 'error'})
             setTimeout(() => {
                 setNotification({msg: null, sort: null})
             }, 5000)
