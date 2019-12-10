@@ -34,14 +34,21 @@ const App = () => {
 
     }, []);
 
-    useEffect(() => {
-        //console.log('user muuttui', user);
-    }, [user]);
+    // useEffect(() => {
+    //     console.log('user muuttui', user);
+    // }, [user]);
 
     useEffect(() => {
         setNotification({msg: null, sort: null});
     }, [page]);
 
+    /**
+     * Event handler responsible for login.
+     * Logs user in with a server connection to database
+     * Sets user to local storage
+     * @param event
+     * @returns {Promise<void>}
+     */
     const handleLogin = async (event) => {
         event.preventDefault();
 
@@ -61,6 +68,7 @@ const App = () => {
 
         } catch (exception) {
             console.log('handleLogin catch', exception);
+            window.alert('Problem with username or password');
             //setNotification({ msg: 'wrong credentials', sort: 'error' });
             // setTimeout(() => {
             //   setNotification({ msg: null, sort: null });
@@ -68,6 +76,10 @@ const App = () => {
         }
     };
 
+    /**
+     * Conditional rendering & page navigation
+     * @returns {*}
+     */
     const whichPageToShow = () => {
         switch (page) {
             case 'front':

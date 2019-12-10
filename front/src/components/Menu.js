@@ -3,6 +3,17 @@ import '../styles/Menu.css';
 import LoginForm from './LoginForm';
 import logo from '../media/beer.png';
 
+/**
+ * Component for rendering Menu bar
+ * @param user User that is logged in
+ * @param username to reset username after logging out
+ * @param password to reset password after logging out
+ * @param setUser to reset user to null
+ * @param setPage to get view back to front page
+ * @returns {string}
+
+ */
+
 const LogoutButton = ({user, username, password, setUser, setPage}) => {
     //console.log(user);
     const handleLogout = (event) => {

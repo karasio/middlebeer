@@ -1,5 +1,10 @@
 import axios from 'axios';
 
+/**
+ * CRUD operations for server connections for bar information
+ * @type {string}
+ */
+
 const baseUrl = '/api/bars';
 
 let token = null;

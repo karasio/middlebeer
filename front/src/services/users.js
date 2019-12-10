@@ -1,5 +1,10 @@
 import axios from 'axios';
 
+/**
+ * CRUD operations for server connections for user handling
+ * @type {string}
+ */
+
 const baseUrl = '/api/users';
 
 let token = null;

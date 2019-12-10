@@ -1,5 +1,11 @@
 import React from 'react'
 
+/**
+ * Component for rendering notifications
+ * @param message - notification to be shown
+ * @returns {null|*}
+ */
+
 const Notification = ({message}) => {
     if (message.sort === 'info') {
         return (

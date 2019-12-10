@@ -1,5 +1,10 @@
 import axios from 'axios';
 
+/**
+ * Operations for server connections for user login
+ * @type {string}
+ */
+
 const baseUrl = '/api/login';
 
 const login = async credentials => {

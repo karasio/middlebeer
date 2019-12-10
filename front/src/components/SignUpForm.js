@@ -4,6 +4,14 @@ import userService from '../services/users';
 import loginService from '../services/login';
 import Notification from './Notification';
 
+/**
+ * Component for rendering sign up page
+ * @param setPage - used after signing up and logging user in to set view back to front page
+ * @param notification - variable for showing notifications
+ * @param setNotification - for setting notifications
+ * @returns {*}
+ */
+
 const SignUpForm = ({setPage, notification, setNotification}) => {
     const newName = useField('text');
     const newUsername = useField('text');
@@ -14,6 +22,12 @@ const SignUpForm = ({setPage, notification, setNotification}) => {
         console.log(newUser);
     }, [newUser]);
 
+    /**
+     * Event handler for signing up.
+     * Builds user, sends it to database and local storage
+     * @param event - button click event
+     * @returns {Promise<void>}
+     */
     const handleRegister = async (event) => {
         event.preventDefault();
         console.log(newName, newUsername, newPassword);
