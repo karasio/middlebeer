@@ -68,7 +68,7 @@ const App = () => {
 
         } catch (exception) {
             console.log('handleLogin catch', exception);
-            window.alert('Problem with username or password');
+            window.alert('Invalid username or password');
             //setNotification({ msg: 'wrong credentials', sort: 'error' });
             // setTimeout(() => {
             //   setNotification({ msg: null, sort: null });

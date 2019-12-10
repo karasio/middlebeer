@@ -4,6 +4,7 @@ import {useField} from '../hooks';
 import '../styles/FrontPage.css'
 import Notification from './Notification';
 import infoTextIcon from '../media/001-beer-11.png'
+import anecdoteList from '../utils/anecdotes';
 
 /**
  * Component for front page view with list of bars and info text
@@ -109,13 +110,27 @@ const FrontPage = ({bars, setBars, user, notification, setNotification}) => {
                 </div>
             </div>
         )
-    }
+    };
+
+    const randomAnecdote = () => {
+        const rnd = Math.floor(Math.random() * anecdoteList.anecdotes.length);
+        console.log(rnd);
+        return (
+            <div className='anecdote'>
+                <blockquote>
+                    <p>"{anecdoteList.anecdotes[rnd].text}"</p>
+                    <p className='anecdoteBy'>{anecdoteList.anecdotes[rnd].by}</p>
+                </blockquote>
+            </div>
+        )
+    };
 
 
     return (
         <div>
             {/*{console.log('rendering')}*/}
-            <div className='anecdote'><h1>"mmm.. tasty"</h1></div>
+            {/*<div className='anecdote'><h1>"mmm.. tasty"</h1></div>*/}
+            {randomAnecdote()}
             <div className='filterInputWrapper'>
                 <input className='filterInput'
                        {...filterValue.object}
