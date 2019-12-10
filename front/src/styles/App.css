@@ -85,6 +85,14 @@ blockquote {
 .anecdoteBy {
     font-size: small;
 }
+
+.anecdote h1 {
+    width: 50%;
+    margin: 0 auto 0 auto;
+    padding-top: 70px;
+    text-align: center;
+    font-style: italic;
+}
 /********* ANECDOTE ends ********/
 
 @media only screen and (max-width: 600px) {

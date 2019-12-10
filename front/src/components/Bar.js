@@ -220,19 +220,23 @@ const Bar = ({bar, bars, setBars, user, setNotification, notification}) => {
                                     />
                                 </li>
                                 <button className='inContentButton clickable' type='submit'>Save</button>
-                                <button className='inContentButton clickable' onClick={() => removeBar(bar.id)}>Remove
-                                </button>
-                                <button className='inContentButton clickable'
-                                        onClick={() => setEditVisible(false)}>Cancel
-                                </button>
                             </form>
                         </ul>
                         : ''}
 
                     {/*{ blogUser.name !== undefined ? <p>added by {blogUser.name}</p> : <p>no idea who added this</p> }*/}
                     {user !== null ?
-                        <button className='inContentButton clickable' onClick={() => setEditVisible(true)}>Edit</button>
+                        <>
+                            <button className='inContentButton clickable' onClick={() => setEditVisible(true)}>Edit</button>
+                            <button className='inContentButton clickable'
+                                    onClick={() => setEditVisible(false)}>Cancel
+                            </button>
+                            <button className='inContentButton clickable' onClick={() => removeBar(bar.id)}>Remove</button>
+                        </>
                         : ''
+                    }
+                    {
+
                     }
                 </div>
             </div>

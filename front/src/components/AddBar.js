@@ -46,7 +46,6 @@ const AddBar = ({user, setBars, setNotification}) => {
     const addBarSubmit = async () => {
         //const barInfo = capitalizeString();
         //console.log('barinfo', barInfo);
-        let flag;
 
         const figureOutPrice = (userInput) => {
             if (typeof userInput === 'string') {
@@ -54,12 +53,10 @@ const AddBar = ({user, setBars, setNotification}) => {
             }
             if (!isNaN(Number.parseFloat(userInput)) && Number.parseFloat(userInput) > 0) {
                 console.log(userInput, 'kaikki pitäs olla ok?');
-                flag += '';
                 return Number.parseFloat(userInput);
             } else if ((userInput === null || isNaN(userInput) || userInput === '' || userInput === 0)) {
                 console.log(userInput, 'ei kelpo numero, ei vanhaa dataa');
                 console.log('siideri on nan tai null:', userInput);
-                flag += '.';
                 return undefined;
             }
         };

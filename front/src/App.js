@@ -134,9 +134,12 @@ const App = () => {
         }
     };
 
+    /**
+     * component to render random anecdote
+     * @returns {*}
+     */
     const RandomAnecdote = () => {
         const rnd = Math.floor(Math.random() * anecdoteList.anecdotes.length);
-        console.log(rnd);
         return (
             <div className='anecdote'>
                 <blockquote>
@@ -166,7 +169,7 @@ const App = () => {
                   handleLogin={handleLogin}
                   setPage={setPage}/>
             <div className='contentWrapper'>
-                {page === 'front' ? <RandomAnecdote/> : ''}
+                {page === 'front' && user !== null ? <RandomAnecdote/> : <div className='anecdote'><h1>"mmm.. tasty"</h1></div>}
                 {whichPageToShow()}
                 <br/><br/>
             </div>
