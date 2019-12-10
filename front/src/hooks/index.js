@@ -12,8 +12,8 @@ export const useField = (type) => {
     const onChange = (e) => {
         const illegalChar = ['?', '(', ')', '[', ']', '*', '\\'];
         if (illegalChar.some(el => e.target.value.includes(el))){
-            //TODO Tänne joku hieno juttu, kun yrittää syöttää virheellisiä merkkejä. virheilmotus tms.
-            console.log("JEEEE");
+            //TODO Tänne joku hieno juttu, kun yrittää syöttää virheellisiä merkkejä. virheilmotus tms
+            window.alert('Invalid character');
         }else {
             setValue(e.target.value);
         }
