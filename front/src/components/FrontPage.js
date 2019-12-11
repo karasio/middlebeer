@@ -27,7 +27,7 @@ const FrontPage = ({ bars, setBars, user, notification, setNotification }) => {
       filterValue.setValue('');
     }
     // user.defaultCity !== undefined ? filterValue.object.setValue(user.defaultCity) : ''
-  }, [user, filterValue]);
+  }, [user]);
 
   const barsToShow = (barArray) =>
     barArray.map(bar => {
