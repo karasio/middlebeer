@@ -69,6 +69,10 @@ Adds a bar to list and returns json of all bars
   
      * **Content:** `[{bar1 JSON}, {bar2 JSON}, ...]`
      
+* **Additional information**
+
+    Authentication needed!
+     
 **Update bar**
 ----
 Updates bar and retursn JSON of all bars
@@ -108,6 +112,10 @@ Updates bar and retursn JSON of all bars
 
     * **Content:** `[{bar1 JSON}, {bar2 JSON}, ...]`
     
+* **Additional information**
+
+    Authentication needed!
+    
 **Delete bar**
 ----
 
@@ -128,6 +136,10 @@ Delete bar from database
 * **Response**
 
     **Code**: 204, Bar deleted
+    
+* **Additional information**
+
+    You can only delete bars that you have added
 
 **Show user**
 ----
@@ -237,3 +249,7 @@ Adds default city for user
 * **Response**
 
     * **Content**: `{User JSON}`
+    
+* **Additional information**
+
+    Authentication needed!
