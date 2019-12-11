@@ -12,4 +12,4 @@ It's based on user input. Users can register to Middlebeer and add or edit resta
 
 ## Additional info
 
-_Website was made as a school project and probably wont be continued._
+_Website was made as a school project and probably wont be continued_
