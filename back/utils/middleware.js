@@ -28,10 +28,9 @@ const errorHandler = (error, request, response, next) => {
     return response.status(400).json({ error: error.message });
   } else if (error.name === 'JsonWebTokenError') {
     return response.status(401).json({
-      error: 'invalid token'
+      error: 'invalid token',
     });
   }
-
   next(error);
 };
 
@@ -43,12 +42,11 @@ const tokenExtractor = (request, response, next) => {
     request.token = null;
   }
   next();
-
 };
 
 module.exports = {
   requestLogger,
   unknownEndpoint,
   errorHandler,
-  tokenExtractor
+  tokenExtractor,
 };

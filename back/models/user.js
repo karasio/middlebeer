@@ -9,20 +9,20 @@ const userSchema = mongoose.Schema({
   username: {
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
   name: {
     type: String,
-    required: true
+    required: true,
   },
   passwordHash: String,
   bars: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Bar'
-    }
+      ref: 'Bar',
+    },
   ],
-  defaultCity: String
+  defaultCity: String,
 });
 
 userSchema.plugin(uniqueValidator);
@@ -33,7 +33,7 @@ userSchema.set('toJSON', {
     delete returnedObject._id;
     delete returnedObject.__v;
     delete returnedObject.passwordHash;
-  }
+  },
 });
 
 const User = mongoose.model('User', userSchema);

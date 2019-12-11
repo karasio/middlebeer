@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const usersRouter = require('express').Router();
-const User = require('../models/user');
 const jwt = require('jsonwebtoken');
+const User = require('../models/user');
 
 /**
  * Handles contacts to MongoDB regarding users
@@ -13,8 +13,8 @@ const jwt = require('jsonwebtoken');
  */
 usersRouter.get('/', async (request, response) => {
   const users = await User
-    .find({}).populate('bars', { user:0 });
-  response.json(users.map(u => u.toJSON()));
+    .find({}).populate('bars', { user: 0 });
+  response.json(users.map((u) => u.toJSON()));
 });
 
 /**
@@ -22,14 +22,14 @@ usersRouter.get('/', async (request, response) => {
  * response: user information as json
  */
 usersRouter.get('/:id', async (request, response) => {
-  console.log('Mennään');
+  //  console.log('Mennään');
   const userId = request.params.id;
-  console.log(userId);
-  const user = await User.findById(userId);
-  console.log(user);
+  //  console.log(userId);
+  await User.findById(userId);
+  //  console.log(user);
   const bars = await User
-  .find({_id: userId}).populate('bars', {user: 0});
-  response.json(bars.map(bar => bar.toJSON()));
+    .find({ _id: userId }).populate('bars', { user: 0 });
+  response.json(bars.map((bar) => bar.toJSON()));
 });
 
 
@@ -42,7 +42,7 @@ usersRouter.post('/', async (request, response, next) => {
   try {
     const body = request.body;
 
-    if(body.password.length < 3) {
+    if (body.password.length < 3) {
       return response.status(401).json({ error: 'password (min. 3 characters) needs to be defined' });
     }
 
@@ -52,7 +52,7 @@ usersRouter.post('/', async (request, response, next) => {
     const user = new User({
       username: body.username,
       name: body.name,
-      passwordHash
+      passwordHash,
     });
     const savedUser = await user.save();
     response.json(savedUser);
@@ -70,7 +70,7 @@ usersRouter.post('/', async (request, response, next) => {
 usersRouter.put('/:id', async (request, response, next) => {
   try {
     const body = request.body;
-    console.log('TÄRKEE BODY', body);
+    //  console.log('TÄRKEE BODY', body);
 
     const decodedToken = jwt.verify(request.token, process.env.SECRET);
     if (!request.token || !decodedToken.id) {
@@ -78,8 +78,10 @@ usersRouter.put('/:id', async (request, response, next) => {
     }
 
     const user = { defaultCity: body.defaultCity };
-    const updatedUser = await User.findByIdAndUpdate(request.params.id, user, { new: body.defaultCity });
-    console.log(updatedUser);
+    const updatedUser = await User.findByIdAndUpdate(
+      request.params.id, user, { new: body.defaultCity },
+    );
+    //  console.log(updatedUser);
     response.json(updatedUser.toJSON());
   } catch (exception) {
     next(exception);

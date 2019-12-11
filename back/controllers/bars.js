@@ -1,7 +1,7 @@
 const barsRouter = require('express').Router();
+const jwt = require('jsonwebtoken');
 const Bar = require('../models/bar');
 const User = require('../models/user');
-const jwt = require('jsonwebtoken');
 
 /**
  * Handles contacts to MongoDB regarding bars
@@ -13,8 +13,8 @@ const jwt = require('jsonwebtoken');
  */
 barsRouter.get('/', async (request, response) => {
   const bars = await Bar
-  .find({}).populate('user', { username: 1, name: 1 });
-  response.json(bars.map(bar => bar.toJSON()));
+    .find({}).populate('user', { username: 1, name: 1 });
+  response.json(bars.map((bar) => bar.toJSON()));
 });
 
 /**
@@ -23,8 +23,8 @@ barsRouter.get('/', async (request, response) => {
  */
 barsRouter.get('/:id', async (request, response) => {
   const barId = request.params.id;
-  const bar = await  Bar
-      .find({_id: barId}).populate('user', { username: 1, name: 1 });
+  const bar = await Bar
+    .find({ _id: barId }).populate('user', { username: 1, name: 1 });
   response.json(bar);
 });
 
@@ -36,7 +36,6 @@ barsRouter.get('/:id', async (request, response) => {
  */
 barsRouter.put('/:id', async (request, response, next) => {
   const body = request.body;
-  console.log(body);
   try {
     const decodedToken = jwt.verify(request.token, process.env.SECRET);
     if (!request.token || !decodedToken.id) {
@@ -45,14 +44,14 @@ barsRouter.put('/:id', async (request, response, next) => {
 
     const bar = {
       prices: body.prices,
-      likes: body.likes
+      likes: body.likes,
     };
 
     await Bar.findByIdAndUpdate(request.params.id, bar, { new: body.likes, new: body.prices });
     const bars = await Bar
-    .find({}).populate('user', { username: 1, name: 1 });
-    console.log("bars", bars);
-    response.json(bars.map(bar => bar.toJSON()));
+      .find({}).populate('user', { username: 1, name: 1 });
+    //  console.log('bars', bars);
+    response.json(bars.map((bar) => bar.toJSON()));
   } catch (exception) {
     next(exception);
   }
@@ -69,7 +68,7 @@ barsRouter.post('/', async (request, response, next) => {
   try {
     const decodedToken = jwt.verify(request.token, process.env.SECRET);
     if (!request.token || !decodedToken.id) {
-      console.log('back/controller/bars/65');
+      //  console.log('back/controller/bars/65');
       return response.status(401).json({ error: 'token missing or invalid' });
     }
 
@@ -81,16 +80,16 @@ barsRouter.post('/', async (request, response, next) => {
       city: body.city,
       prices: body.prices,
       likes: body.likes === undefined ? 0 : body.likes,
-      user: user._id
+      user: user._id,
     });
 
     const savedBar = await bar.save();
     user.bars = user.bars.concat(savedBar._id);
     await user.save();
     const bars = await Bar
-    .find({}).populate('user', { username: 1, name: 1 });
-    console.log("bars", bars);
-    response.json(bars.map(bar => bar.toJSON()));
+      .find({}).populate('user', { username: 1, name: 1 });
+    //  console.log('bars', bars);
+    response.json(bars.map((bar) => bar.toJSON()));
   } catch (exception) {
     next(exception);
   }
@@ -107,7 +106,7 @@ barsRouter.delete('/:id', async (request, response, next) => {
 
   try {
     const decodedToken = jwt.verify(request.token, process.env.SECRET);
-    if(!request.token || !decodedToken.id) {
+    if (!request.token || !decodedToken.id) {
       return response.status(401).json({ error: 'token missing or invalid' });
     }
     // console.log('decoded token', decodedToken);
@@ -115,7 +114,7 @@ barsRouter.delete('/:id', async (request, response, next) => {
     const user = await User.findById(decodedToken.id);
     // console.log('user', user);
 
-    if(bar.user.toString() === user.id.toString()) {
+    if (bar.user.toString() === user.id.toString()) {
       try {
         await Bar.findByIdAndRemove(request.params.id);
         response.status(204).end();
@@ -128,7 +127,6 @@ barsRouter.delete('/:id', async (request, response, next) => {
   } catch (exception) {
     next(exception);
   }
-
 });
 
 module.exports = barsRouter;

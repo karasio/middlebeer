@@ -15,34 +15,36 @@ const User = require('../models/user');
  */
 loginRouter.post('/', async (request, response) => {
   const body = request.body;
-  console.log('controllers/login.js',body);
+  //  console.log('controllers/login.js', body);
 
   const user = await User.findOne({ username: body.username });
-  console.log('ctrl login.js',user);
+  //  console.log('ctrl login.js', user);
   const passwordCorrect = user === null
-      ? false
-      : await bcrypt.compare(body.password, user.passwordHash);
+    ? false
+    : await bcrypt.compare(body.password, user.passwordHash);
 
-  if(!(user && passwordCorrect)) {
+  if (!(user && passwordCorrect)) {
     return response.status(401).json({ error: 'invalid username or password' });
   }
 
   const userForToken = {
     username: user.username,
-    id: user._id
+    id: user._id,
   };
 
   const token = jwt.sign(userForToken, process.env.SECRET);
-  console.log('tokeni',token);
+  //  console.log('tokeni', token);
 
-  if(user.defaultCity) {
+  if (user.defaultCity) {
     response
-    .status(200)
-    .send({ token, username: user.username, name: user.name, defaultCity: user.defaultCity });
+      .status(200)
+      .send({
+        token, username: user.username, name: user.name, defaultCity: user.defaultCity,
+      });
   } else {
     response
-    .status(200)
-    .send({ token, username: user.username, name: user.name});
+      .status(200)
+      .send({ token, username: user.username, name: user.name });
   }
 });
 

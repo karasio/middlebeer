@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
 const app = require('../app');
+
 const api = supertest(app);
 
 const Bar = require('../models/bar');
@@ -20,25 +21,25 @@ describe('when there is initially something saved', () => {
 
   test('bars returned as json', async () => {
     await api
-    .get('/api/bars/')
-    .expect(200)
-    .expect('Content-Type', /application\/json/);
+      .get('/api/bars/')
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
   });
 
   test('some bar testing', async () => {
     const bars = await api
-        .get('/api/bars/')
-        .expect(200)
-        .expect('Content-Type', /application\/json/);
+      .get('/api/bars/')
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
 
-    console.log(bars.body);
+    // console.log(bars.body);
     expect(bars.body.length).toBe(2);
   });
 
   test('identifier is id field not _id', async () => {
     const response = await api.get('/api/bars/');
-    const ids = response.body.map(r => r.id);
-    ids.map(id => expect(id).toBeDefined());
+    const ids = response.body.map((r) => r.id);
+    ids.map((id) => expect(id).toBeDefined());
   });
 });
 
@@ -51,25 +52,25 @@ describe('signed in user procedures', () => {
 
   test('register new user', async () => {
     const originalUsers = await helper.usersInDb();
-    //console.log(originalUsers);
+    // console.log(originalUsers);
     const newUser = {
       username: 'test',
       name: 'test',
-      password: 'test'
+      password: 'test',
     };
 
-    //console.log(newUser);
+    // console.log(newUser);
     await api
-        .post('/api/users')
-        .send(newUser)
-        .expect(200)
-        .expect('Content-Type', /application\/json/);
+      .post('/api/users')
+      .send(newUser)
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
 
     const newUsers = await helper.usersInDb();
-    console.log(newUsers);
+    // console.log(newUsers);
 
     expect(newUsers.length).toBe(originalUsers.length + 1);
-  })
+  });
 
   test('creation fails if username exists already', async () => {
     const originalUsers = await helper.usersInDb();
@@ -77,20 +78,20 @@ describe('signed in user procedures', () => {
     const newUser = {
       username: 'test',
       name: 'test',
-      password: 'test'
+      password: 'test',
     };
 
     await api
-    .post('/api/users')
-    .send(newUser)
-    .expect(200)
-    .expect('Content-Type', /application\/json/);
+      .post('/api/users')
+      .send(newUser)
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
 
     const result = await api
-    .post('/api/users')
-    .send(newUser)
-    .expect(400)
-    .expect('Content-Type', /application\/json/);
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('Content-Type', /application\/json/);
 
     expect(result.body.error).toContain('`username` to be unique');
 
@@ -103,14 +104,14 @@ describe('signed in user procedures', () => {
 
     const newUser = {
       name: 'megauser',
-      password: 'ii3333'
+      password: 'ii3333',
     };
 
     const result = await api
-    .post('/api/users')
-    .send(newUser)
-    .expect(400)
-    .expect('Content-Type', /application\/json/);
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('Content-Type', /application\/json/);
 
     expect(result.body.error).toContain('`username` is required');
 
@@ -124,14 +125,14 @@ describe('signed in user procedures', () => {
     const newUser = {
       username: 'megaman22',
       name: 'megauser',
-      password: 'ii'
+      password: 'ii',
     };
 
     const result = await api
-    .post('/api/users')
-    .send(newUser)
-    .expect(401)
-    .expect('Content-Type', /application\/json/);
+      .post('/api/users')
+      .send(newUser)
+      .expect(401)
+      .expect('Content-Type', /application\/json/);
 
     expect(result.body.error).toContain('password (min. 3 characters) needs to be defined');
 
@@ -152,21 +153,20 @@ describe('signed in user procedures', () => {
       address: 'Some street',
       city: 'Some city',
       prices: {
-        beer: 12
+        beer: 12,
       },
-      userId: someUser.id
+      userId: someUser.id,
     };
 
     await api
-    .post('/api/bars')
-    .send(newBar)
-    .expect(200)
-    .expect('Content-Type', /application\/json/);
+      .post('/api/bars')
+      .send(newBar)
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
 
     const newBars = await helper.barsInDb();
     expect(newBars.length).toBe(originalBars.length + 1);
   });
-
 });
 
 afterAll(() => {

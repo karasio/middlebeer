@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-//const uniqueValidator = require('mongoose-unique-validator');
+//  const uniqueValidator = require('mongoose-unique-validator');
 
 /**
  * Defines bar schema for mongo database
@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const barSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   address: {
     type: String,
@@ -16,18 +16,18 @@ const barSchema = new mongoose.Schema({
   },
   city: {
     type: String,
-    required: true
+    required: true,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'User',
   },
   prices: {
     beer: Number,
     cider: Number,
     longdrink: Number,
   },
-  likes: Number
+  likes: Number,
 });
 
 barSchema.set('toJSON', {
@@ -35,7 +35,7 @@ barSchema.set('toJSON', {
     returnedObject.id = returnedObject._id;
     delete returnedObject._id;
     delete returnedObject.__v;
-  }
+  },
 });
 
 module.exports = mongoose.model('Bar', barSchema);
