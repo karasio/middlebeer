@@ -50,7 +50,7 @@ Returns json of bar
   
 * **Response:**
 
-   * **Content:** `[{bar1 JSON}, {bar2 JSON}, ...]`
+   * **Content:** `{[{bar1 JSON}, {bar2 JSON}, ...]}`
  
 **Add bar**
 ----
@@ -67,7 +67,7 @@ Adds a bar to list and returns json of all bars
   
 * **Response:**
   
-     * **Content:** `[{bar1 JSON}, {bar2 JSON}, ...]`
+     * **Content:** `{[{bar1 JSON}, {bar2 JSON}, ...]}`
      
 * **Additional information**
 
@@ -110,7 +110,7 @@ Updates bar and retursn JSON of all bars
     
 * **Response**
 
-    * **Content:** `[{bar1 JSON}, {bar2 JSON}, ...]`
+    * **Content:** `{[{bar1 JSON}, {bar2 JSON}, ...]}`
     
 * **Additional information**
 
@@ -184,9 +184,9 @@ Returns JSON of all users
     
 * **Response**
 
-    * **Content**: `[
+    * **Content**: `{[
                     {user1 JSON},
-                    {user2 JSON}, ...]`
+                    {user2 JSON}, ...]}`
                     
 **Add user**
 ----
