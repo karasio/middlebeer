@@ -6,17 +6,17 @@ import React from 'react'
  * @returns {null|*}
  */
 
-const Notification = ({message}) => {
+const Notification = ({ message }) => {
     if (message.sort === 'info') {
         return (
             <div className='notification'>
-                {message.msg}
+                { message.msg }
             </div>
         )
     } else if (message.sort === 'error') {
         return (
             <div className="error">
-                {message.msg}
+                { message.msg }
             </div>
         )
     } else {
@@ -24,4 +24,4 @@ const Notification = ({message}) => {
     }
 };
 
-export default Notification
+export default Notification;

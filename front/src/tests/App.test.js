@@ -1,13 +1,13 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import { render, waitForElement } from '@testing-library/react';
+import { render } from '@testing-library/react';
 jest.mock('../services/bars');
 import App from '../App';
 
 describe('<App />', () => {
   test('if no user logged in, Sign up page is rendered', async () => {
     const component = render(
-        <App />
+      <App />
     );
     component.rerender(<App />);
 
@@ -24,9 +24,8 @@ describe('<App />', () => {
 
     localStorage.setItem('loggedUserJSON', JSON.stringify(user));
 
-    console.log('window localStorage testissä', window.localStorage);
     const component = render(
-        <App />
+      <App />
     );
     component.rerender(<App />);
 

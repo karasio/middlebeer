@@ -24,7 +24,7 @@ describe('<Bar />', () => {
   }];
 
 
-  const notification = {msg: null, sort: null};
+  const notification = { msg: null, sort: null };
 
   let component;
 
@@ -32,14 +32,14 @@ describe('<Bar />', () => {
 
   beforeEach(() => {
     component = render(
-        <Bar
-            bar={bars[0]}
-            bars={bars}
-            setBars={mockHandler}
-            user={user}
-            notification={notification}
-            setNotification={mockHandler}
-        />
+      <Bar
+        bar={bars[0]}
+        bars={bars}
+        setBars={mockHandler}
+        user={user}
+        notification={notification}
+        setNotification={mockHandler}
+      />
     );
     //component.debug();
   });
@@ -48,23 +48,23 @@ describe('<Bar />', () => {
     const div = component.container.querySelector('.extraInfo');
     expect(div).toHaveStyle('display: none');
     expect(component.container).toHaveTextContent(
-        'test name test city'
-    )
+      'test name test city'
+    );
   });
 
   test('after clicking bar address is shown', () => {
     const barListItem = component.container.querySelector('.barListItem');
     fireEvent.click(barListItem);
     expect(component.container).toHaveTextContent(
-        'test address'
-    )
+      'test address'
+    );
   });
 
   test('after clicking bar, likes are shown', () => {
     const barListItem = component.container.querySelector('.barListItem');
     fireEvent.click(barListItem);
     expect(component.container).toHaveTextContent(
-        '4000 likes'
+      '4000 likes'
     );
   });
 

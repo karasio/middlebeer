@@ -1,8 +1,8 @@
 const capitalize = (value) => {
   return value.toLowerCase()
-  .split(/ /)
-  .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-  .join(' ');
+    .split(/ /)
+    .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+    .join(' ');
 };
 
 const checkForCommas = (value) => {
@@ -12,4 +12,4 @@ const checkForCommas = (value) => {
   return value;
 };
 
-module.exports = {capitalize, checkForCommas};
+export default { capitalize, checkForCommas };
