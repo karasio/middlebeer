@@ -2,7 +2,7 @@
 
 Middlebeer is website aimed for all people loving beer. It helps its users to find cheapest prices in town so they don't pay too much.
 
-It's based on user input. Users can register to site and add or edit restaurant infromations. Results can be filtered by search and sorted by cheapest prices or most likes.
+It's based on user input. Users can register to Middlebeer and add or edit restaurant infromations. Results can be filtered by search and sorted by cheapest prices or most likes.
 
 
 ## Tech/framework used
