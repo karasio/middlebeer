@@ -17,6 +17,7 @@ const App = () => {
     const [page, setPage] = useState('front');
     const [bars, setBars] = useState([]);
     const [notification, setNotification] = useState({msg: null, sort: null});
+    const [anecdoteString, setAnecdoteString] = useState('');
 
     useEffect(() => {
         barService
@@ -41,7 +42,21 @@ const App = () => {
 
     useEffect(() => {
         setNotification({msg: null, sort: null});
+
+        const rnd = Math.floor(Math.random() * anecdoteList.anecdotes.length);
+        const aString =
+            <div className='anecdote'>
+                <blockquote>
+                    <p>"{anecdoteList.anecdotes[rnd].text}</p>
+                    <p className='anecdoteBy'>{anecdoteList.anecdotes[rnd].by}</p>
+                </blockquote>
+            </div>
+        setAnecdoteString(aString)
     }, [page]);
+
+    useEffect(() => {
+
+    }, [])
 
     /**
      * Event handler responsible for login.
@@ -139,15 +154,7 @@ const App = () => {
      * @returns {*}
      */
     const RandomAnecdote = () => {
-        const rnd = Math.floor(Math.random() * anecdoteList.anecdotes.length);
-        return (
-            <div className='anecdote'>
-                <blockquote>
-                    <p>"{anecdoteList.anecdotes[rnd].text}"</p>
-                    <p className='anecdoteBy'>{anecdoteList.anecdotes[rnd].by}</p>
-                </blockquote>
-            </div>
-        )
+        return anecdoteString
     };
 
 
@@ -169,7 +176,7 @@ const App = () => {
                   handleLogin={handleLogin}
                   setPage={setPage}/>
             <div className='contentWrapper'>
-                {page === 'front' && user !== null ? <RandomAnecdote/> : <div className='anecdote'><h1>"mmm.. tasty"</h1></div>}
+                {page === 'front' ? <RandomAnecdote/> : <></>}
                 {whichPageToShow()}
                 <br/><br/>
             </div>
