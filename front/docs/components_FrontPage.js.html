@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/FrontPage.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/FrontPage.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from 'react';
+import Bar from '../components/Bar';
+import { useField } from '../hooks';
+import '../styles/FrontPage.css';
+import infoTextIcon from '../media/001-beer-11.png';
+
+/**
+ * Component for front page view with list of bars and info text
+ */
+
+const FrontPage = ({ bars, setBars, user, notification, setNotification }) => {
+  const filterValue = useField('text');
+  const [viewmodeSelector, setViewmodeSelector] = useState(true);
+  const [showInfo, setShowInfo] = useState(false);
+  const hideInfoText = { display: showInfo ? 'block' : 'none' };
+  const selectedLeft = { background: viewmodeSelector ? '#C7E2FF' : '#EDF4FA' };
+  const selectedRight = { background: viewmodeSelector ? '#EDF4FA' : '#C7E2FF' };
+
+  // useEffect(() => {
+  //     console.log('FrontPage useEffect', bars);
+  // }, [bars]);
+
+  useEffect(() => {
+    if (user !== null &amp;&amp; user.defaultCity) {
+      filterValue.setValue(user.defaultCity);
+    } else {
+      filterValue.setValue('');
+    }
+    // user.defaultCity !== undefined ? filterValue.object.setValue(user.defaultCity) : ''
+  }, [user]);
+
+  const barsToShow = (barArray) =>
+    barArray.map(bar => {
+      return (
+        &lt;Bar
+          key={bar.id}
+          bar={bar}
+          user={user}
+          setBars={setBars}
+          bars={bars}
+          setNotification={setNotification}
+          notification={notification}
+        />
+      );
+    });
+
+  /**
+     * Filter bar list according to filter value
+     * @returns filtered array
+     */
+  const getFilteredBars = (exp) => {
+    let pattern = new RegExp(exp.object.value, 'i');
+    let filteredBarsCopy = [];
+
+    bars.forEach(bar => {
+      // console.log('filtering', pattern, bar.name, pattern.test(bar.name))
+      if (pattern.test(bar.name) || pattern.test(bar.city)) {
+        filteredBarsCopy.push(bar);
+      }
+    });
+    return filteredBarsCopy;
+  };
+
+  /**
+     * sorts bar list according to likes
+     * @returns array filtered by bar.likes ascending
+     */
+  const sortBarByLikes = (bars) => {
+    //console.log('sorting by likes')
+    let sortable = bars;
+    return sortable.sort((a, b) => (a.likes &lt; b.likes) ? 1 : (a.likes === b.likes) ? ((a.likes &lt; b.likes) ? 1 : -1) : -1);
+  };
+
+  /**
+     * sorts bar list according to beer price
+     * @returns array filtered by bar.prices.beer ascending
+     */
+  const sortBarByCheapestBeer = (bars) => {
+    //console.log('sorting by cheapest beer')
+    let sortable = bars;
+    const noBeer = (bar) => {
+      return bar.prices.beer !== undefined;
+    };
+    sortable = bars.filter(noBeer);
+
+    return sortable.sort((a, b) => (a.prices.beer > b.prices.beer) ? 1 : (a.prices.beer === b.prices.beer) ? ((a.prices.beer > b.prices.beer) ? 1 : -1) : -1);
+  };
+
+  const InfoText = ({ showInfo, setShowInfo }) => {
+
+    const infoTextString =
+            'MiddleBeer is built to help you decide where to crab a pint ' +
+            ' or several if such is your wish. List above helps every user, however as a logged' +
+            ' in user you can submit your own entry and set preferences which ' +
+            'city is shown as a default.';
+
+    return (
+      &lt;div className='infoTextWrapper clickable'onClick={() => setShowInfo(!showInfo)}>
+        &lt;div className='infoTextHeaderWrapper'>
+          &lt;div className='infoTextHideButton'>
+            {showInfo ? 'Hide help' : 'Show help'}
+          &lt;/div>
+        &lt;/div>
+        &lt;div className='infoTextContentWrapper' style={hideInfoText}>
+          &lt;img className='infoTextIcon' src={infoTextIcon} alt='pint of beer'/>
+          {infoTextString}
+
+        &lt;/div>
+      &lt;/div>
+    );
+  };
+
+
+
+
+  return (
+    &lt;div>
+      &lt;div className='filterInputWrapper'>
+        &lt;input className='filterInput'
+          {...filterValue.object}
+          placeholder={'filter results by bar name or city'}
+        />
+      &lt;/div>
+
+      &lt;div className='radioButtonWrapper'>
+        &lt;div className='listViewRadioButtons'>
+          &lt;button className='listViewRadioButton clickable' id='listViewRadioButtonLeft'
+            onClick={() => setViewmodeSelector(true)}
+            style={selectedLeft}>
+                        Most liked!
+          &lt;/button>
+          &lt;button className='listViewRadioButton clickable' id='listViewRadioButtonRight'
+            onClick={() => setViewmodeSelector(false)}
+            style={selectedRight}>
+                        Cheap beer, now.
+          &lt;/button>
+        &lt;/div>
+      &lt;/div>
+
+
+      &lt;div className='barsWrapper'>
+        {viewmodeSelector ?
+          barsToShow(sortBarByLikes(getFilteredBars(filterValue))) :
+          barsToShow(sortBarByCheapestBeer(getFilteredBars(filterValue)))
+        }
+      &lt;/div>
+      &lt;InfoText showInfo={showInfo} setShowInfo={setShowInfo}/>
+      &lt;div style={{ float: 'right', marginTop: '50px' }}>Icons made by &lt;a
+        href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good
+                Ware&lt;/a> from &lt;a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com&lt;/a>&lt;/div>
+    &lt;/div>
+
+  );
+};
+
+
+export default FrontPage;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddBar">AddBar</a></li><li><a href="global.html#Bar">Bar</a></li><li><a href="global.html#baseUrl">baseUrl</a></li><li><a href="global.html#FrontPage">FrontPage</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LogoutButton">LogoutButton</a></li><li><a href="global.html#MyPage">MyPage</a></li><li><a href="global.html#Notification">Notification</a></li><li><a href="global.html#SignUpForm">SignUpForm</a></li><li><a href="global.html#useField">useField</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Dec 12 2019 13:49:42 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

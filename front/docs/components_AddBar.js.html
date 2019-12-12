@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/AddBar.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/AddBar.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState } from 'react';
+import barService from '../services/bars';
+import helper from '../utils/validation_helper';
+
+/**
+ * Component for rendering table of input fields to add a bar to site
+ */
+
+const AddBar = ({ user, setBars, setNotification }) => {
+  const [barName, setBarName] = useState('');
+  const [barAddress, setBarAddress] = useState('');
+  const [barCity, setBarCity] = useState('');
+  const [beer, setBeer] = useState('');
+  const [cider, setCider] = useState('');
+  const [longdrink, setLongdrink] = useState('');
+
+  const handleNameChange = (e) => {
+    setBarName(e.target.value);
+  };
+
+  const handleAddressChange = (e) => {
+    setBarAddress(e.target.value);
+  };
+
+  const handleCityChange = (e) => {
+    setBarCity(e.target.value);
+  };
+
+  const handleBeerChange = (e) => {
+    setBeer(e.target.value);
+  };
+
+  const handleCiderChange = (e) => {
+    setCider(e.target.value);
+  };
+
+  const handleLongdrinkChange = (e) => {
+    setLongdrink(e.target.value);
+  };
+
+  /**
+     * Handles save button click for adding a bar
+     * create bar object from user input and send to database
+     * @returns {Promise&lt;void>}
+     */
+  const addBarSubmit = async () => {
+    const figureOutPrice = (userInput) => {
+      if (typeof userInput === 'string') {
+        userInput = userInput.replace(',', '.');
+      }
+      if (!isNaN(Number.parseFloat(userInput)) &amp;&amp; Number.parseFloat(userInput) > 0) {
+        return Number.parseFloat(userInput);
+      } else if ((userInput === null || isNaN(userInput) || userInput === '' || userInput === 0)) {
+        return undefined;
+      }
+    };
+
+    try {
+
+      if (barName === '' || barAddress === '' || barCity === '') {
+        setNotification({ msg: 'Fill name, address &amp; city!', sort: 'error' });
+        throw new Error('Not sufficient bar data');
+      }
+
+      const prices = {
+        beer: figureOutPrice(beer),
+        cider: figureOutPrice(cider),
+        longdrink: figureOutPrice(longdrink)
+      };
+
+      if ((beer === '' &amp;&amp; cider === '' &amp;&amp; longdrink === '') || (prices.beer === undefined &amp;&amp; prices.cider === undefined &amp;&amp; prices.longdrink === undefined)) {
+        setNotification({ msg: 'Please do tell decent prices!', sort: 'error' });
+        throw new Error('No prices');
+      }
+
+      const bar = {
+        name: helper.capitalize(barName),
+        address: helper.capitalize(barAddress),
+        city: helper.capitalize(barCity),
+        prices: prices,
+        user: user,
+      };
+
+      const r = await barService.create(bar);
+      setBars(r);
+      setNotification({ msg: 'Bar added', sort: 'info' });
+      setTimeout(() => {
+        setNotification({ msg: null, sort: null });
+
+      }, 5000);
+      setBarName('');
+      setBarAddress('');
+      setBarCity('');
+      setBeer('');
+      setCider('');
+      setLongdrink('');
+    } catch (exception) {
+      // console.log(exception);
+      setNotification({ msg: 'Something went wrong', sort: 'error' });
+      setTimeout(() => {
+        setNotification({ msg: null, sort: null });
+
+      }, 5000);
+    }
+  };
+
+  /**
+     * Handles cancel button click when not adding a bar
+     */
+  const cancelAddBar = () => {
+    setBarName('');
+    setBarAddress('');
+    setBarCity('');
+    setBeer('');
+    setCider('');
+    setLongdrink('');
+  };
+
+  return (
+    &lt;div>
+      &lt;form onSubmit={(e) => {
+        e.preventDefault();
+        addBarSubmit();
+      }}>
+        &lt;table>
+          &lt;thead>
+            &lt;tr>
+              &lt;td>Name&lt;/td>
+              &lt;td>&lt;input value={barName}
+                onChange={handleNameChange}
+                placeholder="Janoinen poro"/>
+
+              &lt;/td>
+            &lt;/tr>
+            &lt;tr>
+              &lt;td>Address&lt;/td>
+              &lt;td>&lt;input value={barAddress}
+                onChange={handleAddressChange}
+                placeholder="Porokuja 1 A"/>
+
+              &lt;/td>
+            &lt;/tr>
+            &lt;tr>
+              &lt;td>City&lt;/td>
+              &lt;td>&lt;input value={barCity}
+                onChange={handleCityChange}
+                placeholder="Utsjoki"/>
+
+              &lt;/td>
+            &lt;/tr>
+            &lt;tr>
+              &lt;td>Beer&lt;/td>
+              &lt;td>&lt;input
+                value={beer}
+                onChange={handleBeerChange}
+                placeholder="5.80"
+              />
+              &lt;/td>
+            &lt;/tr>
+            &lt;tr>
+              &lt;td>Cider&lt;/td>
+              &lt;td>&lt;input
+                value={cider}
+                onChange={handleCiderChange}
+                placeholder="6.50"
+              />
+              &lt;/td>
+            &lt;/tr>
+            &lt;tr>
+              &lt;td>Long drink&lt;/td>
+              &lt;td>&lt;input
+                value={longdrink}
+                onChange={handleLongdrinkChange}
+                placeholder="6.20"
+              />
+              &lt;/td>
+            &lt;/tr>
+          &lt;/thead>
+        &lt;/table>
+        &lt;button className='inContentButton clickable' type='submit'>Add!&lt;/button>
+        &lt;button className='inContentButton clickable' onClick={cancelAddBar}>Cancel&lt;/button>
+
+      &lt;/form>
+    &lt;/div>
+  );
+};
+
+export default AddBar;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddBar">AddBar</a></li><li><a href="global.html#Bar">Bar</a></li><li><a href="global.html#baseUrl">baseUrl</a></li><li><a href="global.html#FrontPage">FrontPage</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LogoutButton">LogoutButton</a></li><li><a href="global.html#MyPage">MyPage</a></li><li><a href="global.html#Notification">Notification</a></li><li><a href="global.html#SignUpForm">SignUpForm</a></li><li><a href="global.html#useField">useField</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Dec 12 2019 13:49:42 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/MyPage.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/MyPage.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from 'react';
+import userService from '../services/users';
+import Bar from './Bar';
+import AddBar from './AddBar';
+import Notification from './Notification';
+import '../styles/MyPage.css';
+import helper from '../utils/validation_helper';
+
+/**
+ * Component for rendering users own page.
+ * @param user - user that is logged in
+ * @param bars - list of bars
+ * @param setBars - to alter list of bars
+ * @param setNotification - to alter notification object
+ * @param notification - notification object
+ * @param setUser - used to set user if changes to user are made
+ * @returns {*}
+ */
+
+const MyPage = ({ user, bars, setBars, setNotification, notification, setUser }) => {
+  const [city, setCity] = useState('');
+  const [users, setUsers] = useState([]);
+
+  // useEffect(() => {
+  //   console.log('def city', user.defaultCity);
+  // }, [user.defaultCity]);
+
+  useEffect(() => {
+    userService
+      .getAll()
+      .then((response) => {
+        //console.log('käyttäjät on ',response);
+        setUsers(response);
+      });
+  }, []);
+
+  useEffect(() => {
+    user.defaultCity ? setCity(user.defaultCity) : setCity('');
+  }, [user.defaultCity]);
+
+  const usersBars = bars.filter(bar => bar.user.username === user.username);
+  const uniqueTowns = bars.map(bar => bar.city).reduce((unique, item) => {
+    return unique.includes(item) ? unique : [...unique, item];
+  }, []);
+
+  const barsAdded = () =>
+    usersBars.map(bar => {
+      return (
+        &lt;Bar
+          key={bar.id}
+          bar={bar}
+          user={user}
+          setBars={setBars}
+          bars={bars}
+          setNotification={setNotification}
+          notification={notification}
+        />
+      );
+    });
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    setCity(e.target.value);
+  };
+
+  /**
+     * Event handler for changing users default city
+     * Makes api call to change user information on database and sets user to useState variable
+     */
+  const saveDefaultCity = async (e) => {
+    e.preventDefault();
+
+    const modifiedUser = users.find(u => u.username === user.username);
+
+    city === '--None--' ? modifiedUser.defaultCity = undefined : modifiedUser.defaultCity = city;
+    modifiedUser.token = user.token;
+
+    userService
+      .update(modifiedUser.id, modifiedUser)
+      .then(() => {
+        setUser(modifiedUser);
+        window.localStorage.setItem(
+          'loggedInUser', JSON.stringify(modifiedUser)
+        );
+      });
+  };
+
+  return (
+    &lt;div>
+      &lt;h1 className='myPageHeader'>Hello {helper.capitalize(user.name)}!&lt;/h1>
+      &lt;Notification message={notification}/>
+      &lt;div>
+        &lt;h2 className='myPageHeader'>Add new bar&lt;/h2>
+        &lt;AddBar user={user} setBars={setBars} setNotification={setNotification}/>
+        &lt;h2 className='myPageHeader'>Here is some information about your activity:&lt;/h2>
+        &lt;p>Bars added by you&lt;/p>
+        &lt;div>
+          {barsAdded()}
+        &lt;/div>
+        {/*&lt;p>bars you have liked&lt;/p>*/}
+        &lt;h2 className='myPageHeader'>Settings&lt;/h2>
+        {city !== '' ? &lt;p>Default city: {city}&lt;/p> : ''}
+        &lt;select name='cityOption' onChange={handleClick} value={city}>
+          &lt;option key={'none'}>--None--&lt;/option>
+          {uniqueTowns.map(town => {
+            return (
+              &lt;option key={town}>{town}&lt;/option>
+            );
+          })}
+        &lt;/select>
+        &lt;button className='inContentButton clickable' onClick={saveDefaultCity} style={{ width: '100px' }}>set as
+                    default
+        &lt;/button>
+      &lt;/div>
+    &lt;/div>
+  );
+};
+
+export default MyPage;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddBar">AddBar</a></li><li><a href="global.html#Bar">Bar</a></li><li><a href="global.html#baseUrl">baseUrl</a></li><li><a href="global.html#FrontPage">FrontPage</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LogoutButton">LogoutButton</a></li><li><a href="global.html#MyPage">MyPage</a></li><li><a href="global.html#Notification">Notification</a></li><li><a href="global.html#SignUpForm">SignUpForm</a></li><li><a href="global.html#useField">useField</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Dec 12 2019 13:49:42 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

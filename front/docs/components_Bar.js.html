@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/Bar.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/Bar.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState } from 'react';
+import barService from '../services/bars';
+import '../styles/Bar.css';
+import expand from '../media/expand.png';
+import collapse from '../media/collapse.png';
+import Notification from './Notification';
+
+/**
+ * Component for rendering a item from bar information to a list of bars
+ * Notice that functionality for liking, editing and removing bar information is handled here
+ * @param bar - one bar
+ * @param bars bars - list of bars
+ * @param setBars - to alter list of bars
+ * @param user - user that is logged in
+ * @param setNotification - to alter notification object
+ * @param notification - notification object
+ * @returns {*}
+ */
+
+const Bar = ({ bar, bars, setBars, user, setNotification, notification }) => {
+  const [detailsVisible, setDetailsVisible] = useState(false);
+  const hideWhenVisible = { display: detailsVisible ? 'none' : '' };
+  const showWhenVisible = { display: detailsVisible ? '' : 'none' };
+  const [editVisible, setEditVisible] = useState(false);
+  const showDefault = { display: editVisible ? 'none' : '' };
+  const showEdit = { display: editVisible ? '' : 'none' };
+  const [beer, setBeer] = useState(bar.prices.beer === undefined ? 0.00 : bar.prices.beer);
+  const [cider, setCider] = useState(bar.prices.cider === undefined ? 0.00 : bar.prices.cider);
+  const [longdrink, setLongdrink] = useState(bar.prices.longdrink === undefined ? 0.00 : bar.prices.longdrink);
+
+  /**
+     * Function to handle liking a bar
+     * Makes api call to change bar information on database and sets bars to useState variable
+     */
+  const likeBar = (id) => {
+    const newBar = {
+      name: bar.name,
+      address: bar.address,
+      city: bar.city,
+      prices: bar.prices,
+      likes: bar.likes + 1,
+      user: user,
+      id: bar.id
+    };
+    barService
+      .update(id, newBar)
+      .then(returnedBars => setBars(returnedBars));
+  };
+
+  /**
+     * Function to handle editing a bar
+     * Checks user input so that it is valid
+     * Makes api call to change bar information on database and sets bar to useState variable
+     */
+  const editBar = async () => {
+
+    let flag = '';
+
+    /**
+         * Checks user input for drink prices (expecting numbers) and validates it
+         * if input is valid
+         * @returns user input
+         * if user input is invalid &amp; former price can be found in database
+         * @returns former price
+         * if user input is invalid and no former price can be found in database
+         * @returns undefined
+         */
+    const figureOutPrice = (userInput, priceFromDb) => {
+      if (typeof userInput === 'string') {
+        userInput = userInput.replace(',', '.');
+      }
+      if (!isNaN(Number.parseFloat(userInput)) &amp;&amp; Number.parseFloat(userInput) > 0) {
+        flag += '';
+        return Number.parseFloat(userInput);
+      } else if ((userInput === null || isNaN(userInput) || userInput === '' || userInput === 0) &amp;&amp; !priceFromDb) {
+        flag += '.';
+        return undefined;
+      } else if (priceFromDb) {
+        flag += '.';
+        return priceFromDb;
+      }
+    };
+
+    const edited = {
+      name: bar.name,
+      address: bar.address,
+      city: bar.city,
+      likes: bar.likes,
+      user: user,
+      id: bar.id,
+      prices: {
+        beer: figureOutPrice(beer, bar.prices.beer),
+        cider: figureOutPrice(cider, bar.prices.cider),
+        longdrink: figureOutPrice(longdrink, bar.prices.longdrink)
+      }
+    };
+
+    if (flag === '') {
+      setNotification({ msg: 'Data changed', sort: 'info' });
+      setTimeout(() => {
+        setNotification({ msg: null, sort: null });
+      }, 5000);
+
+    } else {
+      setNotification({ msg: 'Not all prices were changed', sort: 'error' });
+      setTimeout(() => {
+        setNotification({ msg: null, sort: null });
+      }, 5000);
+    }
+
+    const returnedBars = await barService.update(bar.id, edited);
+
+    setBars(returnedBars);
+    setEditVisible(false);
+    setBeer(bar.prices.beer === undefined ? 0.00 : bar.prices.beer);
+    setCider(bar.prices.cider === undefined ? 0.00 : bar.prices.cider);
+    setLongdrink(bar.prices.longdrink === undefined ? 0.00 : bar.prices.longdrink);
+  };
+
+  /**
+     * Function to handle removing a bar
+     * Makes api call to delete bar information from database and sets bars to useState variable
+     */
+  const removeBar = (id) => {
+    const barToRemove = bars.find(b => b.id === id);
+    const sureToDelete = window.confirm(`Delete ${barToRemove.name}?`);
+
+    if (sureToDelete) {
+      barService
+        .remove(id)
+        .then(() => {
+          setNotification({ msg: `${barToRemove.name} was removed`, sort: 'info' });
+          setTimeout(() => {
+            setNotification({ msg: null, sort: null });
+          }, 5000);
+          barService
+            .getAll()
+            .then(freshBars => setBars(freshBars));
+        })
+        .catch(error => {
+          setNotification({ msg: error.response.data.error, sort: 'error' });
+          setTimeout(() => {
+            setNotification({ msg: null, sort: null });
+          }, 5000);
+        });
+    }
+  };
+
+  const handleBeerChange = (e) => {
+    setBeer(e.target.value);
+  };
+
+  const handleCiderChange = (e) => {
+    setCider(e.target.value);
+  };
+
+  const handleLongdrinkChange = (e) => {
+    setLongdrink(e.target.value);
+  };
+
+  return (
+    &lt;>
+      &lt;div style={hideWhenVisible} className='barListItem'>
+        &lt;h4 className='clickable' onClick={() => setDetailsVisible(true)}>
+          {bar.name} {bar.city} &lt;img className='expandIcon' src={expand} alt='expand'/>
+        &lt;/h4>
+      &lt;/div>
+      &lt;div style={showWhenVisible} className='extraInfo'>
+        &lt;h3 className='clickable' onClick={() => setDetailsVisible(false)}>{bar.name} &lt;img className='collapseIcon' src={collapse} alt='collapse'/>&lt;/h3>
+        &lt;div className='extraInfoContentWrapper'>
+          &lt;p>{bar.address}, {bar.city}&lt;/p>
+          &lt;Notification message={notification}/>
+          &lt;p>{user !== null ?
+            &lt;button className='inContentButton clickable' onClick={() => likeBar(bar.id)}>Like&lt;/button>
+            : ''}
+          {bar.likes} likes
+          &lt;/p>
+          &lt;ul style={showDefault}>
+            {(bar.prices.beer === undefined || bar.prices.beer === null) ? '' :
+              &lt;li> Beer {bar.prices.beer.toFixed(2)}€&lt;/li>}
+            {(bar.prices.cider === undefined || bar.prices.cider === null) ? '' :
+              &lt;li> Cider {bar.prices.cider.toFixed(2)}€ &lt;/li>}
+            {(bar.prices.longdrink === undefined || bar.prices.longdrink === null) ? '' :
+              &lt;li>Long Drink {bar.prices.longdrink.toFixed(2)}€&lt;/li>}
+          &lt;/ul>
+          {/*&lt;Notification message={notification} />*/}
+          {user !== null ?
+            &lt;ul style={showEdit}>
+              &lt;form onSubmit={(e) => {
+                e.preventDefault();
+                editBar();
+              }}>
+                &lt;li>Beer
+                  &lt;input
+                    value={beer}
+                    onChange={handleBeerChange}
+                  />
+                &lt;/li>
+                &lt;li> Cider
+                  &lt;input
+                    value={cider}
+                    onChange={handleCiderChange}
+                  />
+                &lt;/li>
+                &lt;li> Long drink
+                  &lt;input
+                    value={longdrink}
+                    onChange={handleLongdrinkChange}
+                  />
+                &lt;/li>
+                &lt;button className='inContentButton clickable' type='submit'>Save&lt;/button>
+              &lt;/form>
+            &lt;/ul>
+            : ''}
+
+          {/*{ blogUser.name !== undefined ? &lt;p>added by {blogUser.name}&lt;/p> : &lt;p>no idea who added this&lt;/p> }*/}
+          {user !== null ?
+            &lt;>
+              &lt;button className='inContentButton clickable' onClick={() => setEditVisible(true)}>Edit&lt;/button>
+              &lt;button className='inContentButton clickable'
+                onClick={() => setEditVisible(false)}>Cancel
+              &lt;/button>
+              &lt;button className='inContentButton clickable' onClick={() => removeBar(bar.id)}>Remove&lt;/button>
+            &lt;/>
+            : ''
+          }
+          {
+
+          }
+        &lt;/div>
+      &lt;/div>
+    &lt;/>
+  );
+};
+
+export default Bar;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddBar">AddBar</a></li><li><a href="global.html#Bar">Bar</a></li><li><a href="global.html#baseUrl">baseUrl</a></li><li><a href="global.html#FrontPage">FrontPage</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LogoutButton">LogoutButton</a></li><li><a href="global.html#MyPage">MyPage</a></li><li><a href="global.html#Notification">Notification</a></li><li><a href="global.html#SignUpForm">SignUpForm</a></li><li><a href="global.html#useField">useField</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Dec 12 2019 13:49:42 GMT+0200 (Eastern European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
