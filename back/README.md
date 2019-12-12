@@ -150,7 +150,7 @@ Returns JSON of user
 
     /api/users/:id
     
-* **Mehtod**
+* **Method**
 
     GET
     
